@@ -7,12 +7,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using ERP.Model;
-using ERP.ERP.Middleware;
+using ERP.Middleware;
+using ERP.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddHttpClient<IPdfService, PdfService>();
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
@@ -45,6 +47,7 @@ app.UseMiddleware<UserDataFilterMiddleware>();
 app.UseMiddleware<PropertyValidationMiddleware>();
 app.UseMiddleware<PropertyCachingMiddleware>();
 app.UseMiddleware<PropertyLoggingMiddleware>();
+app.UseMiddleware<RateLimitingMiddleware>();
 app.MapControllers();
 
 app.Run();
