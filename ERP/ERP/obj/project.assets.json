@@ -5258,6 +5258,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 9.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.2",
+      "Microsoft.Extensions.Caching.Memory >= 9.0.2",
       "Microsoft.Extensions.Caching.StackExchangeRedis >= 9.0.1",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.3"
     ]
@@ -5324,6 +5325,10 @@
             "version": "[9.0.0, )"
           },
           "Microsoft.EntityFrameworkCore.Sqlite": {
+            "target": "Package",
+            "version": "[9.0.2, )"
+          },
+          "Microsoft.Extensions.Caching.Memory": {
             "target": "Package",
             "version": "[9.0.2, )"
           },

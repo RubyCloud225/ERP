@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using ERP.Model;
+using ERP.ERP.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,9 +30,21 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
-
+else
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
+//Remember these have to be inorder of what you want to do first
+app.UseMiddleware<UserDataFilterMiddleware>();
+app.UseMiddleware<PropertyValidationMiddleware>();
+app.UseMiddleware<PropertyCachingMiddleware>();
+app.UseMiddleware<PropertyLoggingMiddleware>();
 app.MapControllers();
 
 app.Run();

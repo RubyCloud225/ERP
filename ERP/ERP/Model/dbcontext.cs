@@ -1,14 +1,30 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace ERP.Model
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+    public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+
+        }
         public DbSet<PurchaseInvoice> PurchaseInvoices { get; set; }
         public DbSet<SalesInvoice> SalesInvoices { get; set; }
         public DbSet<BankPayment> BankPayments { get; set; }
         public DbSet<BankReceipt> BankReceipts { get; set; }
         public DbSet<JournalEntry> JournalEntries { get; set; }
+        public DbSet<PropertyLog> PropertyLogs { get; set; }
+
+        public class PropertyLog
+        {
+            public int Id { get; set; }
+            public required string PropertyName { get; set; }
+            public required string PropertyValue { get; set; }
+            public required string PropertyType { get; set; }
+            public DateTime LoggedAt { get; set; }
+            public int? UserId { get; set; }
+        }
 
         public class PurchaseInvoice
         {
