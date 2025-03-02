@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Caching.Memory;
 
-namespace ERP.ERP.Middleware
+namespace ERP.Middleware
 {
     public class PropertyCachingMiddleware
     {

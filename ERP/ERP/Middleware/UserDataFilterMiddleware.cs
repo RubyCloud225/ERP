@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace ERP.ERP.Middleware
+namespace ERP.Middleware
 {
     public class UserDataFilterMiddleware
     {

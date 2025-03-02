@@ -1,6 +1,8 @@
 using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using ERP.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Service
 {
@@ -30,10 +32,20 @@ namespace ERP.Service
             if (response.IsSuccessStatusCode)
             {
                 var responseBody = await response.Content.ReadAsStringAsync();
-                dynamic result = JsonConvert.DeserializeObject(responseBody);
-                return result.response;
+                var result = JsonConvert.DeserializeObject<ApplicationDbContext.LlmResponse>(responseBody);
+                if (result != null && !string.IsNullOrEmpty(result.Response))
+                {
+                    return result.Response;
+                }
+                else
+                {
+                    return "Error generating response";
+                }
             }
-            throw new HttpRequestException("Error calling API");
+            else
+            {
+                throw new HttpRequestException($"Error calling API: {response.StatusCode}");
+            }
         }
     }
 }

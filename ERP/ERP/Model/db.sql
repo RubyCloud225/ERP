@@ -12,6 +12,11 @@ CREATE Table Document (
     DocumentType TEXT NOT NULL
 )
 
+CREATE TABLE LlmResponse(
+    Id SERIAL NOT NULL PRIMARY KEY,
+    Response TEXT NOT NULL
+)
+
 CREATE TABLE PropertyLog (
     Id SERIAL NOT NULL PRIMARY KEY,
     PropertyName TEXT NOT NULL,

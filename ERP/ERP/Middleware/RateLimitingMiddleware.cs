@@ -10,14 +10,24 @@ namespace ERP.Middleware
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            var userIp = context.Connection.RemoteIpAddress.ToString();
-            var requestCount = _requestCounts.GetOrUpdate(userIp, 1, (Key, count) => count + 1);
-            if (requestCount > _maxRequestsPerMinute)
+            if (context.Connection?.RemoteIpAddress != null)
             {
-                context.Response.StatusCode = StatusCodes.Status429TooManyRequests;
-                await context.Response.WriteAsync("Too many requests");
+                var userIp = context.Connection.RemoteIpAddress.ToString();
+                var requestCount = _requestCounts.AddOrUpdate(userIp, 1, (Key, count) => count + 1);
+                if (requestCount > _maxRequestsPerMinute)
+                {
+                    context.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+                    await context.Response.WriteAsync("Too many requests");
+                    return;
+                }
+            }
+            else
+            {
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                await context.Response.WriteAsync("Unable to determine IP address");
                 return;
             }
+            
             await next(context);
         }
     }

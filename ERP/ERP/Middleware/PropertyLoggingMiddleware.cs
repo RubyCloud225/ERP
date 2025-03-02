@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using static ERP.Model.ApplicationDbContext;
 
-namespace ERP.ERP.Middleware 
+namespace ERP.Middleware 
 {
     public class PropertyLoggingMiddleware
     {
