@@ -8,11 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using ERP.Model;
 using ERP.ERP.Middleware;
+using ERP.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddHttpClient<IPdfService, PdfService>();
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {

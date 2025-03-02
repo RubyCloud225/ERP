@@ -75,7 +75,7 @@ namespace ERP.ERP.Middleware
                     if (context.Request.Form.Files.Count > 0)
                     {
                         var file = context.Request.Form.Files[0];
-                        var erpAttribute = (ERPAttribute)context.GetEndpoint()?.Metadata.GetMetadata(typeof(ERPAttribute));
+                        var erpAttribute = context.GetEndpoint()?.Metadata.GetMetadata<ERPAttribute>();
                         if (erpAttribute != null)
                         {
                             if (file.Length > erpAttribute.MaxFileSize)
@@ -84,7 +84,12 @@ namespace ERP.ERP.Middleware
                                 await context.Response.WriteAsync("File size exceeds the maximum allowed size.");
                                 return;
                             }
-                            
+                            if (!erpAttribute.AllowedFileTypes.Split(',').Contains(Path.GetExtension(file.FileName)))
+                            {
+                                context.Response.StatusCode = StatusCodes.Status400BadRequest; // Bad Request
+                                await context.Response.WriteAsync("File type is not allowed.");
+                                return;
+                            }
                         }
                     }
                 }

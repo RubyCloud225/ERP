@@ -15,6 +15,17 @@ namespace ERP.Model
         public DbSet<BankReceipt> BankReceipts { get; set; }
         public DbSet<JournalEntry> JournalEntries { get; set; }
         public DbSet<PropertyLog> PropertyLogs { get; set; }
+        public DbSet<Document> Documents { get; set; }
+
+        public class Document
+        {
+            public int Id { get; set; }
+            public required string FileName { get; set; }
+            public required string FileUrl { get; set; }
+            public DateTime UploadedAt { get; set; }
+            public required string Amendments { get; set; }
+            public required string DocumentType { get; set; }
+        }
 
         public class PropertyLog
         {
