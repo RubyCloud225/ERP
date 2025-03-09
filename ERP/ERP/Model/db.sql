@@ -57,7 +57,19 @@ CREATE TABLE JournalEntries (
     EntryDate TEXT NOT NULL
 );
 
-CREATE TABLE PurchaseInvoices (
+CREATE TABLE AccountingEntry (
+    Id SERIAL NOT NULL PRIMARY KEY,
+    PurchaseInvoiceId INT NOT NULL,
+    FOREIGN KEY (PurchaseInvoiceId) REFERENCES PurchaseInvoices(Id) ON DELETE CASCADE,
+    SaleInvoiceId INT NOT NULL,
+    FOREIGN KEY (SaleInvoiceId) REFERENCES SaleInvoices(Id) ON DELETE CASCADE,
+    Account TEXT NOT NULL,
+    Debit DECIMAL NOT NULL,
+    Credit DECIMAL NOT NULL,
+    EntryDate TEXT NOT NULL
+)
+
+CREATE TABLE PurchaseInvoice (
     Id SERIAL NOT NULL PRIMARY KEY,
     Supplier TEXT NOT NULL,
     Amount DECIMAL NOT NULL,

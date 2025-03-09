@@ -1,68 +1,43 @@
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using System.Net.Http;
-using ERP.Model;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 
 namespace ERP.Service
 {
-    public interface IPdfService
+    public class DocumentService
     {
-        Task<string> SavePdfToCloudAsync(Stream pdfStream, string filename);
-        Task<string> ProcessPdfWithApiAsync(string fileUrl, string inputParameter);
-        Task<ApplicationDbContext.Document> SaveDocumentMetadataAsync(string fileName, string fileUrl, string amendments, string documentType);
-    };
-
-    public class PdfService : IPdfService
-    {
-        private readonly IConfiguration _configuration;
-        private readonly HttpClient _httpClient;
-        private readonly ApplicationDbContext _dbContext;
-
-        public PdfService(IConfiguration configuration, HttpClient httpClient, ApplicationDbContext dbContext)
+        private readonly CloudStorageService _cloudStorageService;
+        public DocumentService(CloudStorageService cloudStorageService)
         {
-            _configuration = configuration;
-            _httpClient = httpClient;
-            _dbContext = dbContext;
+            _cloudStorageService = cloudStorageService ?? throw new ArgumentNullException(nameof(cloudStorageService));
         }
-
-        public async Task<string> SavePdfToCloudAsync(Stream pdfStream, string fileName)
+        public async Task<Stream> GetDocumentByBlobNameAsync(string blobName)
         {
-            // Save pdf to cloud storage
-            string cloudUrl = await new CloudStorageService().UploadToCloudStorageAsync(pdfStream, fileName);
-            await Task.Delay(100);
-            return cloudUrl;
-        }
-
-        public async Task<string> ProcessPdfWithApiAsync(string fileUrl, string inputParameter)
-        {
-            var apiUrl = _configuration["ExternalApi:Url"];
-            if (string.IsNullOrEmpty(apiUrl))
+            var containerClient = _cloudStorageService.GetBlobContainerClient();
+            BlobClient blobClient = containerClient.GetBlobClient(blobName);
+            if (await blobClient.ExistsAsync())
             {
-                throw new InvalidOperationException("API URL is not configured.");
+                MemoryStream memoryStream = new MemoryStream();
+                await blobClient.DownloadToAsync(memoryStream);
+                memoryStream.Position = 0;
+                return memoryStream;
             }
-            var response = await _httpClient.PostAsJsonAsync(apiUrl, new { fileUrl, inputParameter });
-            if (response.IsSuccessStatusCode)
+            else
             {
-                var result = await response.Content.ReadAsStringAsync();
-                return result;
+                throw new FileNotFoundException($"Blob {blobName} not found.");
             }
-            throw new HttpRequestException($"Error calling external API: {response.StatusCode} - {response.ReasonPhrase}");
         }
-
-        public async Task<ApplicationDbContext.Document> SaveDocumentMetadataAsync(string fileName, string fileUrl, string amendments, string documentType)
+        public async Task<List<string>> GetDocumentsByTypeAsync(string documentType)
         {
-            var document = new ApplicationDbContext.Document
+            var containerClient = _cloudStorageService.GetBlobContainerClient();
+            List<string> documentNames = new List<string>();
+            await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
             {
-                FileName = fileName,
-                FileUrl = fileUrl,
-                UploadedAt = DateTime.Now,
-                Amendments = amendments,
-                DocumentType = documentType
-            };
-            _dbContext.Documents.Add(document);
-            await _dbContext.SaveChangesAsync();
-            return document;
+                if (Path.GetExtension(blobItem.Name).Equals($".{documentType}", StringComparison.OrdinalIgnoreCase))
+                {
+                    documentNames.Add(blobItem.Name);
+                }
+            }
+            return documentNames;
         }
     }
 }
