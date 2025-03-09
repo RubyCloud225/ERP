@@ -51,6 +51,8 @@ namespace ERP.Model
             public required string PurchaseInvoiceNumber { get; set; }
             public required string Supplier { get; set; }
             public decimal Amount { get; set; }
+            public required string Description { get; set; }
+            public required string SupplierAddress { get; set; }
             public DateTime PurchaseInvoiceDate { get; set; }
             public required string DocumentType { get; set; }
             public required string Response { get; set; }
@@ -63,10 +65,9 @@ namespace ERP.Model
             public int Id { get; set; }
             public int ? PurchaseInvoiceId { get; set; }
             public required string Account { get; set; }
-            public decimal Amount { get; set; }
-            public bool IsDebit { get; set; }
+            public decimal Debit { get; set; }
+            public decimal Credit { get; set; }
             public DateTime EntryDate { get; set; }
-            public required PurchaseInvoice PurchaseInvoice { get; set; }
         }
 
         public class SalesInvoice
