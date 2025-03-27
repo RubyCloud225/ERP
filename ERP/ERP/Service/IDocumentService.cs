@@ -28,8 +28,24 @@ namespace ERP.Service
                 throw new FileNotFoundException($"Blob {blobName} not found.");
             }
         }
+       
+        public async Task<string> CategorizeDocumentAsync(string blobName)
+        {
+            // Simulate LLM Categorization logic
+            await Task.Delay(100); // asyncwork
+            return "Category"; // example
+        }
+        public async Task<string> ExtractRelevantInfoFromDocumentAsync(string blobName, string documentType)
+        {
+            // Simulate LLM Extraction logic
+            await Task.Delay(100); // asyncwork
+            return "Relevant Info"; // example
+        }
+
+        // if the document is a PDF
         public async Task<(List<string> Header, List<string> Body, List<string> Footer)> ReadPdfContentAsync(string blobName)
         {
+            // need to filter by PDF file type
             using (Stream pdfStream = await GetDocumentByBlobNameAsync(blobName))
             {
                 if (pdfStream == null)
@@ -61,18 +77,6 @@ namespace ERP.Service
                 }
                 return ExtractPdfContent(lines);
             }
-        }
-        public async Task<string> CategorizeDocumentAsync(string content)
-        {
-            // Simulate LLM Categorization logic
-            await Task.Delay(100); // asyncwork
-            return "Category"; // example
-        }
-        public async Task<string> ExtractRelevantInfoFromDocumentAsync(string content, string documentType)
-        {
-            // Simulate LLM Extraction logic
-            await Task.Delay(100); // asyncwork
-            return "Relevant Info"; // example
         }
 
         private static (List<string> Header, List<string> Body, List<string> Footer) ExtractPdfContent(List<string> lines)

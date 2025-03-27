@@ -47,11 +47,11 @@ namespace ERP.Service
         public async Task<string> GeneratePromptFromPurchaseInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string supplierName, string supplierAddress, decimal totalAmount, decimal purchaseTax, decimal netAmount)
         {
             // Logic for processing outstanding task
-            return await _llmService.GeneratePromptFromPurchaseInvoiceAsync("purchase", blobName, invoiceDate, invoiceNumber, supplierName, supplierAddress, totalAmount, purchaseTax, netAmount);
+            return await _llmService.GeneratePromptFromPurchaseInvoiceAsync(blobName, invoiceDate, invoiceNumber, supplierName, supplierAddress, totalAmount, purchaseTax, netAmount);
         }
         public async Task<string> BankStatementProcessorAsync(string blobName, DateTime Date, string Details, decimal Amount, decimal Balance, string accountNumber)
         {
-            return await _llmService.GenerateBankStatementPromptAsync(blobName, Date, Details, Amount, Balance, accountNumber);
+            return await _llmService.GeneratePromptFromBankStatementAsync(blobName, Date, Details, Amount, Balance, accountNumber);
         }
         public async Task<string> EmailDocumentProcessorAsync(string blobName, string message, string subject, string senderEmail, string recipientEmail)
         {
@@ -75,12 +75,12 @@ namespace ERP.Service
 
     public class DocumentProcessorFactory
     {
-        private readonly IDocumentService _pdfService;
+        private readonly IDocumentService _documentService;
         private readonly ILlmService _llmService;
         private readonly ApplicationDbContext _dbContext;
-        public DocumentProcessorFactory(IDocumentService pdfService, ILlmService llmService, ApplicationDbContext dbContext)
+        public DocumentProcessorFactory(IDocumentService documentService, ILlmService llmService, ApplicationDbContext dbContext)
         {
-            _pdfService = pdfService;
+            _documentService = documentService;
             _llmService = llmService;
             _dbContext = dbContext;
         }
@@ -89,11 +89,11 @@ namespace ERP.Service
             // Create a factory for the document processor
             return documentType switch
             {
-                "purchase_invoice" => new DocumentProcessor(_pdfService, _llmService, _dbContext),
-                "sales_invoice" => new DocumentProcessor(_pdfService, _llmService, _dbContext),
-                "bank_statement" => new DocumentProcessor(_pdfService, _llmService, _dbContext),
-                "email_document" => new DocumentProcessor(_pdfService, _llmService, _dbContext),
-                "letter" => new DocumentProcessor(_pdfService, _llmService, _dbContext),
+                "purchase_invoice" => new DocumentProcessor(_documentService, _llmService, _dbContext),
+                "sales_invoice" => new DocumentProcessor(_documentService, _llmService, _dbContext),
+                "bank_statement" => new DocumentProcessor(_documentService, _llmService, _dbContext),
+                "email_document" => new DocumentProcessor(_documentService, _llmService, _dbContext),
+                "letter" => new DocumentProcessor(_documentService, _llmService, _dbContext),
                 _ => throw new ArgumentException("Invalid document type", nameof(documentType)),
             };
         }
