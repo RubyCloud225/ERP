@@ -15,7 +15,7 @@ namespace ERP.Model
         public DbSet<BankReceipt> BankReceipts { get; set; }
         public DbSet<JournalEntry> JournalEntries { get; set; }
         public DbSet<PropertyLog> PropertyLogs { get; set; }
-        public DbSet<Document> Documents { get; set; }
+        public DbSet<DocumentRecord> DocumentRecords { get; set; }
         public DbSet<LlmResponse> LlmResponses { get; set; }
         public DbSet<AccountingEntry> AccountingEntries { get; set; }
 
@@ -25,13 +25,11 @@ namespace ERP.Model
             public required string Response { get; set; }
         }
 
-        public class Document
+        public class DocumentRecord
         {
             public int Id { get; set; }
-            public required string FileName { get; set; }
-            public required string FileUrl { get; set; }
-            public DateTime UploadedAt { get; set; }
-            public required string Amendments { get; set; }
+            public required string BlobName { get; set; }
+            public DateTime CreatedAt { get; set; }
             public required string DocumentType { get; set; }
         }
 

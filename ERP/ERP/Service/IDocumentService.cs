@@ -1,10 +1,11 @@
+using System.Reflection.Metadata;
 using System.Text;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 
 namespace ERP.Service
 {
-    public class DocumentService
+    public class DocumentService : IDocumentService
     {
         private readonly CloudStorageService _cloudStorageService;
         public DocumentService(CloudStorageService cloudStorageService)
@@ -27,7 +28,6 @@ namespace ERP.Service
                 throw new FileNotFoundException($"Blob {blobName} not found.");
             }
         }
-
         public async Task<(List<string> Header, List<string> Body, List<string> Footer)> ReadPdfContentAsync(string blobName)
         {
             using (Stream pdfStream = await GetDocumentByBlobNameAsync(blobName))
@@ -61,6 +61,18 @@ namespace ERP.Service
                 }
                 return ExtractPdfContent(lines);
             }
+        }
+        public async Task<string> CategorizeDocumentAsync(string content)
+        {
+            // Simulate LLM Categorization logic
+            await Task.Delay(100); // asyncwork
+            return "Category"; // example
+        }
+        public async Task<string> ExtractRelevantInfoFromDocumentAsync(string content, string documentType)
+        {
+            // Simulate LLM Extraction logic
+            await Task.Delay(100); // asyncwork
+            return "Relevant Info"; // example
         }
 
         private static (List<string> Header, List<string> Body, List<string> Footer) ExtractPdfContent(List<string> lines)
@@ -102,5 +114,15 @@ namespace ERP.Service
             }
             return documentNames;
         }
+    }
+
+    public interface IDocumentService
+    {
+        Task<string> CategorizeDocumentAsync(string content);
+        Task<string> ExtractRelevantInfoFromDocumentAsync(string content, string documentType);
+        Task<List<string>> GetDocumentsByTypeAsync(string documentType);
+        Task<(List<string> Header, List<string> Body, List<string> Footer)> ReadPdfContentAsync(string blobName);
+        Task<Stream> GetDocumentByBlobNameAsync(string blobName);
+
     }
 }
