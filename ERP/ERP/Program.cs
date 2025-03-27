@@ -14,7 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddHttpClient<IPdfService, PdfService>();
+builder.Services.AddHttpClient<IDocumentService, DocumentService>();
+builder.Services.AddHttpClient<IDocumentProcessor, DocumentProcessor>();
+builder.Services.AddHttpClient<ILlmService, LlmService>();
+builder.Services.AddHttpClient<ICloudStorageService, CloudStorageService>();
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
@@ -48,6 +51,8 @@ app.UseMiddleware<PropertyValidationMiddleware>();
 app.UseMiddleware<PropertyCachingMiddleware>();
 app.UseMiddleware<PropertyLoggingMiddleware>();
 app.UseMiddleware<RateLimitingMiddleware>();
+app.UseMiddleware<FileValidationMiddleware>();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 
 app.Run();

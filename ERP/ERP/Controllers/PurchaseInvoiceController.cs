@@ -36,10 +36,12 @@ public class PurchaseInvoiceController : ControllerBase
             string invoiceNumber = "invoiceNumber";
             string supplierName = "supplierName";
             string supplierAddress = "supplierAddress";
+            decimal purchaseTax = 0;
+            decimal netAmount = 0;
             decimal totalAmount = 0;
 
             // Step 1: Generate the prompt for the LLM
-            string prompt = await _documentProcessor.GeneratePromptFromPurchaseInvoiceAsync(fileName, invoiceDate, invoiceNumber, supplierName, supplierAddress, totalAmount);
+            string prompt = await _documentProcessor.GeneratePromptFromPurchaseInvoiceAsync(fileName, invoiceDate, invoiceNumber, supplierName, supplierAddress, totalAmount, purchaseTax, netAmount);
 
             // Step 2: Call the LLM service to get the response
             string llmResponse = await _llmService.GenerateResponseAsync(prompt);

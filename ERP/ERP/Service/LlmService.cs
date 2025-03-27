@@ -13,6 +13,8 @@ namespace ERP.Service
         Task<string> GeneratePromptFromSalesInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount);
         Task<string> GeneratePromptFromPurchaseInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string supplierName, string supplierAddress, decimal totalAmount, decimal purchaseTax, decimal netAmount);
         Task<string> GeneratePromptFromBankStatementAsync(string blobName, DateTime Date, string Details, decimal Amount, decimal Balance, string accountNumber);
+        Task<string> GeneratePromptFromEmailAsync(string blobName, string message, string senderaddress, string recipientaddress, string subject);
+        Task<string> GenerateLetterPromptAsync(string blobName, string message, string senderaddress, string recipientaddress, string subject);
     }
 
     public class LlmService : ILlmService
@@ -79,34 +81,58 @@ namespace ERP.Service
         public async Task<string> GeneratePromptFromPurchaseInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string supplierName, string supplierAddress, decimal totalAmount, decimal purchaseTax, decimal netAmount)
         {
             string prompt = $"You are tasked with reading {blobName} classified as a PurchaseInvoice" +
-            $"Please use the following details: \n" +
-            $"Document Name: {blobName}\n" +
-            $"Invoice Date: {invoiceDate.ToString("yyyy-MM-dd")}\n" +
-            $"Invoice Number: {invoiceNumber}\n" +
-            $"Supplier Name: {supplierName}\n" +
-            $"Supplier Address: {supplierAddress}\n" +
-            $"Total Amount: {totalAmount}\n" +
-            $"Purchase Tax: {purchaseTax}\n" +
-            $"Net Amount: {netAmount}\n" +
-            $"Please post a purchase invoice to the appropriate nominal and expense account based on the above details.";
+                            $"Please use the following details: \n" +
+                            $"Document Name: {blobName}\n" +
+                            $"Invoice Date: {invoiceDate.ToString("yyyy-MM-dd")}\n" +
+                            $"Invoice Number: {invoiceNumber}\n" +
+                            $"Supplier Name: {supplierName}\n" +
+                            $"Supplier Address: {supplierAddress}\n" +
+                            $"Total Amount: {totalAmount}\n" +
+                            $"Purchase Tax: {purchaseTax}\n" +
+                            $"Net Amount: {netAmount}\n" +
+                            $"Please post a purchase invoice to the appropriate nominal and expense account based on the above details.";
             string response = await GenerateResponseAsync(prompt);
             return response.Trim();
         }
         public async Task<string> GeneratePromptFromBankStatementAsync(string blobName, DateTime Date, string Details, decimal Amount, decimal Balance, string accountNumber)
         {
             string prompt = $"You are tasked with reading {blobName} classified as a BankStatement" +
-            $"Please use the following details: \n" +
-            $"Document Name: {blobName}\n" +
-            $"Date: {Date.ToString("yyyy-MM-dd")}\n" +
-            $"Details: {Details}\n" +
-            $"Amount: {Amount}\n" +
-            $"Balance: {Balance}\n" +
-            $"Account Number: {accountNumber}\n" +
-            $"Please post and reconcile the bank statement to the general ledger based on the above details.";
+                            $"Please use the following details: \n" +
+                            $"Document Name: {blobName}\n" +
+                            $"Date: {Date.ToString("yyyy-MM-dd")}\n" +
+                            $"Details: {Details}\n" +
+                            $"Amount: {Amount}\n" +
+                            $"Balance: {Balance}\n" +
+                            $"Account Number: {accountNumber}\n" +
+                            $"Please post and reconcile the bank statement to the general ledger based on the above details.";
             string response = await GenerateResponseAsync(prompt);
             return response.Trim();
         }
-        public async Task<string> GeneratePromptFromEmailAsync
-
+        public async Task<string> GeneratePromptFromEmailAsync(string blobName, string message, string senderaddress, string recipientaddress, string subject)
+        {
+            string prompt = $"You are tasked with reading {blobName} classified as an Email" +
+                            $"Please use the following details: \n" +
+                            $"Document Name: {blobName}\n" +
+                            $"Message: {message}\n" +
+                            $"Sender Address: {senderaddress}\n" +
+                            $"Recipient Address: {recipientaddress}\n" +
+                            $"Subject: {subject}\n" +
+                            $"Please save and provide a recommendation on next steps to the email based on the above details.";
+            string response = await GenerateResponseAsync(prompt);
+            return response.Trim();
+        }
+        public async Task<string> GenerateLetterPromptAsync(string blobName, string message, string senderaddress, string recipientaddress, string subject)
+        {
+            string prompt = $"You are tasked with reading {blobName} classified as a Letter" +
+            $"Please use the following details: \n" +
+            $"Document Name: {blobName}\n" +
+            $"Message: {message}\n" +
+            $"Sender Address: {senderaddress}\n" +
+            $"Recipient Address: {recipientaddress}\n" +
+            $"Subject: {subject}\n" +
+            $"Please save and provide a recommendation on next steps to the letter based on the above details.";
+            string response = await GenerateResponseAsync(prompt);
+            return response.Trim();
+        }
     }
 }

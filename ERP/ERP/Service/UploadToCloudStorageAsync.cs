@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration; // Add this line for Azure Blob Storag
 
 namespace ERP.Service
 {
-    public class CloudStorageService
+    public class CloudStorageService : ICloudStorageService
     {
         private readonly string _configurationString;
         private readonly string _blobContainerName;
@@ -83,5 +83,11 @@ namespace ERP.Service
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(_blobContainerName);
             return (blobServiceClient , containerClient);
         }
+    }
+
+    public interface ICloudStorageService
+    {
+        Task<string> DownloadFileFromBlobAsync(string blobName, string filePath);
+        Task<string> UploadToCloudStorageAsync(string blobName, string filePath);
     }
 }
