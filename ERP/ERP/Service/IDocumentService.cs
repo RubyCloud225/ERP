@@ -118,6 +118,19 @@ namespace ERP.Service
             }
             return documentNames;
         }
+        public async Task DeleteDocumentAsync(string documentId)
+        {
+            var containerClient = _cloudStorageService.GetBlobContainerClient();
+            BlobClient blobClient = containerClient.GetBlobClient(documentId);
+            await blobClient.DeleteAsync();
+        }
+        public async Task<Stream> DownloadDocumentAsync(string documentId)
+        {
+            var containerClient = _cloudStorageService.GetBlobContainerClient();
+            BlobClient blobClient = containerClient.GetBlobClient(documentId);
+            var downloadInfo = await blobClient.DownloadAsync();
+            return downloadInfo.Value.Content;
+        }
     }
 
     public interface IDocumentService
@@ -127,6 +140,8 @@ namespace ERP.Service
         Task<List<string>> GetDocumentsByTypeAsync(string documentType);
         Task<(List<string> Header, List<string> Body, List<string> Footer)> ReadPdfContentAsync(string blobName);
         Task<Stream> GetDocumentByBlobNameAsync(string blobName);
+        Task DeleteDocumentAsync(string documentId);
+        Task<Stream> DownloadDocumentAsync(string documentId);
 
     }
 }
