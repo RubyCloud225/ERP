@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using ERP.Attributes;
 using ERP.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -46,7 +47,68 @@ namespace ERP.Controller
             }
         }
         //get all documents
+        [HttpGet("type/{documentType}")]
+        public async Task<ActionResult<List<string>>> GetDocumentsByType(string documentType)
+        {
+            if (string.IsNullOrWhiteSpace(documentType))
+            {
+                return BadRequest("Document type is required");
+            }
+            List<string> documents;
+            try
+            {
+                documents = await _documentService.GetDocumentsByTypeAsync(documentType);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+            if (documents == null || documents.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(documents);
+        }
         //Delete Documents
-        //Update Documents
+        [HttpDelete("{documentId}")]
+        public async Task<ActionResult> DeleteDocument(string documentId)
+        {
+            if (string.IsNullOrWhiteSpace(documentId))
+            {
+                return BadRequest("Document Id is required");
+            }
+            try
+            {
+                await _documentService.DeleteDocumentAsync(documentId);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+            return NoContent();
+        }
+        [HttpGet("download/{documentId}")]
+        public async Task<ActionResult> DownloadDocument(string documentId)
+        {
+            if (string.IsNullOrWhiteSpace(documentId))
+            {
+                return BadRequest("Document Id is required");
+            }
+            try
+            {
+                var document = await _documentService.DownloadDocumentAsync(documentId);
+                if (document == null)
+                {
+                    return NotFound();
+                }
+                var contentType = "application/octet-stream";
+                var fileName = Path.GetFileName(documentId);
+                return File(document, contentType, fileName);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }
