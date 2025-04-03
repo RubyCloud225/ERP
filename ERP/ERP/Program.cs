@@ -20,6 +20,7 @@ builder.Services.AddCors(options =>
                                                policyBuilder =>
                                                {
                                                    policyBuilder.WithOrigins("https://MyFrontend.com") //Allow requests from my frontend origin only
+                                                       .AllowCredentials()
                                                        .AllowAnyMethod() // anyHTTP method
                                                        .AllowAnyHeader(); // Allow headers
                                                });
