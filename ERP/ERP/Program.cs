@@ -14,6 +14,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+                         {
+                             options.AddPolicy("AllowSpecificOrigin",
+                                               policyBuilder =>
+                                               {
+                                                   policyBuilder.WithOrigins("https://MyFrontend.com") //Allow requests from my frontend origin only
+                                                       .AllowAnyMethod() // anyHTTP method
+                                                       .AllowAnyHeader(); // Allow headers
+                                               });
+                         });
 builder.Services.AddHttpClient<IDocumentService, DocumentService>();
 builder.Services.AddHttpClient<IDocumentProcessor, DocumentProcessor>();
 builder.Services.AddHttpClient<ILlmService, LlmService>();
@@ -29,6 +39,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
+
+app.UseCors("AllowSpecificOrigin");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
