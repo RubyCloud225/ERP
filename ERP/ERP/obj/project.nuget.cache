@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "cgWRsRqGfdk=",
+  "dgSpecHash": "UWhN8eJ/PMI=",
   "success": true,
   "projectFilePath": "/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/ERP.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "/Users/catherinepemblington/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",
     "/Users/catherinepemblington/.nuget/packages/azure.storage.blobs/12.23.0/azure.storage.blobs.12.23.0.nupkg.sha512",
     "/Users/catherinepemblington/.nuget/packages/azure.storage.common/12.22.0/azure.storage.common.12.22.0.nupkg.sha512",
+    "/Users/catherinepemblington/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/catherinepemblington/.nuget/packages/humanizer/2.14.1/humanizer.2.14.1.nupkg.sha512",
     "/Users/catherinepemblington/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/catherinepemblington/.nuget/packages/humanizer.core.af/2.14.1/humanizer.core.af.2.14.1.nupkg.sha512",
