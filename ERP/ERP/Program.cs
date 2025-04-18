@@ -29,15 +29,28 @@ builder.Services.AddHttpClient<IDocumentService, DocumentService>();
 builder.Services.AddHttpClient<IDocumentProcessor, DocumentProcessor>();
 builder.Services.AddHttpClient<ILlmService, LlmService>();
 builder.Services.AddHttpClient<ICloudStorageService, CloudStorageService>();
+builder.Services.AddHttpClient<IPurchaseInvoiceService, PurchaseInvoiceService>();
+builder.Services.AddHttpClient<ISalesInvoiceService, SalesInvoiceService>();
+builder.Services.AddHttpClient<IUserService, UserService>();
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = $"{builder.Configuration["Redis__Host"]}";
 });
 
+
 // Add Entity Framework Core services
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder.AllowCredentials()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins("http://localhost:3000"));
+});
 
 var app = builder.Build();
 

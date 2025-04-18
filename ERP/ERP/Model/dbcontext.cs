@@ -10,6 +10,8 @@ namespace ERP.Model
 
         }
         public DbSet<PurchaseInvoice> PurchaseInvoices { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserDto> userDtos { get; set; }
         public DbSet<SalesInvoice> SalesInvoices { get; set; }
         public DbSet<BankPayment> BankPayments { get; set; }
         public DbSet<BankReceipt> BankReceipts { get; set; }
@@ -18,6 +20,47 @@ namespace ERP.Model
         public DbSet<DocumentRecord> DocumentRecords { get; set; }
         public DbSet<LlmResponse> LlmResponses { get; set; }
         public DbSet<AccountingEntry> AccountingEntries { get; set; }
+        public DbSet<loginDto> loginDtos { get; set; }
+        public DbSet<PurchaseInvoiceDto> purchaseInvoiceDtos { get; set; }
+
+        public class PurchaseInvoiceDto
+        {
+            public required string PurchaseInvoiceNumber { get; set; }
+            public required string Supplier { get; set; }
+            public decimal NetAmount { get; set; }
+            public decimal GrossAmount { get; set; }
+            public decimal TaxAmount { get; set; }
+            public required string Description { get; set; }
+            public required string SupplierAddress { get; set; }
+            public DateTime PurchaseInvoiceDate { get; set; }
+            public required string DocumentType { get; set; }
+            public required string Response { get; set; }
+            public required string NominalAccount { get; set; }
+            public required string ExpenseAccount { get; set; }
+        }
+
+        public class loginDto
+        {
+            public required string Username { get; set; }
+            public required string Password { get; set; }
+        }
+
+        public class UserDto
+        {
+            public string? Username { get; set; }
+            public string? Email { get; set; }
+            public string? Name { get; set; }
+            public string? Password { get; set; }
+        }
+
+        public class User
+        {
+            public int Id { get; set; }
+            public required string Name { get; set; }
+            public required string Username { get; set; }
+            public required string Email { get; set; }
+            public required string Password { get; set; }
+        }
 
         public class LlmResponse
         {
@@ -45,10 +88,12 @@ namespace ERP.Model
 
         public class PurchaseInvoice
         {
-            public int Id { get; set; }
+            public int PurchaseInvoiceId { get; set; }
             public required string PurchaseInvoiceNumber { get; set; }
             public required string Supplier { get; set; }
-            public decimal Amount { get; set; }
+            public decimal NetAmount { get; set; }
+            public decimal GrossAmount { get; set; }
+            public decimal TaxAmount { get; set; } // Ensure this property is included
             public required string Description { get; set; }
             public required string SupplierAddress { get; set; }
             public DateTime PurchaseInvoiceDate { get; set; }
