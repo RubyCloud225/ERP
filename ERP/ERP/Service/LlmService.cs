@@ -78,6 +78,7 @@ namespace ERP.Service
             string response = await GenerateResponseAsync(prompt);
             return response.Trim();
         }
+    
         public async Task<string> GeneratePromptFromPurchaseInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string supplierName, string supplierAddress, decimal totalAmount, decimal purchaseTax, decimal netAmount)
         {
             string prompt = $"You are tasked with reading {blobName} classified as a PurchaseInvoice" +
