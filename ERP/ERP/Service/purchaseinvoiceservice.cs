@@ -82,25 +82,9 @@ namespace ERP.Service
 
                 // Add accounting entries to the database
                 _dbContext.AccountingEntries.Add(debitEntry);
+                _dbContext.AccountingEntries.Add(debitEntry2);
                 _dbContext.AccountingEntries.Add(creditEntry);
                 await _dbContext.SaveChangesAsync();
-
-                //Map the entity to the Dto
-                var purchaseInvoiceDto = new ApplicationDbContext.PurchaseInvoiceDto
-                {
-                    PurchaseInvoiceNumber = purchaseinvoice.PurchaseInvoiceNumber,
-                    Supplier = purchaseinvoice.Supplier,
-                    NetAmount = purchaseinvoice.NetAmount,
-                    GrossAmount = purchaseinvoice.GrossAmount,
-                    TaxAmount = purchaseinvoice.TaxAmount,
-                    PurchaseInvoiceDate = purchaseinvoice.PurchaseInvoiceDate,
-                    Description = purchaseinvoice.Description,
-                    SupplierAddress = purchaseinvoice.SupplierAddress,
-                    DocumentType = purchaseinvoice.DocumentType,
-                    Response = purchaseinvoice.Response,
-                    NominalAccount = purchaseinvoice.NominalAccount,
-                    ExpenseAccount = purchaseinvoice.ExpenseAccount
-                };
             }
         }
 
