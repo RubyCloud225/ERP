@@ -12,6 +12,7 @@ import { LoginComponent } from '../login/login.component';
 import { FormsModule } from '@angular/forms';
 import { ApprovalDocumentClassComponent } from '../approval-document-class/approval-document-class.component';
 import { SignUpComponent } from '../sign-up/sign-up.component';
+import { QuillModule } from 'ngx-quill';
 
 
 
@@ -30,7 +31,8 @@ import { SignUpComponent } from '../sign-up/sign-up.component';
     MatButtonModule,
     MatCardModule,
     HttpClient,
-    FormsModule
+    FormsModule,
+    QuillModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

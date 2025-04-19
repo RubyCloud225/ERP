@@ -116,11 +116,33 @@ namespace ERP.Model
         public class SalesInvoice
         {
             public int Id { get; set; }
-            public required string Customer { get; set; }
-            public decimal Amount { get; set; }
+            public required string BlobName { get; set; }
             public DateTime InvoiceDate { get; set; }
+            public required string InvoiceNumber { get; set; }
+            public required string CustomerName { get; set; }
+            public required string CustomerAddress { get; set; }
+            public decimal NetAmount { get; set; }
+            public decimal SalesTax { get; set; }
+            public decimal TotalAmount { get; set; }
+        }
+         public class UpdateSalesInvoiceRequest
+        {
+            public int Id { get; set; }
+            public required string InvoiceNumber { get; set; }
         }
 
+        public class GenerateSalesInvoiceRequest
+        {
+            public int Id { get; set; }
+            public required string BlobName { get; set; }
+            public DateTime InvoiceDate { get; set; }
+            public required string InvoiceNumber { get; set; }
+            public required string CustomerName { get; set; }
+            public required string CustomerAddress { get; set; }
+            public decimal TotalAmount { get; set; }
+            public decimal SalesTax { get; set; }
+            public decimal NetAmount { get; set; }
+        }
         public class BankPayment
         {
             public int Id { get; set; }

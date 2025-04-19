@@ -10,7 +10,7 @@ namespace ERP.Service
     {
         Task<string> GenerateResponseAsync(string prompt);
         Task<string> GenerateDocumentCatagoryPromptAsync(string blobName, string documentContent);
-        Task<string> GeneratePromptFromSalesInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount);
+        Task<string> CreateSalesInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salestax, decimal netAmount);
         Task<string> GeneratePromptFromPurchaseInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string supplierName, string supplierAddress, decimal totalAmount, decimal purchaseTax, decimal netAmount);
         Task<string> GeneratePromptFromBankStatementAsync(string blobName, DateTime Date, string Details, decimal Amount, decimal Balance, string accountNumber);
         Task<string> GeneratePromptFromEmailAsync(string blobName, string message, string senderaddress, string recipientaddress, string subject);
@@ -62,19 +62,28 @@ namespace ERP.Service
             string response = await GenerateResponseAsync(prompt);
             return response.Trim();
         }
-        public async Task<string> GeneratePromptFromSalesInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount)
+        public async Task<string> CreateSalesInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salestax, decimal netAmount)
         {
-            // prompt for the llm
-            string prompt = $"You are tasked with creating a sales invoice. Please use the following details: \n" +
-                            $"Document Name: {blobName}\n" +
-                            $"Invoice Date: {invoiceDate.ToString("yyyy-MM-dd")}\n" +
-                            $"Invoice Number: {invoiceNumber}\n" +
-                            $"Customer Name: {customerName}\n" +
-                            $"Customer Address: {customerAddress}\n" +
-                            $"Total Amount: {totalAmount}\n" +
-                            $"Sales Tax: {salesTax}\n" +
-                            $"Net Amount: {netAmount}\n" +
-                            $"Please generate a sales invoice based on the above details.";
+            string prompt = $"You are tasked with creating a sales invoice. Please use the following details to generate the invoice: \n" +
+            $"- **Document Name: {blobName}\n" +
+            $"- **Invoice Date: {invoiceDate.ToString("yyyy-MM-dd")}\n" +
+            $"- **Invoice Number: {invoiceNumber}\n" +
+            $"- **Customer Name: {customerName}\n" +
+            $"- **Customer Address: {customerAddress}\n" +
+            $"- **Total Amount: {totalAmount:C} (in currency)\n" +
+            $"- **Sales Tax: {salestax:C} (in currency)\n" +
+            $"- **Net Amount: {netAmount:C} (in currency)\n" +
+            "Please generate a detailed sales invoice based on the above information, including the necessary sections such as:\n" +
+            "- Invoice Header\n" +
+            "- Customer Information\n" +
+            "- Itemized List of Products/Services (if applicable)\n" +
+            "- Net Amount\n" +
+            "- Sales Tax\n" +
+            "- Total Amount\n" +
+            "- Net Amount\n" +
+            "- Payment Terms\n" +
+            "- Signature Block\n" +
+            "Ensure the invoice is well-formatted, easy to read, and includes all necessary details.";
             string response = await GenerateResponseAsync(prompt);
             return response.Trim();
         }

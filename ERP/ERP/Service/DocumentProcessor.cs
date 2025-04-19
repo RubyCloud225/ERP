@@ -42,7 +42,7 @@ namespace ERP.Service
         public async Task<string> GeneratePromptFromSalesInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount)
         {
             // Logic for processing outstanding task
-            return await _llmService.GeneratePromptFromSalesInvoiceAsync(blobName, invoiceDate, invoiceNumber, customerName, customerAddress, totalAmount, salesTax, netAmount);
+            return await _llmService.CreateSalesInvoiceAsync(blobName, invoiceDate, invoiceNumber, customerName, customerAddress, totalAmount, salesTax, netAmount);
         }
         public async Task<string> GeneratePromptFromPurchaseInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string supplierName, string supplierAddress, decimal totalAmount, decimal purchaseTax, decimal netAmount)
         {

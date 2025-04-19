@@ -1,0 +1,5 @@
+<div class="invoice-container">
+    <quill-editor [(ngModel)]="salesInvoiceContent" [style]="{ width: '100%'; height: '100px'}"></quill-editor>
+</div>
+<button (click)="printInvoice()">Print Invoice</button>
+<button (click)="downloadPDF()">Download PDF</button>
