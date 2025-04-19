@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClient } from '@angular/common/http';
 import { LoginComponent } from '../login/login.component';
 import { FormsModule } from '@angular/forms';
+import { ApprovalDocumentClassComponent } from '../approval-document-class/approval-document-class.component';
+import { SignUpComponent } from '../sign-up/sign-up.component';
 
 
 
@@ -18,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     DocumentUploadComponent,
     DocumentListComponent,
-    LoginComponent
+    LoginComponent,
+    ApprovalDocumentClassComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
