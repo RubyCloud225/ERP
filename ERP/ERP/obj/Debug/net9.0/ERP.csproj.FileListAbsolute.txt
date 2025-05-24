@@ -1,8 +1,0 @@
-/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/obj/Debug/net9.0/ERP.csproj.AssemblyReference.cache
-/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/obj/Debug/net9.0/ERP.GeneratedMSBuildEditorConfig.editorconfig
-/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/obj/Debug/net9.0/ERP.AssemblyInfoInputs.cache
-/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/obj/Debug/net9.0/ERP.AssemblyInfo.cs
-/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/obj/Debug/net9.0/ERP.csproj.CoreCompileInputs.cache
-/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/obj/Debug/net9.0/ERP.MvcApplicationPartsAssemblyInfo.cs
-/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/obj/Debug/net9.0/ERP.MvcApplicationPartsAssemblyInfo.cache
-/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/obj/Debug/net9.0/ERP.sourcelink.json
