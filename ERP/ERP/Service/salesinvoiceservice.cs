@@ -19,36 +19,73 @@ namespace ERP.Service
         // use LLM to create a sales invoice
         public async Task GenerateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount)
         {
-            // use LLM to create a sales invoice
-            var salesInvoice = new ApplicationDbContext.SalesInvoice
+            if (string.IsNullOrEmpty(blobName))
             {
-                Id = Id,
-                BlobName = blobName,
-                InvoiceDate = invoiceDate,
-                InvoiceNumber = invoiceNumber,
-                CustomerName = customerName,
-                CustomerAddress = customerAddress,
-                TotalAmount = totalAmount,
-                SalesTax = salesTax,
-                NetAmount = netAmount
-            };
-            string prompt = await _documentProcessor.GeneratePromptFromSalesInvoiceAsync(salesInvoice);
+                throw new Exception("BlobName cannot be empty");
+            }
+            if (string.IsNullOrEmpty(invoiceNumber))
+            {
+                throw new Exception("InvoiceNumber cannot be empty");
+            }
+            if (string.IsNullOrEmpty(customerName))
+            {
+                throw new Exception("CustomerName cannot be empty");
+            }
+
+            // Check if the sales invoice already exists to avoid tracking issues
+            var existingInvoice = await _dbContext.SalesInvoices.FindAsync(Id);
+            if (existingInvoice != null)
+            {
+                // Update existing invoice properties
+                existingInvoice.BlobName = blobName;
+                existingInvoice.InvoiceDate = invoiceDate;
+                existingInvoice.InvoiceNumber = invoiceNumber;
+                existingInvoice.CustomerName = customerName;
+                existingInvoice.CustomerAddress = customerAddress;
+                existingInvoice.TotalAmount = totalAmount;
+                existingInvoice.SalesTax = salesTax;
+                existingInvoice.NetAmount = netAmount;
+                _dbContext.SalesInvoices.Update(existingInvoice);
+            }
+            else
+            {
+                var salesInvoice = new ApplicationDbContext.SalesInvoice
+                {
+                    Id = Id,
+                    UserId = await _dbContext.Users.FindAsync(1), // assuming a default user ID for now, you can modify this as needed
+                    BlobName = blobName,
+                    InvoiceDate = invoiceDate,
+                    InvoiceNumber = invoiceNumber,
+                    CustomerName = customerName,
+                    CustomerAddress = customerAddress,
+                    TotalAmount = totalAmount,
+                    SalesTax = salesTax,
+                    NetAmount = netAmount
+                };
+                _dbContext.SalesInvoices.Add(salesInvoice);
+            }
+
+            var salesInvoiceForPrompt = existingInvoice ?? _dbContext.SalesInvoices.Local.FirstOrDefault(i => i.Id == Id);
+            if (salesInvoiceForPrompt == null)
+            {
+                throw new Exception($"Sales Invoice with Id {Id} could not be found or created.");
+            }
+            string prompt = await _documentProcessor.GeneratePromptFromSalesInvoiceAsync(salesInvoiceForPrompt);
             string llmResponse = await _llmService.GenerateResponseAsync(prompt);
             var accounts = ParseLlmResponse(llmResponse);
-            _dbContext.SalesInvoices.Add(salesInvoice);
             await _dbContext.SaveChangesAsync();
 
             var creditEntry = new ApplicationDbContext.AccountingEntry
             {
                 Account = accounts.NominalAccount,
-                Credit = salesInvoice.NetAmount,
+                Credit = (existingInvoice ?? _dbContext.SalesInvoices.Local.FirstOrDefault(i => i.Id == Id))?.NetAmount ?? 0,
                 Debit = 0,
                 EntryDate = DateTime.UtcNow
             };
             var creditEntry2 = new ApplicationDbContext.AccountingEntry
             {
                 Account = accounts.ExpenseAccount,
-                Credit = salesInvoice.SalesTax,
+                Credit = (existingInvoice ?? _dbContext.SalesInvoices.Local.FirstOrDefault(i => i.Id == Id))?.SalesTax ?? 0,
                 Debit = 0,
                 EntryDate = DateTime.UtcNow
             };
@@ -56,7 +93,7 @@ namespace ERP.Service
             {
                 Account = accounts.ExpenseAccount,
                 Credit = 0,
-                Debit = salesInvoice.TotalAmount,
+                Debit = (existingInvoice ?? _dbContext.SalesInvoices.Local.FirstOrDefault(i => i.Id == Id))?.TotalAmount ?? 0,
                 EntryDate = DateTime.UtcNow
             };
             _dbContext.AccountingEntries.Add(creditEntry);

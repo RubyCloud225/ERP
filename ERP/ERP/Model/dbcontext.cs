@@ -150,6 +150,7 @@ namespace ERP.Model
         public class SalesInvoice
         {
             public int Id { get; set; }
+            public required User UserId { get; set; } // Assuming UserId is a string, adjust as necessary
             public required string BlobName { get; set; }
             public DateTime InvoiceDate { get; set; }
             public required string InvoiceNumber { get; set; }
