@@ -1,6 +1,7 @@
 using ERP.Model;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using static ERP.Model.ApplicationDbContext;
 
 namespace ERP.Service
 {
@@ -31,32 +32,30 @@ namespace ERP.Service
                 decimal grossAmount = 0;
 
                 //step 1: generate prompt for the llm
-                string prompt = await _documentProcessor.GeneratePromptFromPurchaseInvoiceAsync(fileName, invoiceDate, invoiceNumber, supplierName, supplierAddress, taxAmount, netAmount, grossAmount);
-                // step 2: process the document using the llm
-                string llmResponse = await _llmService.GenerateResponseAsync(prompt);
-                // step 3: process the response from the llm
-                var accounts = ParseLlmResponse(llmResponse);
-                // step 4: save the data to the database
-                var purchaseinvoice = new ApplicationDbContext.PurchaseInvoice
+                var purchaseInvoiceInstance = new PurchaseInvoice
                 {
                     PurchaseInvoiceNumber = invoiceNumber,
-                    Supplier = supplierName, // This should be extracted from the LLM response
+                    Supplier = supplierName,
                     NetAmount = netAmount,
                     TaxAmount = taxAmount,
                     GrossAmount = grossAmount,
                     PurchaseInvoiceDate = invoiceDate,
                     Description = "Purchase Invoice from " + supplierName + invoiceNumber,
                     SupplierAddress = supplierAddress,
-                    DocumentType = "Purchase Invoice",
-                    Response = llmResponse,
-                    NominalAccount = accounts.NominalAccount,
-                    ExpenseAccount = accounts.ExpenseAccount
+                    BlobName = fileName
                 };
+                string prompt = await _documentProcessor.GeneratePromptFromPurchaseInvoiceAsync(purchaseInvoiceInstance);
+                // step 2: process the document using the llm
+                string llmResponse = await _llmService.GenerateResponseAsync(prompt);
+                // step 3: process the response from the llm
+                var accounts = ParseLlmResponse(llmResponse);
+                // step 4: save the data to the database
+                var purchaseinvoice = purchaseInvoiceInstance;
                 _dbContext.PurchaseInvoices.Add(purchaseinvoice);
                 await _dbContext.SaveChangesAsync();
                 
                 // Create accounting entries for double-entry bookkeeping
-                var debitEntry = new ApplicationDbContext.AccountingEntry
+                var debitEntry = new AccountingEntry
                 {
                     Account = accounts.NominalAccount,
                     Credit = 0,
@@ -64,7 +63,7 @@ namespace ERP.Service
                     EntryDate = DateTime.UtcNow
                 };
 
-                var debitEntry2 = new ApplicationDbContext.AccountingEntry
+                var debitEntry2 = new AccountingEntry
                 {
                     Account = accounts.NominalAccount,
                     Credit = 0,
@@ -72,7 +71,7 @@ namespace ERP.Service
                     EntryDate = DateTime.UtcNow
                 };
 
-                var creditEntry = new ApplicationDbContext.AccountingEntry
+                var creditEntry = new AccountingEntry
                 {
                     Account = accounts.ExpenseAccount,
                     Debit = purchaseinvoice.GrossAmount,
@@ -153,11 +152,6 @@ namespace ERP.Service
             existingInvoice.Description = updatedInvoice.Description;
             existingInvoice.SupplierAddress = updatedInvoice.SupplierAddress;
             existingInvoice.PurchaseInvoiceDate = updatedInvoice.PurchaseInvoiceDate;
-            existingInvoice.DocumentType = updatedInvoice.DocumentType;
-            existingInvoice.Response = updatedInvoice.Response; // Ensure property names match
-            existingInvoice.NominalAccount = updatedInvoice.NominalAccount;
-            existingInvoice.ExpenseAccount = updatedInvoice.ExpenseAccount;
-
             // Save changes asynchronously
             await _dbContext.SaveChangesAsync();
             Console.WriteLine("Invoice updated successfully.");
