@@ -1,0 +1,41 @@
+<div class="signup-container">
+    <h2>Sign Up</h2>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label>First Name</label>
+            <input formControlName="firstName" type="text" placeholder="Enter your first name"/>
+            <div *ngIf="signupForm.get('firstName').invalid && signupForm.get('firstName')?.touched">
+                <div *ngIf="signupForm.get('firstName').errors.required">First name is required</div>
+            </div>
+        </div>
+        <div>
+            <label>Last Name</label>
+            <input formControlName="lastName" type="text" placeholder="Enter your last name"/>
+            <div *ngIf="signupForm.get('lastName').invalid && signupForm.get('lastName')?.touched">
+                <div *ngIf="signupForm.get('lastName').errors.required">Last name is required</div>
+            </div>
+        </div>
+        <div>
+            <label>Email</label>
+            <input formControlName="email" type="email" placeholder="Enter your email"/>
+            <div *ngIf="signupForm.get('email').invalid && signupForm.get('email')?.touched">
+                <div *ngIf="signupForm.get('email').errors.required">Email is required</div>
+            </div>
+        </div>
+        <div>
+            <label>Password</label>
+            <input formControlName="password" type="password" placeholder="Enter your password"/>
+            <div *ngIf="signupForm.get('password').invalid && signupForm.get('password')?.touched">
+                <div *ngIf="signupForm.get('password').errors.required">Password is required</div>
+            </div>
+        </div>
+        <div>
+            <label>Confirm Password</label>
+            <input formControlName="confirmPassword" type="password" placeholder="Confirm your password"/>
+            <div *ngIf="signupForm.get('confirmPassword').invalid && signupForm.get('confirmPassword')?.touched">
+                <div *ngIf="signupForm.get('confirmPassword').errors.required">Confirm password is the same as password</div>
+            </div>
+        </div>
+        <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+    </form>
+</div>

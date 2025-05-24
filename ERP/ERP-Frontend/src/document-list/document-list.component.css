@@ -1,0 +1,10 @@
+.document-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.document-card {
+    width: 300px;
+}

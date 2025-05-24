@@ -1,0 +1,87 @@
+﻿﻿CREATE TABLE __EFMigrationsHistory (
+    MigrationId TEXT NOT NULL PRIMARY KEY,
+    ProductVersion TEXT NOT NULL
+);
+
+CREATE Table Document (
+    Id SERIAL NOT NULL PRIMARY KEY,
+    FileName TEXT NOT NULL,
+    FileUrl TEXT NOT NULL,
+    UPLOADEDAT TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    AMENDMENTS TEXT NOT NULL,
+    DocumentType TEXT NOT NULL
+)
+
+CREATE TABLE LlmResponse(
+    Id SERIAL NOT NULL PRIMARY KEY,
+    Response TEXT NOT NULL
+)
+
+CREATE TABLE PropertyLog (
+    Id SERIAL NOT NULL PRIMARY KEY,
+    PropertyName TEXT NOT NULL,
+    PropertyValue TEXT NOT NULL,
+    PropertyType TEXT NOT NULL,
+    LoggedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UserId INT NOT NULL,
+    FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE
+);
+
+CREATE TABLE Users (
+    UserId SERIAL NOT NULL PRIMARY KEY,
+    Name TEXT NOT NULL,
+    Email TEXT NOT NULL,
+    PasswordHash TEXT NOT NULL,
+    CreatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UpdatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
+
+CREATE TABLE BankPayments (
+    Id SERIAL NOT NULL PRIMARY KEY,
+    Payee TEXT NOT NULL,
+    Amount DECIMAL NOT NULL,
+    PaymentDate TEXT NOT NULL
+);
+
+CREATE TABLE BankReceipts (
+    Id SERIAL NOT NULL PRIMARY KEY,
+    Payer TEXT NOT NULL,
+    Amount DECIMAL NOT NULL,
+    ReceiptDate TEXT NOT NULL
+);
+
+CREATE TABLE JournalEntries (
+    Id SERIAL NOT NULL PRIMARY KEY,
+    Description TEXT NOT NULL,
+    Amount DECIMAL NOT NULL,
+    EntryDate TEXT NOT NULL
+);
+
+CREATE TABLE AccountingEntry (
+    Id SERIAL NOT NULL PRIMARY KEY,
+    PurchaseInvoiceId INT NOT NULL,
+    FOREIGN KEY (PurchaseInvoiceId) REFERENCES PurchaseInvoices(Id) ON DELETE CASCADE,
+    SaleInvoiceId INT NOT NULL,
+    FOREIGN KEY (SaleInvoiceId) REFERENCES SaleInvoices(Id) ON DELETE CASCADE,
+    Account TEXT NOT NULL,
+    Debit DECIMAL NOT NULL,
+    Credit DECIMAL NOT NULL,
+    EntryDate TEXT NOT NULL
+)
+
+CREATE TABLE PurchaseInvoice (
+    Id SERIAL NOT NULL PRIMARY KEY,
+    Supplier TEXT NOT NULL,
+    Amount DECIMAL NOT NULL,
+    InvoiceDate TEXT NOT NULL
+);
+
+CREATE TABLE SalesInvoices (
+    Id SERIAL NOT NULL PRIMARY KEY,
+    Customer TEXT NOT NULL,
+    Amount DECIMAL NOT NULL,
+    InvoiceDate TEXT NOT NULL
+);
+
+INSERT INTO __EFMigrationsHistory (MigrationId, ProductVersion)
+VALUES ('20250215123805_InitialCreate', '9.0.2');

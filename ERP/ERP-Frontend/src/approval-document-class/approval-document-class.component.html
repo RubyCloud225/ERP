@@ -1,0 +1,12 @@
+<div class="classified-documents-container">
+    <h2>Classified Documents</h2>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    <ul>
+      <li *ngFor="let document of classifiedDocuments">
+        <h3>{{ document.title }}</h3>
+        <p><strong>Description:</strong> {{ document.description }}</p>
+        <p><strong>Category:</strong> {{ document.category }}</p>
+        <button (click)="approveDocument(document.id, document.category)">Approve</button>
+      </li>
+    </ul>
+</div>
