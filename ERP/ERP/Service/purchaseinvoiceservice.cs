@@ -136,7 +136,7 @@ namespace ERP.Service
             }
 
             // Find the existing invoice by ID
-            var existingInvoice = await _dbContext.PurchaseInvoices.FindAsync(updatedInvoice.PurchaseInvoiceId);
+            var existingInvoice = await _dbContext.PurchaseInvoices.FindAsync(updatedInvoice.Id);
             if (existingInvoice == null)
             {
                 Console.WriteLine("Invoice does not exist in the database.");

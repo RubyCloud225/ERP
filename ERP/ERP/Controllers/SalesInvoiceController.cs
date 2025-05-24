@@ -49,7 +49,7 @@ namespace ERP.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteSalesInvoice([FromBody] Model.ApplicationDbContext.SalesInvoice deletedSalesInvoice)
         {
-            await _salesInvoiceService.DeleteSalesInvoiceAsync(deletedSalesInvoice);
+            await _salesInvoiceService.DeleteSalesInvoiceAsync(deletedSalesInvoice.Id);
             return Ok(new { message = "Sales invoice deleted successfully." });
         }
         [HttpPost("update")]

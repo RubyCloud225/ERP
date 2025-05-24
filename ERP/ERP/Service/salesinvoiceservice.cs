@@ -101,7 +101,7 @@ namespace ERP.Service
             salesInvoice.InvoiceNumber = invoiceNumber;
             await _dbContext.SaveChangesAsync();
         }
-        public async Task<bool> DeleteSalesInvoiceAsync(ApplicationDbContext.SalesInvoice Id)
+        public async Task<bool> DeleteSalesInvoiceAsync(int Id)
         {
             var salesInvoice = await _dbContext.SalesInvoices.FindAsync(Id);
             if (salesInvoice == null)
@@ -117,6 +117,6 @@ namespace ERP.Service
     {
         Task GenerateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount);
         Task UpdateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount);
-        Task<bool> DeleteSalesInvoiceAsync(ApplicationDbContext.SalesInvoice Id);
+        Task<bool> DeleteSalesInvoiceAsync(int Id);
     }
 }

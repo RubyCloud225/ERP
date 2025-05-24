@@ -58,6 +58,7 @@ namespace ERP.Model
 
         public class PurchaseInvoiceDto
         {
+            public int Id { get; set; }
             public required string PurchaseInvoiceNumber { get; set; }
             public required string Supplier { get; set; }
             public decimal NetAmount { get; set; }
@@ -74,12 +75,14 @@ namespace ERP.Model
 
         public class loginDto
         {
+            public int Id { get; set; }
             public required string Username { get; set; }
             public required string Password { get; set; }
         }
 
         public class UserDto
         {
+            public int Id { get; set; }
             public string? Username { get; set; }
             public string? Email { get; set; }
             public string? Name { get; set; }
@@ -122,8 +125,8 @@ namespace ERP.Model
 
         public class PurchaseInvoice
         {
+            public int Id { get; set; }
             public required string BlobName { get; set; }
-            public int PurchaseInvoiceId { get; set; }
             public required string PurchaseInvoiceNumber { get; set; }
             public required string Supplier { get; set; }
             public decimal NetAmount { get; set; }
