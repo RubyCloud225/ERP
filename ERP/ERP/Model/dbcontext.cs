@@ -13,8 +13,6 @@ namespace ERP.Model
         public DbSet<User> Users { get; set; }
         public DbSet<UserDto> userDtos { get; set; }
         public DbSet<SalesInvoice> SalesInvoices { get; set; }
-        public DbSet<BankPayment> BankPayments { get; set; }
-        public DbSet<BankReceipt> BankReceipts { get; set; }
         public DbSet<JournalEntry> JournalEntries { get; set; }
         public DbSet<PropertyLog> PropertyLogs { get; set; }
         public DbSet<DocumentRecord> DocumentRecords { get; set; }
@@ -22,6 +20,41 @@ namespace ERP.Model
         public DbSet<AccountingEntry> AccountingEntries { get; set; }
         public DbSet<loginDto> loginDtos { get; set; }
         public DbSet<PurchaseInvoiceDto> purchaseInvoiceDtos { get; set; }
+        public DbSet<BankAccount> BankAccounts { get; set; }
+        public DbSet<BankStatement> BankStatements { get; set; }
+        public DbSet<BankPayment> BankPayments { get; set; }
+        public DbSet<BankReceipt> BankReceipts { get; set; }
+
+
+        public class BankAccount
+        {
+            public int Id { get; set; }
+            public required string AccountNumber { get; set; }
+            public required string AccountName { get; set; }
+            public required string BankName { get; set; }
+            public decimal Balance { get; set; }
+        }
+        public class BankStatement
+        {
+            public int Id { get; set; }
+            public required string BlobName { get; set; }
+            public DateTime StatementDate { get; set; }
+            public required decimal Balance { get; set; }
+        }
+        public class BankPayment
+        {
+            public int Id { get; set; }
+            public required string Payee { get; set; }
+            public decimal Amount { get; set; }
+            public DateTime PaymentDate { get; set; }
+        }
+        public class BankReceipt
+        {
+            public int Id { get; set; }
+            public required string Payer { get; set; }
+            public decimal Amount { get; set; }
+            public DateTime ReceiptDate { get; set; }
+        }
 
         public class PurchaseInvoiceDto
         {
@@ -73,6 +106,7 @@ namespace ERP.Model
             public int Id { get; set; }
             public required string BlobName { get; set; }
             public DateTime CreatedAt { get; set; }
+            public required string DocumentContent { get; set; }
             public required string DocumentType { get; set; }
         }
 
@@ -88,6 +122,7 @@ namespace ERP.Model
 
         public class PurchaseInvoice
         {
+            public required string BlobName { get; set; }
             public int PurchaseInvoiceId { get; set; }
             public required string PurchaseInvoiceNumber { get; set; }
             public required string Supplier { get; set; }
@@ -97,10 +132,6 @@ namespace ERP.Model
             public required string Description { get; set; }
             public required string SupplierAddress { get; set; }
             public DateTime PurchaseInvoiceDate { get; set; }
-            public required string DocumentType { get; set; }
-            public required string Response { get; set; }
-            public required string NominalAccount { get; set; }
-            public required string ExpenseAccount { get; set; }
         }
 
         public class AccountingEntry
@@ -142,21 +173,6 @@ namespace ERP.Model
             public decimal TotalAmount { get; set; }
             public decimal SalesTax { get; set; }
             public decimal NetAmount { get; set; }
-        }
-        public class BankPayment
-        {
-            public int Id { get; set; }
-            public required string Payee { get; set; }
-            public decimal Amount { get; set; }
-            public DateTime PaymentDate { get; set; }
-        }
-
-        public class BankReceipt
-        {
-            public int Id { get; set; }
-            public required string Payer { get; set; }
-            public decimal Amount { get; set; }
-            public DateTime ReceiptDate { get; set; }
         }
 
         public class JournalEntry

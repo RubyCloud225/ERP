@@ -1,5 +1,6 @@
 using ERP.Model;
 using Microsoft.EntityFrameworkCore;
+using static ERP.Model.ApplicationDbContext;
 
 namespace ERP.Service
 {
@@ -15,62 +16,40 @@ namespace ERP.Service
             _llmService = llmService;
             _applicationDbContext = applicationDbContext;
         }
-        public async Task<string> ProcessDocumentAsync(string blobName)
-        {
-            // read the document content
-            var (header, body, footer) = await _documentService.ReadPdfContentAsync(blobName);
-            string documentContent = string.Join(Environment.NewLine, header) + Environment.NewLine + 
-                                    string.Join(Environment.NewLine, body) + Environment.NewLine + 
-                                    string.Join(Environment.NewLine, footer);
-            string documentType = await _llmService.GenerateDocumentCatagoryPromptAsync(blobName, documentContent);
-            await SaveDocumentRecordAsync(blobName, documentType);
-            // Create a prompt with the extracted information using the LLM service
-            return await _llmService.GenerateDocumentCatagoryPromptAsync(blobName, documentType);
-        }
-        private async Task SaveDocumentRecordAsync(string blobName, string documentType)
-        {
-            var documentRecord = new ApplicationDbContext.DocumentRecord
-            {
-                BlobName = blobName,
-                CreatedAt = DateTime.UtcNow,
-                DocumentType = documentType
-            };
-            _applicationDbContext.DocumentRecords.Add(documentRecord);
-            await _applicationDbContext.SaveChangesAsync();
-        }
-
-        public async Task<string> GeneratePromptFromSalesInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount)
+        public async Task<string> ProcessDocumentAsync(DocumentRecord documentRecord)
         {
             // Logic for processing outstanding task
-            return await _llmService.CreateSalesInvoiceAsync(blobName, invoiceDate, invoiceNumber, customerName, customerAddress, totalAmount, salesTax, netAmount);
+            return await _llmService.GenerateDocumentCatagoryPromptAsync(documentRecord);
         }
-        public async Task<string> GeneratePromptFromPurchaseInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string supplierName, string supplierAddress, decimal totalAmount, decimal purchaseTax, decimal netAmount)
+        public async Task<string> GeneratePromptFromSalesInvoiceAsync(SalesInvoice salesInvoice)
         {
             // Logic for processing outstanding task
-            return await _llmService.GeneratePromptFromPurchaseInvoiceAsync(blobName, invoiceDate, invoiceNumber, supplierName, supplierAddress, totalAmount, purchaseTax, netAmount);
+            return await _llmService.CreateSalesInvoiceAsync(salesInvoice);
         }
-        public async Task<string> BankStatementProcessorAsync(string blobName, DateTime Date, string Details, decimal Amount, decimal Balance, string accountNumber)
+        public async Task<string> GeneratePromptFromPurchaseInvoiceAsync(PurchaseInvoice purchaseInvoice)
         {
-            return await _llmService.GeneratePromptFromBankStatementAsync(blobName, Date, Details, Amount, Balance, accountNumber);
+            // Logic for processing outstanding task
+            return await _llmService.GeneratePromptFromPurchaseInvoiceAsync(purchaseInvoice);
         }
-        public async Task<string> EmailDocumentProcessorAsync(string blobName, string message, string subject, string senderEmail, string recipientEmail)
+        public async Task<string> BankStatementProcessorAsync(BankStatement bankStatement, BankAccount bankAccount, BankReceipt bankReciept, BankPayment bankPayment)
         {
-            return await _llmService.GeneratePromptFromEmailAsync(blobName, message, subject, senderEmail, recipientEmail);
+            // Logic for processing outstanding task
+            return await _llmService.GeneratePromptFromBankStatementAsync(bankAccount, bankReciept, bankPayment, bankStatement);
         }
-        public async Task<string> ProcessLetterAsync(string blobName, string message, string senderaddress, string recipientaddress, string subject)
+        public async Task<string> GeneratePrompttoCreateBankNominalAsync(BankAccount bankAccount, BankStatement bankStatement)
         {
-           return await _llmService.GenerateLetterPromptAsync(blobName, message, senderaddress, recipientaddress, subject);
+            // Logic for processing outstanding task
+            return await _llmService.GeneratePrompttoCreateBankNominalAsync(bankAccount, bankStatement);
         }
     }
 
     public interface IDocumentProcessor
     {
-        Task<string> ProcessDocumentAsync(string blobName);
-        Task<string> GeneratePromptFromPurchaseInvoiceAsync(string fileName, DateTime invoiceDate, string invoiceNumber, string supplierName, string supplierAddress, decimal totalAmount, decimal purchaseTax, decimal netAmount);
-        Task<string> GeneratePromptFromSalesInvoiceAsync(string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount);
-        Task<string> BankStatementProcessorAsync(string fileName, DateTime Date, string Details, decimal Amount, decimal Balance, string accountNumber);
-        Task<string> EmailDocumentProcessorAsync(string fileName, string message, string subject, string senderEmail, string recipientEmail);
-        Task<string> ProcessLetterAsync(string fileName, string message, string senderaddress, string recipientaddress, string subject);
+        Task<string> ProcessDocumentAsync(DocumentRecord documentRecord);
+        Task<string> GeneratePromptFromSalesInvoiceAsync(SalesInvoice salesInvoice);
+        Task<string> GeneratePromptFromPurchaseInvoiceAsync(PurchaseInvoice purchaseInvoice);
+        Task<string> BankStatementProcessorAsync(BankStatement bankStatement, BankAccount bankAccount, BankReceipt bankReciept, BankPayment bankPayment);
+        Task<string> GeneratePrompttoCreateBankNominalAsync(BankAccount bankAccount, BankStatement bankStatement);
     }
 
     public class DocumentProcessorFactory
