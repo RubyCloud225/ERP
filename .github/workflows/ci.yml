@@ -53,6 +53,6 @@ jobs:
     
     - name: Setup PostgreSQL User
       run: |
-        export PGPASSWORD=testpass
-        psql -h localhost -U testuser -c "CREATE ROLE testuser WITH LOGIN PASSWORD 'testpass';"
-        psql -h localhost -U testuser -c "CREATE DATABASE testdb_ci WITH OWNER testuser;"
+        export PGPASSWORD=<admin-password>
+        psql -h localhost -U postgres -c "CREATE ROLE testuser WITH LOGIN PASSWORD 'testpass';"
+        psql -h localhost -U postgres -c "CREATE DATABASE testdb_ci WITH OWNER testuser;"
