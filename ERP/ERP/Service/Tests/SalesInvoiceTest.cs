@@ -23,15 +23,27 @@ namespace ERP.Service.Tests
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .Build();
             
-            var connectionString = config.GetConnectionString("PostgresTestDb");
+            var connectionString = Environment.GetEnvironmentVariable("ERP_TEST_DB_CONNECTION_STRING") ??
+                                   config.GetConnectionString("TestConnection");
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new InvalidOperationException("Connection string for the test database is not set.");
+            }
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
 
             _dbContext = new ApplicationDbContext(options);
-            _dbContext.Database.EnsureCreated(); // Ensure the database is created for testing
-                                                 // Clear the database before each test
-            _dbContext.Database.EnsureDeleted();
+            try
+            {
+                _dbContext.Database.EnsureDeleted(); // Ensure the database is deleted before each test
+                _dbContext.Database.EnsureCreated();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to Initialize the test database {ex.Message}");
+            }
+            // Initialize mocks and service
             _llmServiceMock = new Mock<ILlmService>();
             _documentServiceMock = new Mock<IDocumentProcessor>();
             _salesInvoiceService = new SalesInvoiceService(_dbContext, _llmServiceMock.Object, _documentServiceMock.Object);
