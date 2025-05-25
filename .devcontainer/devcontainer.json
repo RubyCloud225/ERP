@@ -3,7 +3,7 @@
 {
 	"name": "C# (.NET)",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/dotnet:1-9.0-bookworm",
+	// Removed duplicate "build" key
 	"features": {
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
 		"ghcr.io/devcontainers/features/dotnet:2": {},
@@ -11,7 +11,34 @@
 		"ghcr.io/devcontainers-extra/features/aws-cdk:2": {},
 		"ghcr.io/szkiba/devcontainer-features/bats:1": {},
 		"ghcr.io/dotnet/aspire-devcontainer-feature/dotnetaspire:1": {}
+	},
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				// Configure VS Code settings. More info: https://aka.ms/vscode-remote/settings.
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"dotnet.defaultSolution": "src/aspire.sln",
+				"dotnet.enableHotReload": true,
+				"dotnet.enableCodeLens": true,
+				"dotnet.enableSolutionExplorer": true
+			}
+		},
+	"extensions": [
+		"ms-dotnettools.csharp",
+		"ms-dotnettools.vscode-dotnet-runtime",
+		"ms-vscode.azurecli",
+		"ms-azuretools.vscode-docker",
+		"github.vscode-pull-request-github",
+		"github.copilot-chat"
+	],
+	"postCreateCommand": "dotnet restore src/aspire.sln"
 	}
+	
+
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
