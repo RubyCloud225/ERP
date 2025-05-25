@@ -19,8 +19,9 @@ jobs:
           POSTGRES_USER: testuser
           POSTGRES_PASSWORD: testpass
           POSTGRES_DB: testdb_ci
+          PGUSER: testuser
         options: >-
-          --health-cmd pg_isready --username=testuser
+          --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
