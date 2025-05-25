@@ -2,16 +2,15 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  test:
+  build-test:
     runs-on: ubuntu-latest
-        services:
+
+    services:
       postgres:
         image: postgres:15
         ports:
@@ -21,19 +20,12 @@ jobs:
           POSTGRES_PASSWORD: testpass
           POSTGRES_DB: testdb_ci
         options: >-
-          --health-cmd pg_isready
+          --health-cmd pg_isready -U testuser
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
 
     env:
-      DOTNET_NOLOGO: true
-      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-      POSTGRES_HOST: localhost
-      POSTGRES_PORT: 5432
-      POSTGRES_USER: testuser
-      POSTGRES_PASSWORD: testpass
-      POSTGRES_DB: testdb_ci
       ConnectionStrings__PostgresTestDb: Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=testdb_ci
 
     steps:
@@ -49,33 +41,17 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build --configuration Release --no-restore
 
-    - name: Run Tests
-      run: dotnet test --no-build --configuration Release
-      
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '9.0.x'
-
-    - name: Restore dependencies
-      run: dotnet restore ERP/ERP.csproj
-
-    - name: Build
-      run: dotnet build ERP/ERP.csproj --configuration Release --no-restore
+    - name: Wait for PostgreSQL
+      run: |
+        for i in {1..10}; do
+          pg_isready -h localhost -U testuser && break
+          sleep 3
+        done
 
     - name: Test
-      run: dotnet test ERP/ERP.csproj --no-build --verbosity normal
+      run: dotnet test --no-build --configuration Release
 
     - name: Build Docker image
-      run: |
-        docker build -t erp:latest -f ERP/ERP/Dockerfile ERP/ERP
+      run: docker build -t erp:latest -f ERP/ERP/Dockerfile ERP/ERP
