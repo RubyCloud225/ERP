@@ -22,7 +22,7 @@ namespace ERP.Service.Tests
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .Build();
-            
+
             var connectionString = Environment.GetEnvironmentVariable("ERP_TEST_DB_CONNECTION_STRING") ??
                                    config.GetConnectionString("TestConnection");
             if (string.IsNullOrEmpty(connectionString))
@@ -545,7 +545,45 @@ namespace ERP.Service.Tests
             Assert.Equal(invoicestoGenerate, invoices.Count);
             Console.WriteLine($"Time taken to generate 1000 sales invoices: {stopwatch.ElapsedMilliseconds} ms");
         }
-        // integration test to ensure the service works with the actual database TODO
-        // API Endpoint Tests TODO
+        [Fact]
+        public async Task GenerateSalesInvoices_PerformanceTest()
+        {
+            var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
+            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;";
+            var connectionString = $"{baseConnectionString}{dbName}";
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseNpgsql(connectionString) // Unique database name for each test
+                .Options;
+            using var dbContext = new ApplicationDbContext(options);
+            await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+            try
+            {
+                var mockDocumentProcessor = new Mock<IDocumentProcessor>();
+                var mockLlmService = new Mock<ILlmService>();
+                var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                var start = DateTime.UtcNow;
+                int count = 100;
+                for (int i = 0; i <= count; i++)
+                {
+                    await salesInvoiceService.GenerateSalesInvoiceAsync(
+                        i + 1, // Id
+                        "test_blob_" + (i + 1), // BlobName
+                        DateTime.Now, // InvoiceDate
+                        "INV-" + (i + 1).ToString("D3"), // InvoiceNumber
+                        "Test Customer " + (i + 1), // CustomerName
+                        "123 Test Address " + (i + 1), // CustomerAddress
+                        1000.00m + i, // TotalAmount
+                        100.00m + i, // SalesTax
+                        1100.00m + i // NetAmount
+                    );
+                }
+                var duration = DateTime.UtcNow - start;
+                Assert.True(duration.TotalSeconds < 10, "Generating 100 sales invoices took too long.");
+            }
+            finally
+            {
+                await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+            }
+        }
     }
 }

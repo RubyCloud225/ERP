@@ -48,3 +48,6 @@ jobs:
       run: |
         chmod +x ./setup_postgres.sh
         ./setup_postgres.sh
+    
+    - name: Run tests
+      run: dotnet test --configuration Release --logger trx
