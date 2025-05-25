@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  erp-app:
+    container_name: erp-app
+    build:
+      context: ERP/ERP
+      dockerfile: Dockerfile
+    ports:
+      - "0:80" # Automatically assign an available host port to avoid conflicts like port 5000 already in use
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=erpdb;Username=erpuser;Password=erppassword
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:15
+    container_name: erp-postgres
+    environment:
+      POSTGRES_USER: erpuser
+      POSTGRES_PASSWORD: erppassword
+      POSTGRES_DB: erpdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

@@ -12,6 +12,11 @@ using ERP.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Enable detailed logging for debugging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Debug);
+
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddCors(options =>

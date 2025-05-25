@@ -5,6 +5,8 @@ using ERP.Service;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace ERP.Service.Tests
 {
@@ -16,11 +18,20 @@ namespace ERP.Service.Tests
         private readonly SalesInvoiceService _salesInvoiceService;
         public SalesInvoiceServiceTests()
         {
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();
+            
+            var connectionString = config.GetConnectionString("PostgresTestDb");
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database name for each test
+                .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
 
             _dbContext = new ApplicationDbContext(options);
+            _dbContext.Database.EnsureCreated(); // Ensure the database is created for testing
+                                                 // Clear the database before each test
+            _dbContext.Database.EnsureDeleted();
             _llmServiceMock = new Mock<ILlmService>();
             _documentServiceMock = new Mock<IDocumentProcessor>();
             _salesInvoiceService = new SalesInvoiceService(_dbContext, _llmServiceMock.Object, _documentServiceMock.Object);
@@ -30,10 +41,12 @@ namespace ERP.Service.Tests
         public async Task CreateSalesInvoice_with_Accounting_entries()
         {
             // Arrange
+            var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
+            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=";
+            var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database name for each test
-                .Options;
-
+               .UseNpgsql(connectionString) // Unique database name for each test
+               .Options;
             var mockDocumentProcessor = new Mock<IDocumentProcessor>();
             var mockLlmService = new Mock<ILlmService>();
             var dbContext = new ApplicationDbContext(options);
@@ -84,91 +97,113 @@ namespace ERP.Service.Tests
         public async Task UpdateSalesInvoice_ShouldUpdateInvoiceNumber_whenInvoiceExists()
         {
             // Arrange
+            var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
+            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=";
+            var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database name for each test
+                .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
 
-            var dbContext = new ApplicationDbContext(options);
-            var salesInvoice = new ApplicationDbContext.SalesInvoice
+            using var dbContext = new ApplicationDbContext(options);
+            await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+            try
             {
-                Id = 1,
-                BlobName = "test_blob",
-                InvoiceDate = DateTime.Now,
-                InvoiceNumber = "INV-001",
-                CustomerName = "Test Customer",
-                CustomerAddress = "123 Test Address",
-                TotalAmount = 1000.00m,
-                SalesTax = 100.00m,
-                NetAmount = 1100.00m,
-                UserId = new ApplicationDbContext.User
+                var salesInvoice = new ApplicationDbContext.SalesInvoice
                 {
-                    Id = 1, // Set the required UserId property
-                    Name = "Test Name",
-                    Username = "TestUsername",
-                    Email = "testuser@example.com",
-                    Password = "TestPassword123"
-                }
-            };
-            dbContext.SalesInvoices.Add(salesInvoice);
-            await dbContext.SaveChangesAsync();
-            var mockDocumentProcessor = new Mock<IDocumentProcessor>();
-            var mockLlmService = new Mock<ILlmService>();
-            var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-            // Act
-            await salesInvoiceService.UpdateSalesInvoiceAsync(
-                salesInvoice.Id, // Id
-                salesInvoice.BlobName, // BlobName
-                salesInvoice.InvoiceDate, // InvoiceDate
-                salesInvoice.InvoiceNumber, // InvoiceNumber
-                salesInvoice.CustomerName, // CustomerName
-                salesInvoice.CustomerAddress, // CustomerAddress
-                salesInvoice.TotalAmount, // TotalAmount
-                salesInvoice.SalesTax, // SalesTax
-                salesInvoice.NetAmount // NetAmount
-            );
-            // Assert
-            var updatedInvoice = dbContext.SalesInvoices.ToList();
-            Assert.NotNull(updatedInvoice);
-            Assert.Equal(salesInvoice.InvoiceNumber, updatedInvoice.First().InvoiceNumber);
+                    Id = 1,
+                    BlobName = "test_blob",
+                    InvoiceDate = DateTime.Now,
+                    InvoiceNumber = "TestInvoiceNumber",
+                    CustomerName = "Test Name",
+                    CustomerAddress = "Test Address",
+                    TotalAmount = 100,
+                    SalesTax = 10,
+                    NetAmount = 90,
+                    UserId = new ApplicationDbContext.User
+                    {
+                        Id = 1,
+                        Name = "Test User",
+                        Username = "testuser",
+                        Email = "testuser@example.com",
+                        Password = "TestPassword"
+                    }
+                };
+                dbContext.SalesInvoices.Add(salesInvoice);
+                await dbContext.SaveChangesAsync();
+                var mockDocumentProcessor = new Mock<IDocumentProcessor>();
+                var mockLlmService = new Mock<ILlmService>();
+                var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                // Act
+                await salesInvoiceService.UpdateSalesInvoiceAsync(
+                    salesInvoice.Id, // Id
+                    salesInvoice.BlobName, // BlobName
+                    salesInvoice.InvoiceDate, // InvoiceDate
+                    salesInvoice.InvoiceNumber, // InvoiceNumber
+                    salesInvoice.CustomerName, // CustomerName
+                    salesInvoice.CustomerAddress, // CustomerAddress
+                    salesInvoice.TotalAmount, // TotalAmount
+                    salesInvoice.SalesTax, // SalesTax
+                    salesInvoice.NetAmount // NetAmount
+                );
+                var updatedInvoice = dbContext.SalesInvoices.ToList();
+                Assert.NotNull(updatedInvoice);
+                Assert.Equal(salesInvoice.InvoiceNumber, updatedInvoice.First().InvoiceNumber);
+            }
+            finally
+            {
+                await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+            }
+            // Assert    
         }
         // Delete Sales Invoices 
         [Fact]
         public async Task DeleteSalesInvoice_ShouldDeleteInvoice_whenInvoiceExists()
         {
+            var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
+            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=";
+            var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database name for each test
+                .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
-            var mockDocumentProcessor = new Mock<IDocumentProcessor>();
-            var mockLlmService = new Mock<ILlmService>();
-            var dbContext = new ApplicationDbContext(options);
-            var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-            var salesInvoice = new ApplicationDbContext.SalesInvoice
+            using var dbContext = new ApplicationDbContext(options);
+            await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+            try
             {
-                Id = 1,
-                BlobName = "test_blob",
-                InvoiceDate = DateTime.Now,
-                InvoiceNumber = "INV-001",
-                CustomerName = "Test Customer",
-                CustomerAddress = "123 Test Address",
-                TotalAmount = 1000.00m,
-                SalesTax = 100.00m,
-                NetAmount = 1100.00m,
-                UserId = new ApplicationDbContext.User
+                var mockDocumentProcessor = new Mock<IDocumentProcessor>();
+                var mockLlmService = new Mock<ILlmService>();
+                var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                var salesInvoice = new ApplicationDbContext.SalesInvoice
                 {
-                    Id = 1, // Set the required UserId property
-                    Name = "Test Name",
-                    Username = "TestUsername",
-                    Email = "testuser@example.com",
-                    Password = "TestPassword123"
-                }
-            };
-            dbContext.SalesInvoices.Add(salesInvoice);
-            await dbContext.SaveChangesAsync();
-            // Act
-            await salesInvoiceService.DeleteSalesInvoiceAsync(salesInvoice.Id);
-            // Assert
-            var deletedInvoice = dbContext.SalesInvoices.ToList();
-            Assert.Empty(deletedInvoice);
+                    Id = 1,
+                    BlobName = "test_blob",
+                    InvoiceDate = DateTime.Now,
+                    InvoiceNumber = "INV-001",
+                    CustomerName = "Test Customer",
+                    CustomerAddress = "Test Address",
+                    TotalAmount = 100.0m,
+                    SalesTax = 10.0m,
+                    NetAmount = 90.0m,
+                    UserId = new ApplicationDbContext.User
+                    {
+                        Id = 1,
+                        Name = "Test User", // Set the required Name property
+                        Email = "test@example.com",
+                        Username = "Test User",
+                        Password = "test_password"
+                    }
+                };
+                dbContext.SalesInvoices.Add(salesInvoice);
+                await dbContext.SaveChangesAsync();
+                // Act
+                await salesInvoiceService.DeleteSalesInvoiceAsync(salesInvoice.Id);
+                // Assert
+                var deletedSalesInvoice = await dbContext.SalesInvoices.FindAsync(salesInvoice.Id);
+                Assert.Null(deletedSalesInvoice);
+            }
+            finally
+            {
+                await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+            }
         }
         // Edge cases
         [Fact]
@@ -196,204 +231,277 @@ namespace ERP.Service.Tests
         [Fact]
         public async Task GenerateSalesInvoiceAsync_withEmptyLLMResponse_shouldStillCreateInvoice()
         {
+            var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
+            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=";
+            var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database name for each test
+                .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
 
             using var dbContext = new ApplicationDbContext(options);
-            var documentMock = new Mock<IDocumentProcessor>();
-            var salesInvoiceService = new SalesInvoiceService(dbContext, _llmServiceMock.Object, documentMock.Object);
-
-            _llmServiceMock.Setup(x => x.GenerateResponseAsync(It.IsAny<string>()))
-                .ReturnsAsync(string.Empty);
-
-            await _salesInvoiceService.GenerateSalesInvoiceAsync(
-                3, // Id
-                "blob", // BlobName
-                DateTime.Now, // InvoiceDate
-                "InvoiceNumber", // InvoiceNumber
-                "Test Customer", // CustomerName
-                "Test Address", // CustomerAddress
-                1000.00m, // TotalAmount
-                100.00m, // SalesTax
-                1100.00m // NetAmount
-            );
-
-            var salesInvoice = await _dbContext.SalesInvoices.FindAsync(3);
-            Assert.NotNull(salesInvoice);
-            var entries = await _dbContext.AccountingEntries.ToListAsync();
-            Assert.Equal(3, entries.Count);
+            await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+            try
+            {
+                var documentMock = new Mock<IDocumentProcessor>();
+                var llmServiceMock = new Mock<ILlmService>();
+                var salesInvoiceService = new SalesInvoiceService(dbContext, llmServiceMock.Object, documentMock.Object);
+                // Mock the LLM service to return an empty response
+                llmServiceMock.Setup(s => s.GenerateResponseAsync(It.IsAny<string>()))
+                    .ReturnsAsync(string.Empty); // Simulate an empty response from LLM
+                // Arrange
+                await _salesInvoiceService.GenerateSalesInvoiceAsync(
+                    3, // Id
+                    "blob", // BlobName
+                    DateTime.Now, // InvoiceDate
+                    "InvoiceNumber", // InvoiceNumber
+                    "Test Customer", // CustomerName
+                    "Test Address", // CustomerAddress
+                    1000.00m, // TotalAmount
+                    100.00m, // SalesTax
+                    1100.00m // NetAmount
+                );
+                var salesInvoice = await _dbContext.SalesInvoices.FindAsync(3);
+                // Assert
+                Assert.NotNull(salesInvoice);
+                Assert.Equal("InvoiceNumber", salesInvoice.InvoiceNumber);
+                var accountingEntries = await _dbContext.AccountingEntries.ToListAsync();
+                Assert.Equal(3, accountingEntries.Count);
+            }
+            finally
+            {
+                await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+            }
         }
         [Fact]
         public async Task UpdateSalesInvoiceAsync_WithInvalidId_ShouldThrowExemption()
         {
             // Arrange
+            var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
+            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=";
+            var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database name for each test
+                .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
-            var dbContext = new ApplicationDbContext(options);
-            var mockDocumentProcessor = new Mock<IDocumentProcessor>();
-            var mockLlmService = new Mock<ILlmService>();
-            var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-            var ex = await Assert.ThrowsAsync<Exception>(async () =>
+            using var dbContext = new ApplicationDbContext(options);
+            await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+            try
             {
-                await _salesInvoiceService.UpdateSalesInvoiceAsync(
-                    999, // Id
-                    "test_blob", // BlobName
-                    DateTime.Now, // InvoiceDate
-                    "INV-999", // InvoiceNumber
-                    "Test Customer", // CustomerName
-                    "123 Test Address", // CustomerAddress
-                    1000.00m, // TotalAmount
-                    100.00m, // SalesTax
-                    1100.00m // NetAmount
-                );
-                await _dbContext.SaveChangesAsync();
-                await _dbContext.SalesInvoices.FindAsync(999);
-            });
-            Assert.Contains("Sales Invoice with Id", ex.Message);
+                var mockDocumentProcessor = new Mock<IDocumentProcessor>();
+                var mockLlmService = new Mock<ILlmService>();
+                var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                var ex = await Assert.ThrowsAsync<Exception>(async () =>
+                {
+                    await salesInvoiceService.UpdateSalesInvoiceAsync(
+                        999, // Invalid Id
+                        "test_blob", // BlobName
+                        DateTime.Now, // InvoiceDate
+                        "INV-001", // InvoiceNumber
+                        "Test Customer", // CustomerName
+                        "123 Test Address", // CustomerAddress
+                        1000.00m, // TotalAmount
+                        100.00m, // SalesTax
+                        1100.00m // NetAmount
+                    );
+                });
+                Assert.Contains("Sales Invoice with Id", ex.Message);
+            }
+            finally
+            {
+                await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+            }
         }
         [Fact]
         public async Task DeleteSalesInvoiceAsync_WithInvalidId_ShouldThrowException()
         {
-            // Arrange
+            var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
+            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password";
+            var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database name for each test
+                .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
-            var dbContext = new ApplicationDbContext(options);
-            var mockDocumentProcessor = new Mock<IDocumentProcessor>();
-            var mockLlmService = new Mock<ILlmService>();
-            var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-            // Act & Assert
-
-            var ex = await Assert.ThrowsAsync<Exception>(async () =>
+            using var dbContext = new ApplicationDbContext(options);
+            await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+            try
             {
-                await _salesInvoiceService.DeleteSalesInvoiceAsync(999);
-            });
-            await _dbContext.SaveChangesAsync();
-            await _dbContext.SalesInvoices.FindAsync(999);
-            Assert.Contains("Sales Invoice with Id", ex.Message);
+                var mockDocumentProcessor = new Mock<IDocumentProcessor>();
+                var mockLlmService = new Mock<ILlmService>();
+                var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                var ex = await Assert.ThrowsAsync<Exception>(async () =>
+                {
+                    await salesInvoiceService.DeleteSalesInvoiceAsync(999); // Invalid Id
+                });
+                await dbContext.SaveChangesAsync();
+                await dbContext.SalesInvoices.FindAsync(999);
+                Assert.Contains("Sales Invoice with Id", ex.Message);
+            }
+            finally
+            {
+                await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+            }
         }
 
         [Fact]
         public async Task GenerateSalesInvoiceAsync_ShouldThrowException_WhenBlobNameIsEmpty()
         {
-            // Arrange
+            var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
+            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=";
+            var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database name for each test
+                .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
-            var dbContext = new ApplicationDbContext(options);
-            var mockDocumentProcessor = new Mock<IDocumentProcessor>();
-            var mockLlmService = new Mock<ILlmService>();
-            var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-            var ex = await Assert.ThrowsAsync<Exception>(async () =>
+            using var dbContext = new ApplicationDbContext(options);
+            await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+            try
             {
-                await _salesInvoiceService.GenerateSalesInvoiceAsync(
-                    4, // Id
-                    string.Empty, // BlobName
-                    DateTime.Now, // InvoiceDate
-                    "INV-004", // InvoiceNumber
-                    "Test Customer", // CustomerName
-                    "123 Test Address", // CustomerAddress
-                    1000.00m, // TotalAmount
-                    100.00m, // SalesTax
-                    1100.00m // NetAmount
-                );
-                await _dbContext.SaveChangesAsync();
-                await _dbContext.SalesInvoices.FindAsync(4);
-            });
-            Assert.Contains("BlobName cannot be empty", ex.Message);
+                var mockDocumentProcessor = new Mock<IDocumentProcessor>();
+                var mockLlmService = new Mock<ILlmService>();
+                var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                var ex = await Assert.ThrowsAsync<Exception>(async () =>
+                {
+                    await salesInvoiceService.GenerateSalesInvoiceAsync(
+                        4, // Id
+                        string.Empty, // BlobName
+                        DateTime.Now, // InvoiceDate
+                        "INV-004", // InvoiceNumber
+                        "Test Customer", // CustomerName
+                        "123 Test Address", // CustomerAddress
+                        1000.00m, // TotalAmount
+                        100.00m, // SalesTax
+                        1100.00m // NetAmount
+                    );
+                    await dbContext.SaveChangesAsync();
+                    await dbContext.SalesInvoices.FindAsync(4);
+                });
+                Assert.Contains("BlobName is required", ex.Message);
+            }
+            finally
+            {
+                await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+            }
         }
         [Fact]
         public async Task GenerateSalesInvoiceAsync_ShouldThrowException_WhenInvoiceNumberIsEmpty()
         {
             // Arrange
+            var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
+            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=testpass;";
+            var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database name for each test
+                .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
-            var dbContext = new ApplicationDbContext(options);
-            var mockDocumentProcessor = new Mock<IDocumentProcessor>();
-            var mockLlmService = new Mock<ILlmService>();
-            var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-            var ex = await Assert.ThrowsAsync<Exception>(async () =>
+            using var _dbContext = new ApplicationDbContext(options);
+            await _dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+            try
             {
-                await _salesInvoiceService.GenerateSalesInvoiceAsync(
-                    5, // Id
-                    "test_blob", // BlobName
-                    DateTime.Now, // InvoiceDate
-                    string.Empty, // InvoiceNumber
-                    "Test Customer", // CustomerName
-                    "123 Test Address", // CustomerAddress
-                    1000.00m, // TotalAmount
-                    100.00m, // SalesTax
-                    1100.00m // NetAmount
-                );
-            });
-            await _dbContext.SaveChangesAsync();
-            await _dbContext.SalesInvoices.FindAsync(5);
-            Assert.Contains("InvoiceNumber cannot be empty", ex.Message);
+                var mockDocumentProcessor = new Mock<IDocumentProcessor>();
+                var mockLlmService = new Mock<ILlmService>();
+                var _salesInvoiceService = new SalesInvoiceService(_dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                var ex = await Assert.ThrowsAsync<Exception>(async () =>
+                {
+                    // Act
+                    await _salesInvoiceService.GenerateSalesInvoiceAsync(
+                        5, // Id
+                        "test_blob", // BlobName
+                        DateTime.Now, // InvoiceDate
+                        string.Empty, // InvoiceNumber
+                        "Test Customer", // CustomerName
+                        "123 Test Address", // CustomerAddress
+                        1000.00m, // TotalAmount
+                        100.00m, // SalesTax
+                        1100.00m // NetAmount
+                    );
+                });
+                await _dbContext.SaveChangesAsync();
+                await _dbContext.SalesInvoices.FindAsync(5);
+                Assert.Contains("InvoiceNumber cannot be empty", ex.Message);
+            }
+            finally
+            {
+                await _dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+            }
         }
         [Fact]
         public async Task GenerateSalesInvoiceAsync_ShouldThrowException_WhenCustomerNameIsEmpty()
         {
             // Arrange
+            var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
+            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=testpass;";
+            var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database name for each test
+                .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
-            var dbContext = new ApplicationDbContext(options);
-            var mockDocumentProcessor = new Mock<IDocumentProcessor>();
-            var mockLlmService = new Mock<ILlmService>();
-            var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-            var ex = await Assert.ThrowsAsync<Exception>(async () =>
+
+            using var dbContext = new ApplicationDbContext(options);
+            await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+            try
             {
-                await _salesInvoiceService.GenerateSalesInvoiceAsync(
-                    6, // Id
-                    "test_blob", // BlobName
-                    DateTime.Now, // InvoiceDate
-                    "INV-006", // InvoiceNumber
-                    string.Empty, // CustomerName
-                    "123 Test Address", // CustomerAddress
-                    1000.00m, // TotalAmount
-                    100.00m, // SalesTax
-                    1100.00m // NetAmount
-                );
-            });
-            await _dbContext.SaveChangesAsync();
-            await _dbContext.SalesInvoices.FindAsync(6);
-            Assert.Contains("CustomerName cannot be empty", ex.Message);
+                var mockDocumentProcessor = new Mock<IDocumentProcessor>();
+                var mockLlmService = new Mock<ILlmService>();
+                var _salesInvoiceService = new SalesInvoiceService(_dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                var ex = await Assert.ThrowsAsync<Exception>(async () =>
+                {
+                    // Act
+                    await _salesInvoiceService.GenerateSalesInvoiceAsync(
+                        6, // Id
+                        "test_blob", // BlobName
+                        DateTime.Now, // InvoiceDate
+                        "INV-006", // InvoiceNumber
+                        string.Empty, // CustomerName
+                        "123 Test Address", // CustomerAddress
+                        1000.00m, // TotalAmount
+                        100.00m, // SalesTax
+                        1100.00m // NetAmount
+                    );
+                });
+                await dbContext.SaveChangesAsync();
+                await dbContext.SalesInvoices.FindAsync(6);
+                Assert.Contains("CustomerName cannot be empty", ex.Message);
+            }
+            finally
+            {
+                await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+            }
         }
         [Fact]
         public async Task GenerateSalesInvoice_PerformanceTest_lengthPerInvoice()
         {
             // Arrange
+            var dbName = $"testdb_{Guid.NewGuid()}"; // Unique database name for each test
+            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=testpass;";
+            var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database name for each test
+                .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
-            var dbContext = new ApplicationDbContext(options);
-            var mockDocumentProcessor = new Mock<IDocumentProcessor>();
-            var mockLlmService = new Mock<ILlmService>();
-            var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-
-            // Act
-            var startTime = DateTime.Now;
-            for (int i = 1; i <= 1000; i++)
+            using var dbContext = new ApplicationDbContext(options);
+            await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+            try
             {
-                await salesInvoiceService.GenerateSalesInvoiceAsync(
-                    i, // Id
-                    "test_blob_" + i, // BlobName
-                    DateTime.Now, // InvoiceDate
-                    "INV-" + i.ToString("D3"), // InvoiceNumber
-                    "Test Customer " + i, // CustomerName
-                    "123 Test Address " + i, // CustomerAddress
-                    1000.00m + i, // TotalAmount
-                    100.00m + i, // SalesTax
-                    1100.00m + i // NetAmount
-                );
+                var mockDocumentProcessor = new Mock<IDocumentProcessor>();
+                var mockLlmService = new Mock<ILlmService>();
+                var _salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                // Act
+                var startTime = DateTime.Now;
+                for (int i = 1; i <= 1000; i++)
+                {
+                    await _salesInvoiceService.GenerateSalesInvoiceAsync(
+                        i, // Id
+                        "test_blob_" + i, // BlobName
+                        DateTime.Now, // InvoiceDate
+                        "INV-" + i.ToString("D3"), // InvoiceNumber
+                        "Test Customer " + i, // CustomerName
+                        "123 Test Address " + i, // CustomerAddress
+                        1000.00m + i, // TotalAmount
+                        100.00m + i, // SalesTax
+                        1100.00m + i // NetAmount
+                    );
+                }
+                var endTime = DateTime.Now;
+                Assert.True((endTime - startTime).TotalSeconds < 10, "Generating 1000 invoices took too long.");
             }
-            var endTime = DateTime.Now;
-
-            // Assert
-            Assert.True((endTime - startTime).TotalSeconds < 10); // Ensure it runs within 10 seconds
+            finally
+            {
+                await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+            }
         }
         [Fact]
         public async Task GenerateSalesInvoicesInBulk_PerformanceTest()

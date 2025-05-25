@@ -7,8 +7,14 @@ namespace ERP.Middleware
     {
         public static readonly ConcurrentDictionary<string, int> _requestCounts = new ConcurrentDictionary<string, int>();
         private static readonly int _maxRequestsPerMinute = 5; //Limit on prompts
+        private readonly RequestDelegate _next;
 
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        public RateLimitingMiddleware(RequestDelegate next)
+        {
+            _next = next;
+        }
+
+        public async Task InvokeAsync(HttpContext context)
         {
             if (context.Connection?.RemoteIpAddress != null)
             {
@@ -28,7 +34,7 @@ namespace ERP.Middleware
                 return;
             }
             
-            await next(context);
+            await _next(context);
         }
     }
 }
