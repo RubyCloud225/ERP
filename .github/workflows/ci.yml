@@ -46,8 +46,8 @@ jobs:
     
     - name: Setup PostgreSQL
       run: |
-        chmod +x ERP/ERP/ERP/setup_postgres.sh
-          .ERP/ERP/ERP/setup_postgres.sh
+        chmod +x /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/setup_postgres.sh
+          ./Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/setup_postgres.sh
 
     
     - name: Setup PostgreSQL User
