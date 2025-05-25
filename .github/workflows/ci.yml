@@ -46,8 +46,8 @@ jobs:
     
     - name: Setup PostgreSQL
       run: |
-        chmod +x ./scripts/setup_postgres.sh
-        ./scripts/setup_postgres.sh
+        chmod +x ./setup_postgres.sh
+        ./setup_postgres.sh
 
     
     - name: Setup PostgreSQL User
