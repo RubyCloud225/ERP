@@ -67,7 +67,7 @@ namespace ERP.Service.Tests
             {
                 Id = 1,
                 BlobName = "test_blob",
-                InvoiceDate = DateTime.Now,
+                InvoiceDate = DateTime.UtcNow,
                 InvoiceNumber = "INV-001",
                 CustomerName = "Test Customer",
                 CustomerAddress = "123 Test Address",
@@ -124,7 +124,7 @@ namespace ERP.Service.Tests
                 {
                     Id = 1,
                     BlobName = "test_blob",
-                    InvoiceDate = DateTime.Now,
+                    InvoiceDate = DateTime.UtcNow,
                     InvoiceNumber = "TestInvoiceNumber",
                     CustomerName = "Test Name",
                     CustomerAddress = "Test Address",
@@ -188,7 +188,7 @@ namespace ERP.Service.Tests
                 {
                     Id = 1,
                     BlobName = "test_blob",
-                    InvoiceDate = DateTime.Now,
+                    InvoiceDate = DateTime.UtcNow,
                     InvoiceNumber = "INV-001",
                     CustomerName = "Test Customer",
                     CustomerAddress = "Test Address",
@@ -225,7 +225,7 @@ namespace ERP.Service.Tests
             await _salesInvoiceService.GenerateSalesInvoiceAsync(
                 2, // Id
                 "test_blob", // BlobName
-                DateTime.Now, // InvoiceDate
+                DateTime.UtcNow,
                 "INV-001", // InvoiceNumber
                 "Test Customer", // CustomerName
                 "123 Test Address", // CustomerAddress
@@ -264,7 +264,7 @@ namespace ERP.Service.Tests
                 await _salesInvoiceService.GenerateSalesInvoiceAsync(
                     3, // Id
                     "blob", // BlobName
-                    DateTime.Now, // InvoiceDate
+                    DateTime.UtcNow,
                     "InvoiceNumber", // InvoiceNumber
                     "Test Customer", // CustomerName
                     "Test Address", // CustomerAddress
@@ -306,7 +306,7 @@ namespace ERP.Service.Tests
                     await salesInvoiceService.UpdateSalesInvoiceAsync(
                         999, // Invalid Id
                         "test_blob", // BlobName
-                        DateTime.Now, // InvoiceDate
+                        DateTime.UtcNow,
                         "INV-001", // InvoiceNumber
                         "Test Customer", // CustomerName
                         "123 Test Address", // CustomerAddress
@@ -373,7 +373,7 @@ namespace ERP.Service.Tests
                     await salesInvoiceService.GenerateSalesInvoiceAsync(
                         4, // Id
                         string.Empty, // BlobName
-                        DateTime.Now, // InvoiceDate
+                        DateTime.UtcNow,
                         "INV-004", // InvoiceNumber
                         "Test Customer", // CustomerName
                         "123 Test Address", // CustomerAddress
@@ -414,7 +414,7 @@ namespace ERP.Service.Tests
                     await _salesInvoiceService.GenerateSalesInvoiceAsync(
                         5, // Id
                         "test_blob", // BlobName
-                        DateTime.Now, // InvoiceDate
+                        DateTime.UtcNow,
                         string.Empty, // InvoiceNumber
                         "Test Customer", // CustomerName
                         "123 Test Address", // CustomerAddress
@@ -449,14 +449,14 @@ namespace ERP.Service.Tests
             {
                 var mockDocumentProcessor = new Mock<IDocumentProcessor>();
                 var mockLlmService = new Mock<ILlmService>();
-                var _salesInvoiceService = new SalesInvoiceService(_dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                var _salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
                 var ex = await Assert.ThrowsAsync<Exception>(async () =>
                 {
                     // Act
                     await _salesInvoiceService.GenerateSalesInvoiceAsync(
                         6, // Id
                         "test_blob", // BlobName
-                        DateTime.Now, // InvoiceDate
+                        DateTime.UtcNow,
                         "INV-006", // InvoiceNumber
                         string.Empty, // CustomerName
                         "123 Test Address", // CustomerAddress
@@ -492,13 +492,13 @@ namespace ERP.Service.Tests
                 var mockLlmService = new Mock<ILlmService>();
                 var _salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
                 // Act
-                var startTime = DateTime.Now;
+                var startTime = DateTime.UtcNow;
                 for (int i = 1; i <= 1000; i++)
                 {
                     await _salesInvoiceService.GenerateSalesInvoiceAsync(
                         i, // Id
                         "test_blob_" + i, // BlobName
-                        DateTime.Now, // InvoiceDate
+                        DateTime.UtcNow,
                         "INV-" + i.ToString("D3"), // InvoiceNumber
                         "Test Customer " + i, // CustomerName
                         "123 Test Address " + i, // CustomerAddress
@@ -507,7 +507,7 @@ namespace ERP.Service.Tests
                         1100.00m + i // NetAmount
                     );
                 }
-                var endTime = DateTime.Now;
+                var endTime = DateTime.UtcNow;
                 Assert.True((endTime - startTime).TotalSeconds < 10, "Generating 1000 invoices took too long.");
             }
             finally
@@ -527,7 +527,7 @@ namespace ERP.Service.Tests
                 var task = _salesInvoiceService.GenerateSalesInvoiceAsync(
                     id, // Id
                     "test_blob_" + id, // BlobName
-                    DateTime.Now, // InvoiceDate
+                    DateTime.UtcNow,
                     "INV-" + id.ToString("D3"), // InvoiceNumber
                     "Test Customer " + id, // CustomerName
                     "123 Test Address " + id, // CustomerAddress
@@ -568,7 +568,7 @@ namespace ERP.Service.Tests
                     await salesInvoiceService.GenerateSalesInvoiceAsync(
                         i + 1, // Id
                         "test_blob_" + (i + 1), // BlobName
-                        DateTime.Now, // InvoiceDate
+                        DateTime.UtcNow,
                         "INV-" + (i + 1).ToString("D3"), // InvoiceNumber
                         "Test Customer " + (i + 1), // CustomerName
                         "123 Test Address " + (i + 1), // CustomerAddress
