@@ -48,11 +48,3 @@ jobs:
       run: |
         chmod +x ./setup_postgres.sh
         ./setup_postgres.sh
-
-
-    
-    - name: Setup PostgreSQL User
-      run: |
-        export PGPASSWORD=<admin-password>
-        psql -h localhost -U postgres -c "CREATE ROLE testuser WITH LOGIN PASSWORD 'testpass';"
-        psql -h localhost -U postgres -c "CREATE DATABASE testdb_ci WITH OWNER testuser;"
