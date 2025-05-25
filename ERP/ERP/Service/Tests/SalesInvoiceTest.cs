@@ -54,7 +54,7 @@ namespace ERP.Service.Tests
         {
             // Arrange
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                .UseNpgsql(connectionString) // Unique database name for each test
@@ -110,7 +110,7 @@ namespace ERP.Service.Tests
         {
             // Arrange
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -172,7 +172,7 @@ namespace ERP.Service.Tests
         public async Task DeleteSalesInvoice_ShouldDeleteInvoice_whenInvoiceExists()
         {
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -244,7 +244,7 @@ namespace ERP.Service.Tests
         public async Task GenerateSalesInvoiceAsync_withEmptyLLMResponse_shouldStillCreateInvoice()
         {
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -289,7 +289,7 @@ namespace ERP.Service.Tests
         {
             // Arrange
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -326,7 +326,7 @@ namespace ERP.Service.Tests
         public async Task DeleteSalesInvoiceAsync_WithInvalidId_ShouldThrowException()
         {
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -356,7 +356,7 @@ namespace ERP.Service.Tests
         public async Task GenerateSalesInvoiceAsync_ShouldThrowException_WhenBlobNameIsEmpty()
         {
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=yourpassword;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -396,7 +396,7 @@ namespace ERP.Service.Tests
         {
             // Arrange
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=testpass;";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test

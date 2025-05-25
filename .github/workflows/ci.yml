@@ -43,6 +43,11 @@ jobs:
 
     - name: Build
       run: dotnet build --configuration Release --no-restore
+    
+    - name: Setup PostgreSQL User
+      run: |
+        psql -h localhost -U testuser -c "CREATE ROLE erpuser_test LOGIN PASSWORD 'somepassword';"
+        psql -h localhost -U testuser -c "GRANT ALL PRIVILEGES ON DATABASE testdb_ci TO erpuser_test;"
 
     - name: Wait for PostgreSQL
       run: |
