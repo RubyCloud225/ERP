@@ -46,6 +46,7 @@ jobs:
     
     - name: Setup PostgreSQL User
       run: |
+        export PGPASSWORD=testpass
         psql -h localhost -U testuser -c "CREATE ROLE erpuser_test LOGIN PASSWORD 'somepassword';"
         psql -h localhost -U testuser -c "GRANT ALL PRIVILEGES ON DATABASE testdb_ci TO erpuser_test;"
 
