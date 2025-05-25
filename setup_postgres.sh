@@ -12,5 +12,3 @@ psql -h localhost -U testuser -d postgres -c "CREATE DATABASE testdb_ci WITH OWN
 
 # Grant privileges
 psql -h localhost -U testuser -d testdb_ci -c "GRANT ALL PRIVILEGES ON DATABASE testdb_ci TO testuser;"
-psql -h localhost -U testuser -d postgres -c "CREATE ROLE testuser WITH LOGIN PASSWORD 'testpass';"
-psql -h localhost -U testuser -d postgres -c "CREATE DATABASE testdb_ci OWNER testuser;"
