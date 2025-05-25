@@ -46,8 +46,8 @@ jobs:
     
     - name: Setup PostgreSQL
       run: |
-        chmod +x ../../ERP/ERP/setup_postgres.sh
-        ../../ERP/ERP/setup_postgres.sh
+        chmod +x ./setup_postgres.sh
+        ./setup_postgres.sh
 
 
     
