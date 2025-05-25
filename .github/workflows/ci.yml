@@ -49,9 +49,9 @@ jobs:
         export PGPASSWORD=testpass
         psql -h localhost -U testuser -c "CREATE ROLE erpuser_test LOGIN PASSWORD 'somepassword';"
         psql -h localhost -U testuser -c "GRANT ALL PRIVILEGES ON DATABASE testdb_ci TO erpuser_test;"
-        psql -h localhost -U testuser -c "CREATE DATABASE IF NOT EXISTS erpdb_test WITH OWNER erpuser_test;"
         psql -h localhost -U testuser -c "CREATE SCHEMA IF NOT EXISTS erp_schema;"
         psql -h localhost -U testuser -c "GRANT ALL PRIVILEGES ON SCHEMA erp_schema TO erpuser_test;"
+        psql -h localhost -U testuser -c "CREATE DATABASE testuser WITH OWNER testuser;"
 
     - name: Wait for PostgreSQL
       run: |
