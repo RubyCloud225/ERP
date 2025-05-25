@@ -48,6 +48,19 @@ jobs:
       run: |
         chmod +x ./setup_postgres.sh
         ./setup_postgres.sh
+
+    - name: Wait for PostgreSQL to be ready
+      run: |
+        for i in {1..30}; do
+          if pg_isready -h localhost -p 5432 -U testuser; then
+            echo "PostgreSQL is ready!"
+            exit 0
+          fi
+          echo "Waiting for PostgreSQL to be ready..."
+          sleep 5
+        done
+        echo "PostgreSQL did not become ready in time."
+        exit 1
     
     - name: Run tests
       run: dotnet test --configuration Release --logger trx
