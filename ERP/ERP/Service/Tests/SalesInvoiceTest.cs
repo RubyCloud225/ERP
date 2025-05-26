@@ -38,6 +38,7 @@ namespace ERP.Service.Tests
             {
                 _dbContext.Database.EnsureDeleted(); // Ensure the database is deleted before each test
                 _dbContext.Database.EnsureCreated();
+                SeedTestUser();
             }
             catch (Exception ex)
             {
@@ -47,6 +48,23 @@ namespace ERP.Service.Tests
             _llmServiceMock = new Mock<ILlmService>();
             _documentServiceMock = new Mock<IDocumentProcessor>();
             _salesInvoiceService = new SalesInvoiceService(_dbContext, _llmServiceMock.Object, _documentServiceMock.Object);
+        }
+
+        private void SeedTestUser()
+        {
+            var user = new ApplicationDbContext.User
+            {
+                Id = 1,
+                Name = "Test User",
+                Username = "testuser",
+                Email = "testuser@example.com",
+                Password = "TestPassword"
+            };
+            if (!_dbContext.Users.AnyAsync(u => u.Id == user.Id).GetAwaiter().GetResult())
+            {
+                _dbContext.Users.Add(user);
+                _dbContext.SaveChanges();
+            }
         }
         // Create sales invoice service with mocked dependencies
         [Fact]

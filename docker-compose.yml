@@ -11,7 +11,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=erpdb;Username=erpuser;Password=erppassword
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=erpdb;Username=testuser;Password=testpass
     depends_on:
       - postgres
 
@@ -19,13 +19,14 @@ services:
     image: postgres:15
     container_name: erp-postgres
     environment:
-      POSTGRES_USER: erpuser
-      POSTGRES_PASSWORD: erppassword
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
       POSTGRES_DB: erpdb
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./ERP/ERP/InitScripts:/docker-entrypoint-initdb.d
 
 volumes:
   pgdata:

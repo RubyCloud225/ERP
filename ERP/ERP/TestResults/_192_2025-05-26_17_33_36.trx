@@ -1,0 +1,682 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c5de3768-cfa5-48ce-89c9-031ae54e0b3e" name="@192 2025-05-26 17:33:36" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-05-26T17:33:36.5428430+01:00" queuing="2025-05-26T17:33:36.5428430+01:00" start="2025-05-26T17:33:34.8378260+01:00" finish="2025-05-26T17:33:37.2379260+01:00" />
+  <TestSettings name="default" id="6280d583-f76f-4f12-9aa9-497f54e02464">
+    <Deployment runDeploymentRoot="_192_2025-05-26_17_33_36" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6f577955-ec8d-4b17-8f19-9b7230f536e5" testId="8752641a-bb1d-d727-6f89-462090f60abe" testName="ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoiceAsync_WithInvalidId_ShouldThrowExemption" computerName="192" duration="00:00:00.0604329" startTime="2025-05-26T17:33:36.8079970+01:00" endTime="2025-05-26T17:33:36.8079970+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6f577955-ec8d-4b17-8f19-9b7230f536e5">
+      <Output>
+        <ErrorInfo>
+          <Message>Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"</Message>
+          <StackTrace>   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+   at ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoiceAsync_WithInvalidId_ShouldThrowExemption() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 326
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="75193d25-4d14-42ad-ab57-d2db974ed6de" testId="c75c4191-6f4d-59a9-673b-89a966205c23" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoicesInBulk_PerformanceTest" computerName="192" duration="00:00:00.1398598" startTime="2025-05-26T17:33:37.1186360+01:00" endTime="2025-05-26T17:33:37.1186360+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="75193d25-4d14-42ad-ab57-d2db974ed6de">
+      <Output>
+        <ErrorInfo>
+          <Message>Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"</Message>
+          <StackTrace>   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.&lt;Get&gt;g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at ERP.Service.SalesInvoiceService.GenerateSalesInvoiceAsync(Int32 Id, String blobName, DateTime invoiceDate, String invoiceNumber, String customerName, String customerAddress, Decimal totalAmount, Decimal salesTax, Decimal netAmount, Int32 UserId) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/salesinvoiceservice.cs:line 36
+   at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoicesInBulk_PerformanceTest() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 582
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="80f1e051-fd4c-45b0-a2a2-dc8a21de000a" testId="10ef8de3-dee6-8261-418f-4a9a4c71a6c6" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenInvoiceNumberIsEmpty" computerName="192" duration="00:00:00.0525085" startTime="2025-05-26T17:33:36.9212430+01:00" endTime="2025-05-26T17:33:36.9212430+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80f1e051-fd4c-45b0-a2a2-dc8a21de000a">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Format of the initialization string does not conform to specification starting at index 61.</Message>
+          <StackTrace>   at System.Data.Common.DbConnectionOptions.GetKeyValuePair(String connectionString, Int32 currentPosition, StringBuilder buffer, Boolean useOdbcRules, String&amp; keyname, String&amp; keyvalue)
+   at System.Data.Common.DbConnectionOptions.ParseInternal(Dictionary`2 parsetable, String connectionString, Boolean buildChain, Dictionary`2 synonyms, Boolean firstKey)
+   at System.Data.Common.DbConnectionOptions..ctor(String connectionString, Dictionary`2 synonyms, Boolean useOdbcRules)
+   at System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   at Npgsql.NpgsqlConnectionStringBuilder..ctor(String connectionString)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+   at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenInvoiceNumberIsEmpty() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 435
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cb805a29-935e-4151-b365-4ab8b95567f5" testId="e2ecfc67-7b47-741f-3d74-d755eca0a640" testName="ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoiceAsync_WithInvalidId_ShouldThrowException" computerName="192" duration="00:00:00.0774128" startTime="2025-05-26T17:33:36.1336000+01:00" endTime="2025-05-26T17:33:36.1336000+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cb805a29-935e-4151-b365-4ab8b95567f5">
+      <Output>
+        <ErrorInfo>
+          <Message>Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"</Message>
+          <StackTrace>   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+   at ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoiceAsync_WithInvalidId_ShouldThrowException() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 364
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="66eee703-72a0-46ef-89cd-909313c3e3c6" testId="3a09e90b-0ecd-fc0a-c863-3c9eac21d751" testName="ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoice_ShouldDeleteInvoice_whenInvoiceExists" computerName="192" duration="00:00:00.0565303" startTime="2025-05-26T17:33:36.4905650+01:00" endTime="2025-05-26T17:33:36.4905650+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="66eee703-72a0-46ef-89cd-909313c3e3c6">
+      <Output>
+        <ErrorInfo>
+          <Message>Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"</Message>
+          <StackTrace>   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+   at ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoice_ShouldDeleteInvoice_whenInvoiceExists() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 205
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b5ca198f-ba81-442f-9500-d4f5f0f8265a" testId="acc435f4-e1d7-c960-8f2c-6b142ce24594" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceRequest_ShouldAddSalesInvoiceAndAccountingEntries" computerName="192" duration="00:00:00.0601544" startTime="2025-05-26T17:33:36.5512120+01:00" endTime="2025-05-26T17:33:36.5512120+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5ca198f-ba81-442f-9500-d4f5f0f8265a">
+      <Output>
+        <ErrorInfo>
+          <Message>Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"</Message>
+          <StackTrace>   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.&lt;Get&gt;g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at ERP.Service.SalesInvoiceService.GenerateSalesInvoiceAsync(Int32 Id, String blobName, DateTime invoiceDate, String invoiceNumber, String customerName, String customerAddress, Decimal totalAmount, Decimal salesTax, Decimal netAmount, Int32 UserId) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/salesinvoiceservice.cs:line 36
+   at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceRequest_ShouldAddSalesInvoiceAndAccountingEntries() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 251
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="efb8e1f9-428b-43c8-ab54-be76a310dcdc" testId="452e561e-4dc9-2752-f5b8-87bba40e65f3" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoice_PerformanceTest_lengthPerInvoice" computerName="192" duration="00:00:00.3321313" startTime="2025-05-26T17:33:36.0566590+01:00" endTime="2025-05-26T17:33:36.0566690+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="efb8e1f9-428b-43c8-ab54-be76a310dcdc">
+      <Output>
+        <ErrorInfo>
+          <Message>Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"</Message>
+          <StackTrace>   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+   at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoice_PerformanceTest_lengthPerInvoice() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 527
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fd1ee22e-16d4-407c-b2a4-d8e7f9c034b3" testId="06134bf6-a816-466b-2129-2061943822bd" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoices_PerformanceTest" computerName="192" duration="00:00:00.0618131" startTime="2025-05-26T17:33:36.4332550+01:00" endTime="2025-05-26T17:33:36.4332550+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fd1ee22e-16d4-407c-b2a4-d8e7f9c034b3">
+      <Output>
+        <ErrorInfo>
+          <Message>Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"</Message>
+          <StackTrace>   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+   at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoices_PerformanceTest() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 606
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6c97e435-c90f-4292-8d5b-1444580e6793" testId="0bb6069b-dd94-9c1f-071f-5addec28ef11" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_withEmptyLLMResponse_shouldStillCreateInvoice" computerName="192" duration="00:00:00.0600962" startTime="2025-05-26T17:33:36.8685500+01:00" endTime="2025-05-26T17:33:36.8685500+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6c97e435-c90f-4292-8d5b-1444580e6793">
+      <Output>
+        <ErrorInfo>
+          <Message>Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"</Message>
+          <StackTrace>   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+   at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_withEmptyLLMResponse_shouldStillCreateInvoice() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 281
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="90e275c6-2ab9-4982-b12d-1677588d1ba9" testId="c6c00f7a-c10e-2b50-1ad6-18f31d85c16a" testName="ERP.Service.Tests.SalesInvoiceServiceTests.CreateSalesInvoice_with_Accounting_entries" computerName="192" duration="00:00:00.1712620" startTime="2025-05-26T17:33:36.3057020+01:00" endTime="2025-05-26T17:33:36.3057020+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="90e275c6-2ab9-4982-b12d-1677588d1ba9">
+      <Output>
+        <ErrorInfo>
+          <Message>Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"</Message>
+          <StackTrace>   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.PoolingDataSource.&lt;Get&gt;g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at ERP.Service.SalesInvoiceService.GenerateSalesInvoiceAsync(Int32 Id, String blobName, DateTime invoiceDate, String invoiceNumber, String customerName, String customerAddress, Decimal totalAmount, Decimal salesTax, Decimal netAmount, Int32 UserId) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/salesinvoiceservice.cs:line 36
+   at ERP.Service.Tests.SalesInvoiceServiceTests.CreateSalesInvoice_with_Accounting_entries() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 111
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0759db53-15d5-4ac4-88f2-8d6198caf38d" testId="32c3bec9-1be9-7150-b238-fbdeebb6cb22" testName="ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoice_ShouldUpdateInvoiceNumber_whenInvoiceExists" computerName="192" duration="00:00:00.0558719" startTime="2025-05-26T17:33:36.9778910+01:00" endTime="2025-05-26T17:33:36.9778910+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0759db53-15d5-4ac4-88f2-8d6198caf38d">
+      <Output>
+        <ErrorInfo>
+          <Message>Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"</Message>
+          <StackTrace>   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+   at ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoice_ShouldUpdateInvoiceNumber_whenInvoiceExists() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 141
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1fc16bad-8ef3-4d4b-a9f2-8af8ae2915b5" testId="ff2d0b07-b4c7-ad8d-a54e-21f850c6167f" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenBlobNameIsEmpty" computerName="192" duration="00:00:00.0647865" startTime="2025-05-26T17:33:36.3708480+01:00" endTime="2025-05-26T17:33:36.3708480+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1fc16bad-8ef3-4d4b-a9f2-8af8ae2915b5">
+      <Output>
+        <ErrorInfo>
+          <Message>Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"</Message>
+          <StackTrace>   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+   at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenBlobNameIsEmpty() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 394
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="77490860-ffda-45ff-9efc-49b18d15cfcd" testId="bc070881-bb3c-689c-f65f-95b4dcdb3d0d" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenCustomerNameIsEmpty" computerName="192" duration="00:00:00.1954239" startTime="2025-05-26T17:33:36.7468740+01:00" endTime="2025-05-26T17:33:36.7468740+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="77490860-ffda-45ff-9efc-49b18d15cfcd">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : Format of the initialization string does not conform to specification starting at index 61.</Message>
+          <StackTrace>   at System.Data.Common.DbConnectionOptions.GetKeyValuePair(String connectionString, Int32 currentPosition, StringBuilder buffer, Boolean useOdbcRules, String&amp; keyname, String&amp; keyvalue)
+   at System.Data.Common.DbConnectionOptions.ParseInternal(Dictionary`2 parsetable, String connectionString, Boolean buildChain, Dictionary`2 synonyms, Boolean firstKey)
+   at System.Data.Common.DbConnectionOptions..ctor(String connectionString, Dictionary`2 synonyms, Boolean useOdbcRules)
+   at System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+   at Npgsql.NpgsqlConnectionStringBuilder..ctor(String connectionString)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+   at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenCustomerNameIsEmpty() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs:line 478
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoice_ShouldUpdateInvoiceNumber_whenInvoiceExists" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="32c3bec9-1be9-7150-b238-fbdeebb6cb22">
+      <Execution id="0759db53-15d5-4ac4-88f2-8d6198caf38d" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="UpdateSalesInvoice_ShouldUpdateInvoiceNumber_whenInvoiceExists" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoiceAsync_WithInvalidId_ShouldThrowExemption" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="8752641a-bb1d-d727-6f89-462090f60abe">
+      <Execution id="6f577955-ec8d-4b17-8f19-9b7230f536e5" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="UpdateSalesInvoiceAsync_WithInvalidId_ShouldThrowExemption" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenBlobNameIsEmpty" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="ff2d0b07-b4c7-ad8d-a54e-21f850c6167f">
+      <Execution id="1fc16bad-8ef3-4d4b-a9f2-8af8ae2915b5" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoiceAsync_ShouldThrowException_WhenBlobNameIsEmpty" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoice_PerformanceTest_lengthPerInvoice" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="452e561e-4dc9-2752-f5b8-87bba40e65f3">
+      <Execution id="efb8e1f9-428b-43c8-ab54-be76a310dcdc" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoice_PerformanceTest_lengthPerInvoice" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_withEmptyLLMResponse_shouldStillCreateInvoice" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="0bb6069b-dd94-9c1f-071f-5addec28ef11">
+      <Execution id="6c97e435-c90f-4292-8d5b-1444580e6793" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoiceAsync_withEmptyLLMResponse_shouldStillCreateInvoice" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenCustomerNameIsEmpty" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="bc070881-bb3c-689c-f65f-95b4dcdb3d0d">
+      <Execution id="77490860-ffda-45ff-9efc-49b18d15cfcd" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoiceAsync_ShouldThrowException_WhenCustomerNameIsEmpty" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.CreateSalesInvoice_with_Accounting_entries" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="c6c00f7a-c10e-2b50-1ad6-18f31d85c16a">
+      <Execution id="90e275c6-2ab9-4982-b12d-1677588d1ba9" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="CreateSalesInvoice_with_Accounting_entries" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoices_PerformanceTest" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="06134bf6-a816-466b-2129-2061943822bd">
+      <Execution id="fd1ee22e-16d4-407c-b2a4-d8e7f9c034b3" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoices_PerformanceTest" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenInvoiceNumberIsEmpty" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="10ef8de3-dee6-8261-418f-4a9a4c71a6c6">
+      <Execution id="80f1e051-fd4c-45b0-a2a2-dc8a21de000a" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoiceAsync_ShouldThrowException_WhenInvoiceNumberIsEmpty" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceRequest_ShouldAddSalesInvoiceAndAccountingEntries" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="acc435f4-e1d7-c960-8f2c-6b142ce24594">
+      <Execution id="b5ca198f-ba81-442f-9500-d4f5f0f8265a" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoiceRequest_ShouldAddSalesInvoiceAndAccountingEntries" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoiceAsync_WithInvalidId_ShouldThrowException" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="e2ecfc67-7b47-741f-3d74-d755eca0a640">
+      <Execution id="cb805a29-935e-4151-b365-4ab8b95567f5" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="DeleteSalesInvoiceAsync_WithInvalidId_ShouldThrowException" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoicesInBulk_PerformanceTest" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="c75c4191-6f4d-59a9-673b-89a966205c23">
+      <Execution id="75193d25-4d14-42ad-ab57-d2db974ed6de" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoicesInBulk_PerformanceTest" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoice_ShouldDeleteInvoice_whenInvoiceExists" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/release/net9.0/erp.dll" id="3a09e90b-0ecd-fc0a-c863-3c9eac21d751">
+      <Execution id="66eee703-72a0-46ef-89cd-909313c3e3c6" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Release/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="DeleteSalesInvoice_ShouldDeleteInvoice_whenInvoiceExists" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8752641a-bb1d-d727-6f89-462090f60abe" executionId="6f577955-ec8d-4b17-8f19-9b7230f536e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c75c4191-6f4d-59a9-673b-89a966205c23" executionId="75193d25-4d14-42ad-ab57-d2db974ed6de" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="10ef8de3-dee6-8261-418f-4a9a4c71a6c6" executionId="80f1e051-fd4c-45b0-a2a2-dc8a21de000a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e2ecfc67-7b47-741f-3d74-d755eca0a640" executionId="cb805a29-935e-4151-b365-4ab8b95567f5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a09e90b-0ecd-fc0a-c863-3c9eac21d751" executionId="66eee703-72a0-46ef-89cd-909313c3e3c6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="acc435f4-e1d7-c960-8f2c-6b142ce24594" executionId="b5ca198f-ba81-442f-9500-d4f5f0f8265a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="452e561e-4dc9-2752-f5b8-87bba40e65f3" executionId="efb8e1f9-428b-43c8-ab54-be76a310dcdc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="06134bf6-a816-466b-2129-2061943822bd" executionId="fd1ee22e-16d4-407c-b2a4-d8e7f9c034b3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0bb6069b-dd94-9c1f-071f-5addec28ef11" executionId="6c97e435-c90f-4292-8d5b-1444580e6793" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c6c00f7a-c10e-2b50-1ad6-18f31d85c16a" executionId="90e275c6-2ab9-4982-b12d-1677588d1ba9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="32c3bec9-1be9-7150-b238-fbdeebb6cb22" executionId="0759db53-15d5-4ac4-88f2-8d6198caf38d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff2d0b07-b4c7-ad8d-a54e-21f850c6167f" executionId="1fc16bad-8ef3-4d4b-a9f2-8af8ae2915b5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bc070881-bb3c-689c-f65f-95b4dcdb3d0d" executionId="77490860-ffda-45ff-9efc-49b18d15cfcd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="13" executed="13" passed="0" failed="13" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 9.0.0)
+[xUnit.net 00:00:00.65]   Discovering: ERP
+[xUnit.net 00:00:00.66]   Discovered:  ERP
+[xUnit.net 00:00:00.66]   Starting:    ERP
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.02]       Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.02]       Stack Trace:
+[xUnit.net 00:00:01.02]            at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+[xUnit.net 00:00:01.02]            at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+[xUnit.net 00:00:01.02]            at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.02]            at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.02]            at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.02]            at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.02]            at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.02]            at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.02]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.02]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.02]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+[xUnit.net 00:00:01.02]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.02]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.02]            at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+[xUnit.net 00:00:01.02]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(527,0): at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoice_PerformanceTest_lengthPerInvoice()
+[xUnit.net 00:00:01.02]         --- End of stack trace from previous location ---
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.09]       Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.09]       Stack Trace:
+[xUnit.net 00:00:01.09]            at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+[xUnit.net 00:00:01.09]            at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+[xUnit.net 00:00:01.09]            at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.09]            at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.09]            at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.09]            at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.09]            at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.09]            at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.09]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.09]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.09]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+[xUnit.net 00:00:01.09]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.09]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.09]            at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+[xUnit.net 00:00:01.09]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(364,0): at ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoiceAsync_WithInvalidId_ShouldThrowException()
+[xUnit.net 00:00:01.09]         --- End of stack trace from previous location ---
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.27]       Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.27]       Stack Trace:
+[xUnit.net 00:00:01.27]            at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+[xUnit.net 00:00:01.27]            at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+[xUnit.net 00:00:01.27]            at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Npgsql.PoolingDataSource.&lt;Get&gt;g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+[xUnit.net 00:00:01.27]            at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[xUnit.net 00:00:01.27]            at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]            at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.27]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/salesinvoiceservice.cs(36,0): at ERP.Service.SalesInvoiceService.GenerateSalesInvoiceAsync(Int32 Id, String blobName, DateTime invoiceDate, String invoiceNumber, String customerName, String customerAddress, Decimal totalAmount, Decimal salesTax, Decimal netAmount, Int32 UserId)
+[xUnit.net 00:00:01.27]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(111,0): at ERP.Service.Tests.SalesInvoiceServiceTests.CreateSalesInvoice_with_Accounting_entries()
+[xUnit.net 00:00:01.27]         --- End of stack trace from previous location ---
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.33]       Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.33]       Stack Trace:
+[xUnit.net 00:00:01.33]            at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+[xUnit.net 00:00:01.33]            at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+[xUnit.net 00:00:01.33]            at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.33]            at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.33]            at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.33]            at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.33]            at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.33]            at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.33]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.33]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.33]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+[xUnit.net 00:00:01.33]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.33]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.33]            at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+[xUnit.net 00:00:01.33]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(394,0): at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenBlobNameIsEmpty()
+[xUnit.net 00:00:01.33]         --- End of stack trace from previous location ---
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.39]       Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.39]       Stack Trace:
+[xUnit.net 00:00:01.39]            at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+[xUnit.net 00:00:01.39]            at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+[xUnit.net 00:00:01.39]            at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.39]            at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.39]            at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.39]            at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.39]            at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.39]            at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.39]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.39]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.39]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+[xUnit.net 00:00:01.39]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.39]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.39]            at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+[xUnit.net 00:00:01.39]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(606,0): at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoices_PerformanceTest()
+[xUnit.net 00:00:01.39]         --- End of stack trace from previous location ---
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.45]       Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.45]       Stack Trace:
+[xUnit.net 00:00:01.45]            at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+[xUnit.net 00:00:01.45]            at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+[xUnit.net 00:00:01.45]            at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.45]            at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.45]            at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.45]            at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.45]            at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.45]            at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.45]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.45]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.45]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+[xUnit.net 00:00:01.45]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.45]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.45]            at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+[xUnit.net 00:00:01.45]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(205,0): at ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoice_ShouldDeleteInvoice_whenInvoiceExists()
+[xUnit.net 00:00:01.45]         --- End of stack trace from previous location ---
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.51]       Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.51]       Stack Trace:
+[xUnit.net 00:00:01.51]            at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+[xUnit.net 00:00:01.51]            at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+[xUnit.net 00:00:01.51]            at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Npgsql.PoolingDataSource.&lt;Get&gt;g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+[xUnit.net 00:00:01.51]            at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[xUnit.net 00:00:01.51]            at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]            at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.51]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/salesinvoiceservice.cs(36,0): at ERP.Service.SalesInvoiceService.GenerateSalesInvoiceAsync(Int32 Id, String blobName, DateTime invoiceDate, String invoiceNumber, String customerName, String customerAddress, Decimal totalAmount, Decimal salesTax, Decimal netAmount, Int32 UserId)
+[xUnit.net 00:00:01.51]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(251,0): at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceRequest_ShouldAddSalesInvoiceAndAccountingEntries()
+[xUnit.net 00:00:01.51]         --- End of stack trace from previous location ---
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.71]       System.ArgumentException : Format of the initialization string does not conform to specification starting at index 61.
+[xUnit.net 00:00:01.71]       Stack Trace:
+[xUnit.net 00:00:01.71]            at System.Data.Common.DbConnectionOptions.GetKeyValuePair(String connectionString, Int32 currentPosition, StringBuilder buffer, Boolean useOdbcRules, String&amp; keyname, String&amp; keyvalue)
+[xUnit.net 00:00:01.71]            at System.Data.Common.DbConnectionOptions.ParseInternal(Dictionary`2 parsetable, String connectionString, Boolean buildChain, Dictionary`2 synonyms, Boolean firstKey)
+[xUnit.net 00:00:01.71]            at System.Data.Common.DbConnectionOptions..ctor(String connectionString, Dictionary`2 synonyms, Boolean useOdbcRules)
+[xUnit.net 00:00:01.71]            at System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+[xUnit.net 00:00:01.71]            at Npgsql.NpgsqlConnectionStringBuilder..ctor(String connectionString)
+[xUnit.net 00:00:01.71]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.71]            at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+[xUnit.net 00:00:01.71]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(478,0): at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenCustomerNameIsEmpty()
+[xUnit.net 00:00:01.71]         --- End of stack trace from previous location ---
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.77]       Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.77]       Stack Trace:
+[xUnit.net 00:00:01.77]            at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+[xUnit.net 00:00:01.77]            at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+[xUnit.net 00:00:01.77]            at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.77]            at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.77]            at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.77]            at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.77]            at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.77]            at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.77]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.77]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.77]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+[xUnit.net 00:00:01.77]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.77]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.77]            at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+[xUnit.net 00:00:01.77]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(326,0): at ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoiceAsync_WithInvalidId_ShouldThrowExemption()
+[xUnit.net 00:00:01.77]         --- End of stack trace from previous location ---
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.83]       Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.83]       Stack Trace:
+[xUnit.net 00:00:01.83]            at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+[xUnit.net 00:00:01.83]            at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+[xUnit.net 00:00:01.83]            at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.83]            at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.83]            at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.83]            at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.83]            at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.83]            at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.83]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.83]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.83]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+[xUnit.net 00:00:01.83]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.83]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.83]            at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+[xUnit.net 00:00:01.83]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(281,0): at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_withEmptyLLMResponse_shouldStillCreateInvoice()
+[xUnit.net 00:00:01.83]         --- End of stack trace from previous location ---
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.88]       System.ArgumentException : Format of the initialization string does not conform to specification starting at index 61.
+[xUnit.net 00:00:01.88]       Stack Trace:
+[xUnit.net 00:00:01.88]            at System.Data.Common.DbConnectionOptions.GetKeyValuePair(String connectionString, Int32 currentPosition, StringBuilder buffer, Boolean useOdbcRules, String&amp; keyname, String&amp; keyvalue)
+[xUnit.net 00:00:01.88]            at System.Data.Common.DbConnectionOptions.ParseInternal(Dictionary`2 parsetable, String connectionString, Boolean buildChain, Dictionary`2 synonyms, Boolean firstKey)
+[xUnit.net 00:00:01.88]            at System.Data.Common.DbConnectionOptions..ctor(String connectionString, Dictionary`2 synonyms, Boolean useOdbcRules)
+[xUnit.net 00:00:01.88]            at System.Data.Common.DbConnectionStringBuilder.set_ConnectionString(String value)
+[xUnit.net 00:00:01.88]            at Npgsql.NpgsqlConnectionStringBuilder..ctor(String connectionString)
+[xUnit.net 00:00:01.88]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.88]            at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+[xUnit.net 00:00:01.88]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(435,0): at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenInvoiceNumberIsEmpty()
+[xUnit.net 00:00:01.88]         --- End of stack trace from previous location ---
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.94]       Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:01.94]       Stack Trace:
+[xUnit.net 00:00:01.94]            at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+[xUnit.net 00:00:01.94]            at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+[xUnit.net 00:00:01.94]            at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.94]            at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.94]            at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.94]            at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.94]            at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.94]            at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.94]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.94]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.94]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+[xUnit.net 00:00:01.94]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.94]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:01.94]            at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+[xUnit.net 00:00:01.94]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(141,0): at ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoice_ShouldUpdateInvoiceNumber_whenInvoiceExists()
+[xUnit.net 00:00:01.94]         --- End of stack trace from previous location ---
+Failed to Initialize the test database 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:02.08]       Npgsql.PostgresException : 28P01: password authentication failed for user "testuser"
+[xUnit.net 00:00:02.08]       Stack Trace:
+[xUnit.net 00:00:02.08]            at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+[xUnit.net 00:00:02.08]            at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource&lt;TResult&gt;.GetResult(Int16 token)
+[xUnit.net 00:00:02.08]            at Npgsql.Internal.NpgsqlConnector.AuthenticateSASL(List`1 mechanisms, String username, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Npgsql.Internal.NpgsqlConnector.&lt;Open&gt;g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Npgsql.PoolingDataSource.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Npgsql.PoolingDataSource.&lt;Get&gt;g__RentAsync|33_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Npgsql.NpgsqlConnection.&lt;Open&gt;g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+[xUnit.net 00:00:02.08]            at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[xUnit.net 00:00:02.08]            at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]            at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+[xUnit.net 00:00:02.08]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/salesinvoiceservice.cs(36,0): at ERP.Service.SalesInvoiceService.GenerateSalesInvoiceAsync(Int32 Id, String blobName, DateTime invoiceDate, String invoiceNumber, String customerName, String customerAddress, Decimal totalAmount, Decimal salesTax, Decimal netAmount, Int32 UserId)
+[xUnit.net 00:00:02.08]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/Tests/SalesInvoiceTest.cs(582,0): at ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoicesInBulk_PerformanceTest()
+[xUnit.net 00:00:02.08]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.08]   Finished:    ERP
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:36.0558150+01:00">
+        <Text>[xUnit.net 00:00:01.02]     ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoice_PerformanceTest_lengthPerInvoice [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:36.1335060+01:00">
+        <Text>[xUnit.net 00:00:01.09]     ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoiceAsync_WithInvalidId_ShouldThrowException [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:36.3055360+01:00">
+        <Text>[xUnit.net 00:00:01.27]     ERP.Service.Tests.SalesInvoiceServiceTests.CreateSalesInvoice_with_Accounting_entries [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:36.3707140+01:00">
+        <Text>[xUnit.net 00:00:01.33]     ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenBlobNameIsEmpty [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:36.4331080+01:00">
+        <Text>[xUnit.net 00:00:01.39]     ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoices_PerformanceTest [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:36.4901920+01:00">
+        <Text>[xUnit.net 00:00:01.45]     ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoice_ShouldDeleteInvoice_whenInvoiceExists [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:36.5508980+01:00">
+        <Text>[xUnit.net 00:00:01.51]     ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceRequest_ShouldAddSalesInvoiceAndAccountingEntries [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:36.7467960+01:00">
+        <Text>[xUnit.net 00:00:01.71]     ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenCustomerNameIsEmpty [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:36.8078450+01:00">
+        <Text>[xUnit.net 00:00:01.77]     ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoiceAsync_WithInvalidId_ShouldThrowExemption [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:36.8684080+01:00">
+        <Text>[xUnit.net 00:00:01.83]     ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_withEmptyLLMResponse_shouldStillCreateInvoice [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:36.9211480+01:00">
+        <Text>[xUnit.net 00:00:01.88]     ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenInvoiceNumberIsEmpty [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:36.9777140+01:00">
+        <Text>[xUnit.net 00:00:01.94]     ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoice_ShouldUpdateInvoiceNumber_whenInvoiceExists [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="192" outcome="Error" timestamp="2025-05-26T17:33:37.1183720+01:00">
+        <Text>[xUnit.net 00:00:02.08]     ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoicesInBulk_PerformanceTest [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>
