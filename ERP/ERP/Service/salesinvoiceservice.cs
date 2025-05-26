@@ -17,7 +17,7 @@ namespace ERP.Service
             _llmService = llmService;
         }
         // use LLM to create a sales invoice
-        public async Task GenerateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId)
+        public async Task GenerateSalesInvoiceAsync(Guid Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId)
         {
             if (string.IsNullOrEmpty(blobName))
             {
@@ -130,7 +130,7 @@ namespace ERP.Service
             }
             return (nominalAccount, expenseAccount);
         }
-        public async Task UpdateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId)
+        public async Task UpdateSalesInvoiceAsync(Guid Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId)
         {
             var salesInvoice = await _dbContext.SalesInvoices.FindAsync(Id);
 
@@ -143,7 +143,7 @@ namespace ERP.Service
             {
                 throw new Exception("BlobName cannot be empty");
             }
-            salesInvoice.UserId = UserId;
+            salesInvoice.UserId = UserId; // Assuming 'user.Id' is of type 'int' and corresponds to the UserId
             salesInvoice.InvoiceNumber = invoiceNumber;
             salesInvoice.InvoiceDate = invoiceDate;
             salesInvoice.CustomerName = customerName;
@@ -154,7 +154,7 @@ namespace ERP.Service
             salesInvoice.BlobName = blobName;
             await _dbContext.SaveChangesAsync();
         }
-        public async Task<bool> DeleteSalesInvoiceAsync(int Id, int UserId)
+        public async Task<bool> DeleteSalesInvoiceAsync(Guid Id, int UserId)
         {
             // Removed redundant redeclaration of _dbContext
 
@@ -164,7 +164,7 @@ namespace ERP.Service
                 throw new Exception($"Sales Invoice with Id {Id} not found");
             }
             var user = await _dbContext.Users.FindAsync(UserId) ?? throw new Exception($"User with Id {UserId} not found");
-            salesInvoice.UserId = user.Id; // assigning the User's Id to match the int type of UserId
+            salesInvoice.UserId = UserId; // assuming 'Id' is the correct property in the User entity
             _dbContext.SalesInvoices.Remove(salesInvoice);
             await _dbContext.SaveChangesAsync();
             return true;
@@ -172,8 +172,8 @@ namespace ERP.Service
     }
     public interface ISalesInvoiceService
     {
-        Task GenerateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId);
-        Task UpdateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId);
-        Task<bool> DeleteSalesInvoiceAsync(int Id, int UserId);
+        Task GenerateSalesInvoiceAsync(Guid Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId);
+        Task UpdateSalesInvoiceAsync(Guid Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId);
+        Task<bool> DeleteSalesInvoiceAsync(Guid Id, int UserId);
     }
 }

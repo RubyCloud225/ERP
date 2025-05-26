@@ -29,7 +29,7 @@ namespace ERP.Model
 
         public class BankAccount
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string AccountNumber { get; set; }
             public required string AccountName { get; set; }
             public required string BankName { get; set; }
@@ -39,7 +39,7 @@ namespace ERP.Model
         }
         public class BankStatement
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string BlobName { get; set; }
             public DateTime StatementDate { get; set; }
             public required decimal Balance { get; set; }
@@ -48,7 +48,7 @@ namespace ERP.Model
         }
         public class BankPayment
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string Payee { get; set; }
             public decimal Amount { get; set; }
             public DateTime PaymentDate { get; set; }
@@ -57,7 +57,7 @@ namespace ERP.Model
         }
         public class BankReceipt
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string Payer { get; set; }
             public decimal Amount { get; set; }
             public DateTime ReceiptDate { get; set; }
@@ -67,7 +67,7 @@ namespace ERP.Model
 
         public class PurchaseInvoiceDto
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string PurchaseInvoiceNumber { get; set; }
             public required string Supplier { get; set; }
             public decimal NetAmount { get; set; }
@@ -84,14 +84,14 @@ namespace ERP.Model
 
         public class loginDto
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string Username { get; set; }
             public required string Password { get; set; }
         }
 
         public class UserDto
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public string? Username { get; set; }
             public string? Email { get; set; }
             public string? Name { get; set; }
@@ -100,7 +100,7 @@ namespace ERP.Model
 
         public class User
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string Name { get; set; }
             public required string Username { get; set; }
             public required string Email { get; set; }
@@ -109,7 +109,7 @@ namespace ERP.Model
 
         public class LlmResponse
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string Response { get; set; }
             public int? UserId { get; set; }
             public User? User { get; set; }
@@ -117,7 +117,7 @@ namespace ERP.Model
 
         public class DocumentRecord
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string BlobName { get; set; }
             public DateTime CreatedAt { get; set; }
             public required string DocumentContent { get; set; }
@@ -128,7 +128,7 @@ namespace ERP.Model
 
         public class PropertyLog
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string PropertyName { get; set; }
             public required string PropertyValue { get; set; }
             public required string PropertyType { get; set; }
@@ -139,7 +139,7 @@ namespace ERP.Model
 
         public class PurchaseInvoice
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string BlobName { get; set; }
             public required string PurchaseInvoiceNumber { get; set; }
             public required string Supplier { get; set; }
@@ -155,7 +155,7 @@ namespace ERP.Model
 
         public class AccountingEntry
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public int? PurchaseInvoiceId { get; set; }
             public required string Account { get; set; }
             public decimal Debit { get; set; }
@@ -167,7 +167,7 @@ namespace ERP.Model
 
         public class SalesInvoice
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string BlobName { get; set; }
             public DateTime InvoiceDate { get; set; }
             public required string InvoiceNumber { get; set; }
@@ -182,13 +182,13 @@ namespace ERP.Model
         }
         public class UpdateSalesInvoiceRequest
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string InvoiceNumber { get; set; }
         }
 
         public class GenerateSalesInvoiceRequest
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string BlobName { get; set; }
             public DateTime InvoiceDate { get; set; }
             public required string InvoiceNumber { get; set; }
@@ -202,7 +202,7 @@ namespace ERP.Model
 
         public class JournalEntry
         {
-            public int Id { get; set; }
+            public Guid Id { get; set; }
             public required string Description { get; set; }
             public decimal Amount { get; set; }
             public DateTime EntryDate { get; set; }

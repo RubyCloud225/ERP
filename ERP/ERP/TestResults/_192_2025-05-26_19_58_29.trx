@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f6be268f-3e36-4591-8338-279c115c50c8" name="@192 2025-05-26 19:58:29" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-05-26T19:58:29.8081910+01:00" queuing="2025-05-26T19:58:29.8081910+01:00" start="2025-05-26T19:58:19.2636010+01:00" finish="2025-05-26T19:58:37.3440800+01:00" />
+  <TestSettings name="default" id="2fc6d4b6-00e4-46a7-b945-247925b4591e">
+    <Deployment runDeploymentRoot="_192_2025-05-26_19_58_29" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="cab14a8d-7476-4cec-a134-dae049f16982" testId="3a09e90b-0ecd-fc0a-c863-3c9eac21d751" testName="ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoice_ShouldDeleteInvoice_whenInvoiceExists" computerName="192" duration="00:00:00.6264300" startTime="2025-05-26T19:58:33.0593490+01:00" endTime="2025-05-26T19:58:33.0593490+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cab14a8d-7476-4cec-a134-dae049f16982" />
+    <UnitTestResult executionId="e3eeb0e2-8bd4-45d1-aecd-2f2fdc5e3f68" testId="452e561e-4dc9-2752-f5b8-87bba40e65f3" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoice_PerformanceTest_lengthPerInvoice" computerName="192" duration="00:00:09.8825848" startTime="2025-05-26T19:58:29.7924220+01:00" endTime="2025-05-26T19:58:29.7924300+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e3eeb0e2-8bd4-45d1-aecd-2f2fdc5e3f68" />
+    <UnitTestResult executionId="e2cedcbe-f8ec-4d6a-83af-cb5f37bb8860" testId="8752641a-bb1d-d727-6f89-462090f60abe" testName="ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoiceAsync_WithInvalidId_ShouldThrowExemption" computerName="192" duration="00:00:00.5997951" startTime="2025-05-26T19:58:34.8042330+01:00" endTime="2025-05-26T19:58:34.8042330+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e2cedcbe-f8ec-4d6a-83af-cb5f37bb8860" />
+    <UnitTestResult executionId="edd558b4-9e53-4733-bf10-3bfaebc53c5e" testId="bc070881-bb3c-689c-f65f-95b4dcdb3d0d" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenCustomerNameIsEmpty" computerName="192" duration="00:00:00.6297155" startTime="2025-05-26T19:58:34.2043190+01:00" endTime="2025-05-26T19:58:34.2043190+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="edd558b4-9e53-4733-bf10-3bfaebc53c5e" />
+    <UnitTestResult executionId="75281994-302a-4a3b-b6e4-ce039fddc09c" testId="06134bf6-a816-466b-2129-2061943822bd" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoices_PerformanceTest" computerName="192" duration="00:00:00.7420673" startTime="2025-05-26T19:58:32.4327940+01:00" endTime="2025-05-26T19:58:32.4327940+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="75281994-302a-4a3b-b6e4-ce039fddc09c" />
+    <UnitTestResult executionId="cadc1e31-1872-4d8b-a868-8a8820e8c779" testId="10ef8de3-dee6-8261-418f-4a9a4c71a6c6" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenInvoiceNumberIsEmpty" computerName="192" duration="00:00:00.6386073" startTime="2025-05-26T19:58:36.0565040+01:00" endTime="2025-05-26T19:58:36.0565040+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cadc1e31-1872-4d8b-a868-8a8820e8c779" />
+    <UnitTestResult executionId="44524c54-32b2-442f-b036-b92f6d18d405" testId="c6c00f7a-c10e-2b50-1ad6-18f31d85c16a" testName="ERP.Service.Tests.SalesInvoiceServiceTests.CreateSalesInvoice_with_Accounting_entries" computerName="192" duration="00:00:00.6216576" startTime="2025-05-26T19:58:31.0663690+01:00" endTime="2025-05-26T19:58:31.0663690+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="44524c54-32b2-442f-b036-b92f6d18d405" />
+    <UnitTestResult executionId="5f9021c7-d07d-40dc-b28f-921694592dc2" testId="e2ecfc67-7b47-741f-3d74-d755eca0a640" testName="ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoiceAsync_WithInvalidId_ShouldThrowException" computerName="192" duration="00:00:00.6519516" startTime="2025-05-26T19:58:30.4445840+01:00" endTime="2025-05-26T19:58:30.4445840+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5f9021c7-d07d-40dc-b28f-921694592dc2" />
+    <UnitTestResult executionId="9cefd53e-4666-4de7-b492-2445078647d1" testId="32c3bec9-1be9-7150-b238-fbdeebb6cb22" testName="ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoice_ShouldUpdateInvoiceNumber_whenInvoiceExists" computerName="192" duration="00:00:00.6207142" startTime="2025-05-26T19:58:36.6773350+01:00" endTime="2025-05-26T19:58:36.6773350+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9cefd53e-4666-4de7-b492-2445078647d1" />
+    <UnitTestResult executionId="7ba017be-480e-42b2-a1aa-ca0e6f76d51f" testId="c75c4191-6f4d-59a9-673b-89a966205c23" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoicesInBulk_PerformanceTest" computerName="192" duration="00:00:00.6244049" startTime="2025-05-26T19:58:37.3018360+01:00" endTime="2025-05-26T19:58:37.3018360+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ba017be-480e-42b2-a1aa-ca0e6f76d51f" />
+    <UnitTestResult executionId="f58ab5be-ae2b-408e-ba75-47a18954eab2" testId="0bb6069b-dd94-9c1f-071f-5addec28ef11" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_withEmptyLLMResponse_shouldStillCreateInvoice" computerName="192" duration="00:00:00.6134430" startTime="2025-05-26T19:58:35.4177830+01:00" endTime="2025-05-26T19:58:35.4177830+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f58ab5be-ae2b-408e-ba75-47a18954eab2" />
+    <UnitTestResult executionId="dfd539db-5231-44bd-b8ae-2c20cd0fce1c" testId="acc435f4-e1d7-c960-8f2c-6b142ce24594" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceRequest_ShouldAddSalesInvoiceAndAccountingEntries" computerName="192" duration="00:00:00.5150213" startTime="2025-05-26T19:58:33.5744850+01:00" endTime="2025-05-26T19:58:33.5744850+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dfd539db-5231-44bd-b8ae-2c20cd0fce1c" />
+    <UnitTestResult executionId="c087b1c5-a46d-4964-8494-003700ae7e4f" testId="ff2d0b07-b4c7-ad8d-a54e-21f850c6167f" testName="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenBlobNameIsEmpty" computerName="192" duration="00:00:00.6241415" startTime="2025-05-26T19:58:31.6905970+01:00" endTime="2025-05-26T19:58:31.6905970+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c087b1c5-a46d-4964-8494-003700ae7e4f" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoice_ShouldUpdateInvoiceNumber_whenInvoiceExists" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="32c3bec9-1be9-7150-b238-fbdeebb6cb22">
+      <Execution id="9cefd53e-4666-4de7-b492-2445078647d1" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="UpdateSalesInvoice_ShouldUpdateInvoiceNumber_whenInvoiceExists" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.UpdateSalesInvoiceAsync_WithInvalidId_ShouldThrowExemption" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="8752641a-bb1d-d727-6f89-462090f60abe">
+      <Execution id="e2cedcbe-f8ec-4d6a-83af-cb5f37bb8860" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="UpdateSalesInvoiceAsync_WithInvalidId_ShouldThrowExemption" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenBlobNameIsEmpty" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="ff2d0b07-b4c7-ad8d-a54e-21f850c6167f">
+      <Execution id="c087b1c5-a46d-4964-8494-003700ae7e4f" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoiceAsync_ShouldThrowException_WhenBlobNameIsEmpty" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoice_PerformanceTest_lengthPerInvoice" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="452e561e-4dc9-2752-f5b8-87bba40e65f3">
+      <Execution id="e3eeb0e2-8bd4-45d1-aecd-2f2fdc5e3f68" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoice_PerformanceTest_lengthPerInvoice" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_withEmptyLLMResponse_shouldStillCreateInvoice" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="0bb6069b-dd94-9c1f-071f-5addec28ef11">
+      <Execution id="f58ab5be-ae2b-408e-ba75-47a18954eab2" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoiceAsync_withEmptyLLMResponse_shouldStillCreateInvoice" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenCustomerNameIsEmpty" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="bc070881-bb3c-689c-f65f-95b4dcdb3d0d">
+      <Execution id="edd558b4-9e53-4733-bf10-3bfaebc53c5e" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoiceAsync_ShouldThrowException_WhenCustomerNameIsEmpty" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.CreateSalesInvoice_with_Accounting_entries" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="c6c00f7a-c10e-2b50-1ad6-18f31d85c16a">
+      <Execution id="44524c54-32b2-442f-b036-b92f6d18d405" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="CreateSalesInvoice_with_Accounting_entries" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoices_PerformanceTest" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="06134bf6-a816-466b-2129-2061943822bd">
+      <Execution id="75281994-302a-4a3b-b6e4-ce039fddc09c" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoices_PerformanceTest" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceAsync_ShouldThrowException_WhenInvoiceNumberIsEmpty" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="10ef8de3-dee6-8261-418f-4a9a4c71a6c6">
+      <Execution id="cadc1e31-1872-4d8b-a868-8a8820e8c779" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoiceAsync_ShouldThrowException_WhenInvoiceNumberIsEmpty" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoiceRequest_ShouldAddSalesInvoiceAndAccountingEntries" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="acc435f4-e1d7-c960-8f2c-6b142ce24594">
+      <Execution id="dfd539db-5231-44bd-b8ae-2c20cd0fce1c" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoiceRequest_ShouldAddSalesInvoiceAndAccountingEntries" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoiceAsync_WithInvalidId_ShouldThrowException" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="e2ecfc67-7b47-741f-3d74-d755eca0a640">
+      <Execution id="5f9021c7-d07d-40dc-b28f-921694592dc2" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="DeleteSalesInvoiceAsync_WithInvalidId_ShouldThrowException" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.GenerateSalesInvoicesInBulk_PerformanceTest" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="c75c4191-6f4d-59a9-673b-89a966205c23">
+      <Execution id="7ba017be-480e-42b2-a1aa-ca0e6f76d51f" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="GenerateSalesInvoicesInBulk_PerformanceTest" />
+    </UnitTest>
+    <UnitTest name="ERP.Service.Tests.SalesInvoiceServiceTests.DeleteSalesInvoice_ShouldDeleteInvoice_whenInvoiceExists" storage="/users/catherinepemblington/documents/github/erp/erp/erp/bin/debug/net9.0/erp.dll" id="3a09e90b-0ecd-fc0a-c863-3c9eac21d751">
+      <Execution id="cab14a8d-7476-4cec-a134-dae049f16982" />
+      <TestMethod codeBase="/Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="ERP.Service.Tests.SalesInvoiceServiceTests" name="DeleteSalesInvoice_ShouldDeleteInvoice_whenInvoiceExists" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3a09e90b-0ecd-fc0a-c863-3c9eac21d751" executionId="cab14a8d-7476-4cec-a134-dae049f16982" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="452e561e-4dc9-2752-f5b8-87bba40e65f3" executionId="e3eeb0e2-8bd4-45d1-aecd-2f2fdc5e3f68" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8752641a-bb1d-d727-6f89-462090f60abe" executionId="e2cedcbe-f8ec-4d6a-83af-cb5f37bb8860" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bc070881-bb3c-689c-f65f-95b4dcdb3d0d" executionId="edd558b4-9e53-4733-bf10-3bfaebc53c5e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="06134bf6-a816-466b-2129-2061943822bd" executionId="75281994-302a-4a3b-b6e4-ce039fddc09c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="10ef8de3-dee6-8261-418f-4a9a4c71a6c6" executionId="cadc1e31-1872-4d8b-a868-8a8820e8c779" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c6c00f7a-c10e-2b50-1ad6-18f31d85c16a" executionId="44524c54-32b2-442f-b036-b92f6d18d405" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e2ecfc67-7b47-741f-3d74-d755eca0a640" executionId="5f9021c7-d07d-40dc-b28f-921694592dc2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="32c3bec9-1be9-7150-b238-fbdeebb6cb22" executionId="9cefd53e-4666-4de7-b492-2445078647d1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c75c4191-6f4d-59a9-673b-89a966205c23" executionId="7ba017be-480e-42b2-a1aa-ca0e6f76d51f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0bb6069b-dd94-9c1f-071f-5addec28ef11" executionId="f58ab5be-ae2b-408e-ba75-47a18954eab2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="acc435f4-e1d7-c960-8f2c-6b142ce24594" executionId="dfd539db-5231-44bd-b8ae-2c20cd0fce1c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff2d0b07-b4c7-ad8d-a54e-21f850c6167f" executionId="c087b1c5-a46d-4964-8494-003700ae7e4f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="13" executed="13" passed="13" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 9.0.0)
+[xUnit.net 00:00:00.45]   Discovering: ERP
+[xUnit.net 00:00:00.47]   Discovered:  ERP
+[xUnit.net 00:00:00.47]   Starting:    ERP
+Time taken to generate 1000 sales invoices: 1 ms
+[xUnit.net 00:00:17.88]   Finished:    ERP
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

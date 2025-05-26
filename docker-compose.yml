@@ -11,7 +11,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=erpdb;Username=testuser;Password=testpass
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=erpdb;Username=erpuser;Password=erppassword
     depends_on:
       - postgres
 

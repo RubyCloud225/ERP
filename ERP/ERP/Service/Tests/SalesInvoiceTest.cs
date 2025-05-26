@@ -58,7 +58,7 @@ namespace ERP.Service.Tests
         {
             var user = new ApplicationDbContext.User
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "Test User",
                 Username = "erpuser",
                 Email = "erpuser@example.com",
@@ -78,7 +78,7 @@ namespace ERP.Service.Tests
             {
                 var user = new ApplicationDbContext.User
                 {
-                    Id = i,
+                    Id = Guid.NewGuid(),
                     Name = $"erpuser {i}",
                     Username = $"erpuser{i}",
                     Email = $"erpuser{i}@example.com",
@@ -109,7 +109,7 @@ namespace ERP.Service.Tests
             // Seed user with Id 1 in this test database
             var user = new ApplicationDbContext.User
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "Test User",
                 Username = "erpuser",
                 Email = "erpuser@example.com",
@@ -127,7 +127,7 @@ namespace ERP.Service.Tests
                 var mockLlmService = new Mock<ILlmService>();
                 var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
                 // Act
-                await salesInvoiceService.GenerateSalesInvoiceAsync(1, "test_blob", DateTime.UtcNow, "INV-001", "Test Customer", "123 Test Address", 1000.00m, 100.00m, 1100.00m, user.Id);
+                await salesInvoiceService.GenerateSalesInvoiceAsync(Guid.NewGuid(), "test_blob", DateTime.UtcNow, "INV-001", "Test Customer", "123 Test Address", 1000.00m, 100.00m, 1100.00m, int.Parse(user.Id.ToString()));
                 // Assert
                 var salesInvoice = dbContext.SalesInvoices.ToList();
                 Assert.NotNull(salesInvoice);
@@ -158,7 +158,7 @@ namespace ERP.Service.Tests
             // Seed user with Id 1 in this test database
             var user = new ApplicationDbContext.User
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "Test User",
                 Username = "erpuser",
                 Email = "erpuser@example.com",
@@ -174,7 +174,7 @@ namespace ERP.Service.Tests
             {
                 var salesInvoice = new ApplicationDbContext.SalesInvoice
                 {
-                    Id = 1,
+                    Id = Guid.NewGuid(),
                     BlobName = "test_blob",
                     InvoiceDate = DateTime.UtcNow,
                     InvoiceNumber = "TestInvoiceNumber",
@@ -183,8 +183,8 @@ namespace ERP.Service.Tests
                     TotalAmount = 100,
                     SalesTax = 10,
                     NetAmount = 90,
-                    UserId = user.Id,
-                    User = user
+                    UserId = int.Parse(user.Id.ToString()), // Assuming a fixed integer ID for the user
+                    User = user // Set the required User property
                 };
                 dbContext.SalesInvoices.Add(salesInvoice);
                 await dbContext.SaveChangesAsync();
@@ -229,7 +229,7 @@ namespace ERP.Service.Tests
             // Seed user with Id 1 in this test database
             var user = new ApplicationDbContext.User
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "Test User",
                 Username = "erpuser",
                 Email = "erpuser@example.com",
@@ -248,7 +248,7 @@ namespace ERP.Service.Tests
                 var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
                 var salesInvoice = new ApplicationDbContext.SalesInvoice
                 {
-                    Id = 1,
+                    Id = Guid.NewGuid(),
                     BlobName = "test_blob",
                     InvoiceDate = DateTime.UtcNow,
                     InvoiceNumber = "INV-001",
@@ -257,7 +257,7 @@ namespace ERP.Service.Tests
                     TotalAmount = 100.0m,
                     SalesTax = 10.0m,
                     NetAmount = 90.0m,
-                    UserId = user.Id,
+                    UserId = int.Parse(user.Id.ToString()), // Assuming UserId is an integer
                     User = user
                 };
                 dbContext.SalesInvoices.Add(salesInvoice);
@@ -279,7 +279,7 @@ namespace ERP.Service.Tests
         {
             // Arrange
             await _salesInvoiceService.GenerateSalesInvoiceAsync(
-                2, // Id
+                Guid.NewGuid(), // Id
                 "test_blob", // BlobName
                 DateTime.UtcNow,
                 "INV-001", // InvoiceNumber
@@ -288,7 +288,7 @@ namespace ERP.Service.Tests
                 1000.00m, // TotalAmount
                 100.00m, // SalesTax
                 1100.00m, // NetAmount
-                1 // UserId
+                int.Parse(_seededUser?.Id.ToString() ?? throw new InvalidOperationException("Seeded user is null")) // UserId
             );
             // Assert
             var salesInvoice = await _dbContext.SalesInvoices.FindAsync(2);
@@ -320,7 +320,7 @@ namespace ERP.Service.Tests
                     .ReturnsAsync(string.Empty); // Simulate an empty response from LLM
                 // Arrange
                 await _salesInvoiceService.GenerateSalesInvoiceAsync(
-                    3, // Id
+                    Guid.NewGuid(), // Id
                     "blob", // BlobName
                     DateTime.UtcNow,
                     "InvoiceNumber", // InvoiceNumber
@@ -329,7 +329,7 @@ namespace ERP.Service.Tests
                     1000.00m, // TotalAmount
                     100.00m, // SalesTax
                     1100.00m, // NetAmount
-                    1 // UserId
+                    int.Parse(_seededUser?.Id.ToString() ?? "0") // UserId
                 );
                 var salesInvoice = await _dbContext.SalesInvoices.FindAsync(3);
                 // Assert
@@ -364,7 +364,7 @@ namespace ERP.Service.Tests
                 var ex = await Assert.ThrowsAsync<Exception>(async () =>
                 {
                     await salesInvoiceService.UpdateSalesInvoiceAsync(
-                        999, // Invalid Id
+                        Guid.Empty, // Invalid Id
                         "test_blob", // BlobName
                         DateTime.UtcNow,
                         "INV-001", // InvoiceNumber
@@ -402,7 +402,7 @@ namespace ERP.Service.Tests
                 var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
                 var ex = await Assert.ThrowsAsync<Exception>(async () =>
                 {
-                    await salesInvoiceService.DeleteSalesInvoiceAsync(999, 1); // Invalid Id
+                    await salesInvoiceService.DeleteSalesInvoiceAsync(Guid.Empty, 1); // Invalid Id
                 });
                 await dbContext.SaveChangesAsync();
                 await dbContext.SalesInvoices.FindAsync(999);
@@ -429,7 +429,7 @@ namespace ERP.Service.Tests
             // Seed user with Id 1 in this test database
             var user = new ApplicationDbContext.User
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "Test User",
                 Username = "erpuser",
                 Email = "erpuser@example.com",
@@ -449,7 +449,7 @@ namespace ERP.Service.Tests
                 var ex = await Assert.ThrowsAsync<Exception>(async () =>
                 {
                     await salesInvoiceService.GenerateSalesInvoiceAsync(
-                        4, // Id
+                        Guid.NewGuid(), // Id
                         "", // BlobName
                         DateTime.UtcNow,
                         "INV-004", // InvoiceNumber
@@ -458,7 +458,7 @@ namespace ERP.Service.Tests
                         1000.00m, // TotalAmount
                         100.00m, // SalesTax
                         1100.00m, // NetAmount
-                        user.Id // UserId
+                        int.Parse(user.Id.ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber) // UserId
                     );
                     await dbContext.SaveChangesAsync();
                     await dbContext.SalesInvoices.FindAsync(4);
@@ -487,7 +487,7 @@ namespace ERP.Service.Tests
             // Seed user with Id 1 in this test database
             var user = new ApplicationDbContext.User
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "Test User",
                 Username = "erpuser",
                 Email = "erpuser@example.com",
@@ -508,7 +508,7 @@ namespace ERP.Service.Tests
                 {
                     // Act
                     await _salesInvoiceService.GenerateSalesInvoiceAsync(
-                        5, // Id
+                        Guid.NewGuid(), // Id
                         "test_blob", // BlobName
                         DateTime.UtcNow,
                         string.Empty, // InvoiceNumber
@@ -517,7 +517,7 @@ namespace ERP.Service.Tests
                         1000.00m, // TotalAmount
                         100.00m, // SalesTax
                         1100.00m, // NetAmount
-                        user.Id // UserId
+                        int.Parse(user.Id.ToString())// UserId
                     );
                 });
                 await _dbContext.SaveChangesAsync();
@@ -548,7 +548,7 @@ namespace ERP.Service.Tests
             // Seed user with Id 1 in this test database
             var user = new ApplicationDbContext.User
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "Test User",
                 Username = "erpuser",
                 Email = "erpuser@example.com",
@@ -569,7 +569,7 @@ namespace ERP.Service.Tests
                 {
                     // Act
                     await _salesInvoiceService.GenerateSalesInvoiceAsync(
-                        6, // Id
+                        Guid.NewGuid(), // Id
                         "test_blob", // BlobName
                         DateTime.UtcNow,
                         "INV-006", // InvoiceNumber
@@ -578,7 +578,7 @@ namespace ERP.Service.Tests
                         1000.00m, // TotalAmount
                         100.00m, // SalesTax
                         1100.00m, // NetAmount
-                        user.Id // UserId
+                        1 // UserId
                     );
                 });
                 await dbContext.SaveChangesAsync();
@@ -614,7 +614,7 @@ namespace ERP.Service.Tests
             // Seed user with Id 1 in this test database
             var user = new ApplicationDbContext.User
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "Test User",
                 Username = "erpuser",
                 Email = "erpuser@example.com",
@@ -636,7 +636,7 @@ namespace ERP.Service.Tests
                 for (int i = 1; i <= 1000; i++)
                 {
                     await _salesInvoiceService.GenerateSalesInvoiceAsync(
-                        i, // Id
+                        Guid.NewGuid(), // Id
                         "test_blob_" + i, // BlobName
                         DateTime.UtcNow,
                         "INV-" + i.ToString("D3"), // InvoiceNumber
@@ -645,7 +645,7 @@ namespace ERP.Service.Tests
                         1000.00m + i, // TotalAmount
                         100.00m + i, // SalesTax
                         1100.00m + i, // NetAmount
-                user.Id // UserId
+                        1 // UserId
                     );
                 }
                 var endTime = DateTime.UtcNow;
@@ -681,7 +681,7 @@ namespace ERP.Service.Tests
             // Seed user with Id 1 in shared database
             var user = new ApplicationDbContext.User
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "Test User",
                 Username = "erpuser",
                 Email = "erpuser@example.com",
@@ -710,7 +710,7 @@ namespace ERP.Service.Tests
                         var mockLlmService = new Mock<ILlmService>();
                         var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
                         await salesInvoiceService.GenerateSalesInvoiceAsync(
-                            id, // Id
+                            Guid.NewGuid(), // Id
                             "test_blob_" + id, // BlobName
                             DateTime.UtcNow,
                             "INV-" + id.ToString("D3"), // InvoiceNumber
@@ -719,7 +719,7 @@ namespace ERP.Service.Tests
                             1000.00m + id, // TotalAmount
                             100.00m + id, // SalesTax
                             1100.00m + id, // NetAmount
-                            user.Id // UserId
+                            1 // UserId
                         );
                     }
                     finally
@@ -763,7 +763,7 @@ namespace ERP.Service.Tests
             // Seed user with Id 1 in this test database
             var user = new ApplicationDbContext.User
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "Test User",
                 Username = "erpuser",
                 Email = "erpuser@example.com",
@@ -785,7 +785,7 @@ namespace ERP.Service.Tests
                 for (int i = 0; i <= count; i++)
                 {
                     await salesInvoiceService.GenerateSalesInvoiceAsync(
-                        i + 1, // Id
+                        Guid.NewGuid(), // Id
                         "test_blob_" + (i + 1), // BlobName
                         DateTime.UtcNow,
                         "INV-" + (i + 1).ToString("D3"), // InvoiceNumber
@@ -794,7 +794,7 @@ namespace ERP.Service.Tests
                         1000.00m + i, // TotalAmount
                         100.00m + i, // SalesTax
                         1100.00m + i, // NetAmount
-                user.Id // UserId
+                        1 // UserId
                     );
                 }
                 var duration = DateTime.UtcNow - start;

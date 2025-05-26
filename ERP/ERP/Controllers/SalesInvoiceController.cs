@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ERP.Service;
+using Castle.Components.DictionaryAdapter;
 
 namespace ERP.Controllers
 {
@@ -53,7 +54,7 @@ namespace ERP.Controllers
         {
             try
             {
-                await _salesInvoiceService.DeleteSalesInvoiceAsync(id, userId);
+                await _salesInvoiceService.DeleteSalesInvoiceAsync(Guid.NewGuid(), userId);
                 return Ok(new { message = "Sales invoice deleted successfully." });
             }
             catch (Exception ex)
