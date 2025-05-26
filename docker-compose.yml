@@ -19,8 +19,8 @@ services:
     image: postgres:15
     container_name: erp-postgres
     environment:
-      POSTGRES_USER: testuser
-      POSTGRES_PASSWORD: testpass
+      POSTGRES_USER: erpuser
+      POSTGRES_PASSWORD: erppassword
       POSTGRES_DB: erpdb
     ports:
       - "5432:5432"

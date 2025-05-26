@@ -79,7 +79,7 @@ namespace ERP.Service.Tests
                 var user = new ApplicationDbContext.User
                 {
                     Id = i,
-                    Name = $"Test User {i}",
+                    Name = $"erpuser {i}",
                     Username = $"erpuser{i}",
                     Email = $"erpuser{i}@example.com",
                     Password = "erppassword"
