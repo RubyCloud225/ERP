@@ -2,8 +2,8 @@
 # Script to create PostgreSQL test user and grant privileges for ERP tests
 
 # Variables
-PG_USER="testuser"
-PG_PASSWORD="testpass"
+PG_USER="erpuser"
+PG_PASSWORD="erppassword"
 PG_DB="erpdb_test"
 
 # Create user
