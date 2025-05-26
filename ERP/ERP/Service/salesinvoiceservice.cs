@@ -17,7 +17,7 @@ namespace ERP.Service
             _llmService = llmService;
         }
         // use LLM to create a sales invoice
-        public async Task GenerateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount)
+        public async Task GenerateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId)
         {
             if (string.IsNullOrEmpty(blobName))
             {
@@ -45,14 +45,17 @@ namespace ERP.Service
                 existingInvoice.TotalAmount = totalAmount;
                 existingInvoice.SalesTax = salesTax;
                 existingInvoice.NetAmount = netAmount;
+                existingInvoice.UserId = UserId; // assuming UserId is passed to the method
                 _dbContext.SalesInvoices.Update(existingInvoice);
             }
             else
             {
+                var user = await _dbContext.Users.FindAsync(UserId) ?? throw new Exception($"User with Id {UserId} not found");
                 var salesInvoice = new ApplicationDbContext.SalesInvoice
                 {
                     Id = Id,
-                    UserId = await _dbContext.Users.FindAsync(1), // assuming a default user ID for now, you can modify this as needed
+                    UserId = UserId,
+                    User = user, // Set the required User property
                     BlobName = blobName,
                     InvoiceDate = invoiceDate,
                     InvoiceNumber = invoiceNumber,
@@ -127,7 +130,7 @@ namespace ERP.Service
             }
             return (nominalAccount, expenseAccount);
         }
-        public async Task UpdateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount)
+        public async Task UpdateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId)
         {
             var salesInvoice = await _dbContext.SalesInvoices.FindAsync(Id);
             if (salesInvoice == null)
@@ -135,16 +138,30 @@ namespace ERP.Service
                 throw new Exception($"Sales Invoice with Id {Id} not found");
             }
             // update only the InvoiceNumber field to make it efficient and easier for the controller
+            if (string.IsNullOrEmpty(blobName))
+            {
+                throw new Exception("BlobName cannot be empty");
+            }
+            salesInvoice.UserId = UserId;
             salesInvoice.InvoiceNumber = invoiceNumber;
+            salesInvoice.InvoiceDate = invoiceDate;
+            salesInvoice.CustomerName = customerName;
+            salesInvoice.CustomerAddress = customerAddress;
+            salesInvoice.TotalAmount = totalAmount;
+            salesInvoice.SalesTax = salesTax;
+            salesInvoice.NetAmount = netAmount;
+            salesInvoice.BlobName = blobName;
             await _dbContext.SaveChangesAsync();
         }
-        public async Task<bool> DeleteSalesInvoiceAsync(int Id)
+        public async Task<bool> DeleteSalesInvoiceAsync(int Id, int UserId)
         {
             var salesInvoice = await _dbContext.SalesInvoices.FindAsync(Id);
             if (salesInvoice == null)
             {
                 throw new Exception($"Sales Invoice with Id {Id} not found");
             }
+            var user = await _dbContext.Users.FindAsync(UserId) ?? throw new Exception($"User with Id {UserId} not found");
+            salesInvoice.UserId = user.Id; // assigning the User's Id to match the int type of UserId
             _dbContext.SalesInvoices.Remove(salesInvoice);
             await _dbContext.SaveChangesAsync();
             return true;
@@ -152,8 +169,8 @@ namespace ERP.Service
     }
     public interface ISalesInvoiceService
     {
-        Task GenerateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount);
-        Task UpdateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount);
-        Task<bool> DeleteSalesInvoiceAsync(int Id);
+        Task GenerateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId);
+        Task UpdateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId);
+        Task<bool> DeleteSalesInvoiceAsync(int Id, int UserId);
     }
 }

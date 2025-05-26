@@ -1,3 +1,4 @@
+using Humanizer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 
@@ -33,6 +34,8 @@ namespace ERP.Model
             public required string AccountName { get; set; }
             public required string BankName { get; set; }
             public decimal Balance { get; set; }
+            public int? UserId { get; set; }
+            public User? User { get; set; }
         }
         public class BankStatement
         {
@@ -40,6 +43,8 @@ namespace ERP.Model
             public required string BlobName { get; set; }
             public DateTime StatementDate { get; set; }
             public required decimal Balance { get; set; }
+            public int? UserId { get; set; }
+            public User? User { get; set; }
         }
         public class BankPayment
         {
@@ -47,6 +52,8 @@ namespace ERP.Model
             public required string Payee { get; set; }
             public decimal Amount { get; set; }
             public DateTime PaymentDate { get; set; }
+            public int? UserId { get; set; }
+            public User? User { get; set; }
         }
         public class BankReceipt
         {
@@ -54,6 +61,8 @@ namespace ERP.Model
             public required string Payer { get; set; }
             public decimal Amount { get; set; }
             public DateTime ReceiptDate { get; set; }
+            public int? UserId { get; set; }
+            public User? User { get; set; }
         }
 
         public class PurchaseInvoiceDto
@@ -102,6 +111,8 @@ namespace ERP.Model
         {
             public int Id { get; set; }
             public required string Response { get; set; }
+            public int? UserId { get; set; }
+            public User? User { get; set; }
         }
 
         public class DocumentRecord
@@ -111,6 +122,8 @@ namespace ERP.Model
             public DateTime CreatedAt { get; set; }
             public required string DocumentContent { get; set; }
             public required string DocumentType { get; set; }
+            public int? UserId { get; set; }
+            public User? User { get; set; }
         }
 
         public class PropertyLog
@@ -121,6 +134,7 @@ namespace ERP.Model
             public required string PropertyType { get; set; }
             public DateTime LoggedAt { get; set; }
             public int? UserId { get; set; }
+            public User? User { get; set; }
         }
 
         public class PurchaseInvoice
@@ -135,22 +149,25 @@ namespace ERP.Model
             public required string Description { get; set; }
             public required string SupplierAddress { get; set; }
             public DateTime PurchaseInvoiceDate { get; set; }
+            public int? UserId { get; set; }
+            public User? User { get; set; }
         }
 
         public class AccountingEntry
         {
             public int Id { get; set; }
-            public int ? PurchaseInvoiceId { get; set; }
+            public int? PurchaseInvoiceId { get; set; }
             public required string Account { get; set; }
             public decimal Debit { get; set; }
             public decimal Credit { get; set; }
             public DateTime EntryDate { get; set; }
+            public int? UserId { get; set; }
+            public User? User { get; set; }
         }
 
         public class SalesInvoice
         {
             public int Id { get; set; }
-            public required User UserId { get; set; } // Assuming UserId is a string, adjust as necessary
             public required string BlobName { get; set; }
             public DateTime InvoiceDate { get; set; }
             public required string InvoiceNumber { get; set; }
@@ -159,8 +176,11 @@ namespace ERP.Model
             public decimal NetAmount { get; set; }
             public decimal SalesTax { get; set; }
             public decimal TotalAmount { get; set; }
+            public required int UserId { get; set; }
+            public required User User { get; set; } // Assuming UserId is a string, adjust as necessary
+
         }
-         public class UpdateSalesInvoiceRequest
+        public class UpdateSalesInvoiceRequest
         {
             public int Id { get; set; }
             public required string InvoiceNumber { get; set; }
@@ -177,6 +197,7 @@ namespace ERP.Model
             public decimal TotalAmount { get; set; }
             public decimal SalesTax { get; set; }
             public decimal NetAmount { get; set; }
+            public required int UserId { get; set; }
         }
 
         public class JournalEntry
@@ -185,6 +206,87 @@ namespace ERP.Model
             public required string Description { get; set; }
             public decimal Amount { get; set; }
             public DateTime EntryDate { get; set; }
+            public int? UserId { get; set; }
+            public User? User { get; set; }
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<PurchaseInvoice>()
+                .Property(p => p.PurchaseInvoiceNumber)
+                .IsRequired();
+            modelBuilder.Entity<SalesInvoice>()
+                .Property(s => s.BlobName)
+                .IsRequired();
+            modelBuilder.Entity<SalesInvoice>()
+                .Property(s => s.InvoiceNumber)
+                .IsRequired();
+
+            modelBuilder.Entity<SalesInvoice>()
+                .HasOne(s => s.User)
+                .WithMany()
+                .HasForeignKey(s => s.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PropertyLog>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(pl => pl.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PurchaseInvoice>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<DocumentRecord>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<LlmResponse>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(l => l.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<AccountingEntry>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BankAccount>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BankStatement>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BankPayment>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BankReceipt>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<JournalEntry>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(j => j.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

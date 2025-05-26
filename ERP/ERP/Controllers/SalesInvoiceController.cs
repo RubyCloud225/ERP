@@ -35,7 +35,8 @@ namespace ERP.Controllers
                     request.CustomerAddress,
                     request.TotalAmount,
                     request.SalesTax,
-                    request.NetAmount
+                    request.NetAmount,
+                    request.UserId
                 );
 
                 return Ok(new { message = "Sales invoice generated successfully." });
@@ -46,17 +47,50 @@ namespace ERP.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
         [HttpDelete]
-        public async Task<IActionResult> DeleteSalesInvoice([FromBody] Model.ApplicationDbContext.SalesInvoice deletedSalesInvoice)
+        public async Task<IActionResult> DeleteSalesInvoice([FromQuery] int id, [FromQuery] int userId)
         {
-            await _salesInvoiceService.DeleteSalesInvoiceAsync(deletedSalesInvoice.Id);
-            return Ok(new { message = "Sales invoice deleted successfully." });
+            try
+            {
+                await _salesInvoiceService.DeleteSalesInvoiceAsync(id, userId);
+                return Ok(new { message = "Sales invoice deleted successfully." });
+            }
+            catch (Exception ex)
+            {
+                // Log exception if logging is set up
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
+
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateSalesInvoice(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount)
+        public async Task<IActionResult> UpdateSalesInvoice([FromBody] Model.ApplicationDbContext.SalesInvoice updatedSalesInvoice)
         {
-            await _salesInvoiceService.UpdateSalesInvoiceAsync(Id, blobName, invoiceDate, invoiceNumber, customerName, customerAddress, totalAmount, salesTax, netAmount);
-            return Ok(new { message = "Sales invoice updated successfully." });
+            if (updatedSalesInvoice == null)
+            {
+                return BadRequest("Request body is null.");
+            }
+            try
+            {
+                await _salesInvoiceService.UpdateSalesInvoiceAsync(
+                    updatedSalesInvoice.Id,
+                    updatedSalesInvoice.BlobName,
+                    updatedSalesInvoice.InvoiceDate,
+                    updatedSalesInvoice.InvoiceNumber,
+                    updatedSalesInvoice.CustomerName,
+                    updatedSalesInvoice.CustomerAddress,
+                    updatedSalesInvoice.TotalAmount,
+                    updatedSalesInvoice.SalesTax,
+                    updatedSalesInvoice.NetAmount,
+                    updatedSalesInvoice.UserId
+                );
+                return Ok(new { message = "Sales invoice updated successfully." });
+            }
+            catch (Exception ex)
+            {
+                // Log exception if logging is set up
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

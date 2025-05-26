@@ -24,15 +24,14 @@ namespace ERP.Service.Tests
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .Build();
 
-            var connectionString = Environment.GetEnvironmentVariable("ERP_TEST_DB_CONNECTION_STRING") ??
-                                   config.GetConnectionString("TestConnection");
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                throw new InvalidOperationException("Connection string for the test database is not set.");
-            }
+            // Override to use consistent testuser credentials
+            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
+            var dbName = $"test_db_{Guid.NewGuid()}";
+            var connectionString = baseConnectionString + dbName;
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
+
 
             _dbContext = new ApplicationDbContext(options);
             try
@@ -64,6 +63,14 @@ namespace ERP.Service.Tests
             var mockLlmService = new Mock<ILlmService>();
             var dbContext = new ApplicationDbContext(options);
             var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+            var user = new ApplicationDbContext.User
+            {
+                Id = 1, // Set the required UserId property
+                Name = "Test Name",
+                Username = "TestUsername",
+                Email = "testuser@example.com",
+                Password = "TestPassword123"
+            };
             var salesInvoice = new ApplicationDbContext.SalesInvoice
             {
                 Id = 1,
@@ -75,14 +82,8 @@ namespace ERP.Service.Tests
                 TotalAmount = 1000.00m,
                 SalesTax = 100.00m,
                 NetAmount = 1100.00m,
-                UserId = new ApplicationDbContext.User
-                {
-                    Id = 1, // Set the required UserId property
-                    Name = "Test Name",
-                    Username = "TestUsername",
-                    Email = "testuser@example.com",
-                    Password = "TestPassword123"
-                }
+                UserId = user.Id,
+                User = user
             };
             mockDocumentProcessor.Setup(p => p.GeneratePromptFromSalesInvoiceAsync(It.IsAny<ApplicationDbContext.SalesInvoice>()))
                 .ReturnsAsync("Mocked Prompt");
@@ -98,7 +99,8 @@ namespace ERP.Service.Tests
                 salesInvoice.CustomerAddress, // CustomerAddress
                 salesInvoice.TotalAmount, // TotalAmount
                 salesInvoice.SalesTax, // SalesTax
-                salesInvoice.NetAmount // NetAmount
+                salesInvoice.NetAmount, // NetAmount
+                salesInvoice.UserId // UserId
             );
             // Assert
             var salesInvoices = dbContext.SalesInvoices.ToList();
@@ -121,6 +123,14 @@ namespace ERP.Service.Tests
             await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
             try
             {
+                var user = new ApplicationDbContext.User
+                {
+                    Id = 1,
+                    Name = "Test User",
+                    Username = "testuser",
+                    Email = "testuser@example.com",
+                    Password = "TestPassword"
+                };
                 var salesInvoice = new ApplicationDbContext.SalesInvoice
                 {
                     Id = 1,
@@ -132,14 +142,8 @@ namespace ERP.Service.Tests
                     TotalAmount = 100,
                     SalesTax = 10,
                     NetAmount = 90,
-                    UserId = new ApplicationDbContext.User
-                    {
-                        Id = 1,
-                        Name = "Test User",
-                        Username = "testuser",
-                        Email = "testuser@example.com",
-                        Password = "TestPassword"
-                    }
+                    UserId = user.Id,
+                    User = user
                 };
                 dbContext.SalesInvoices.Add(salesInvoice);
                 await dbContext.SaveChangesAsync();
@@ -156,7 +160,8 @@ namespace ERP.Service.Tests
                     salesInvoice.CustomerAddress, // CustomerAddress
                     salesInvoice.TotalAmount, // TotalAmount
                     salesInvoice.SalesTax, // SalesTax
-                    salesInvoice.NetAmount // NetAmount
+                    salesInvoice.NetAmount, // NetAmount
+                    salesInvoice.UserId // UserId
                 );
                 var updatedInvoice = dbContext.SalesInvoices.ToList();
                 Assert.NotNull(updatedInvoice);
@@ -185,6 +190,14 @@ namespace ERP.Service.Tests
                 var mockDocumentProcessor = new Mock<IDocumentProcessor>();
                 var mockLlmService = new Mock<ILlmService>();
                 var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                var user = new ApplicationDbContext.User
+                {
+                    Id = 1,
+                    Name = "Test User", // Set the required Name property
+                    Email = "test@example.com",
+                    Username = "Test User",
+                    Password = "test_password"
+                };
                 var salesInvoice = new ApplicationDbContext.SalesInvoice
                 {
                     Id = 1,
@@ -196,19 +209,13 @@ namespace ERP.Service.Tests
                     TotalAmount = 100.0m,
                     SalesTax = 10.0m,
                     NetAmount = 90.0m,
-                    UserId = new ApplicationDbContext.User
-                    {
-                        Id = 1,
-                        Name = "Test User", // Set the required Name property
-                        Email = "test@example.com",
-                        Username = "Test User",
-                        Password = "test_password"
-                    }
+                    UserId = user.Id,
+                    User = user
                 };
                 dbContext.SalesInvoices.Add(salesInvoice);
                 await dbContext.SaveChangesAsync();
                 // Act
-                await salesInvoiceService.DeleteSalesInvoiceAsync(salesInvoice.Id);
+                await salesInvoiceService.DeleteSalesInvoiceAsync(salesInvoice.Id, salesInvoice.UserId);
                 // Assert
                 var deletedSalesInvoice = await dbContext.SalesInvoices.FindAsync(salesInvoice.Id);
                 Assert.Null(deletedSalesInvoice);
@@ -232,7 +239,8 @@ namespace ERP.Service.Tests
                 "123 Test Address", // CustomerAddress
                 1000.00m, // TotalAmount
                 100.00m, // SalesTax
-                1100.00m // NetAmount
+                1100.00m, // NetAmount
+                1 // UserId
             );
             // Assert
             var salesInvoice = await _dbContext.SalesInvoices.FindAsync(2);
@@ -271,7 +279,8 @@ namespace ERP.Service.Tests
                     "Test Address", // CustomerAddress
                     1000.00m, // TotalAmount
                     100.00m, // SalesTax
-                    1100.00m // NetAmount
+                    1100.00m, // NetAmount
+                    1 // UserId
                 );
                 var salesInvoice = await _dbContext.SalesInvoices.FindAsync(3);
                 // Assert
@@ -313,7 +322,8 @@ namespace ERP.Service.Tests
                         "123 Test Address", // CustomerAddress
                         1000.00m, // TotalAmount
                         100.00m, // SalesTax
-                        1100.00m // NetAmount
+                        1100.00m, // NetAmount
+                        1 // UserId
                     );
                 });
                 Assert.Contains("Sales Invoice with Id", ex.Message);
@@ -341,7 +351,7 @@ namespace ERP.Service.Tests
                 var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
                 var ex = await Assert.ThrowsAsync<Exception>(async () =>
                 {
-                    await salesInvoiceService.DeleteSalesInvoiceAsync(999); // Invalid Id
+                    await salesInvoiceService.DeleteSalesInvoiceAsync(999, 1); // Invalid Id
                 });
                 await dbContext.SaveChangesAsync();
                 await dbContext.SalesInvoices.FindAsync(999);
@@ -380,7 +390,8 @@ namespace ERP.Service.Tests
                         "123 Test Address", // CustomerAddress
                         1000.00m, // TotalAmount
                         100.00m, // SalesTax
-                        1100.00m // NetAmount
+                        1100.00m, // NetAmount
+                        1 // UserId
                     );
                     await dbContext.SaveChangesAsync();
                     await dbContext.SalesInvoices.FindAsync(4);
@@ -421,7 +432,8 @@ namespace ERP.Service.Tests
                         "123 Test Address", // CustomerAddress
                         1000.00m, // TotalAmount
                         100.00m, // SalesTax
-                        1100.00m // NetAmount
+                        1100.00m, // NetAmount
+                        1 // UserId
                     );
                 });
                 await _dbContext.SaveChangesAsync();
@@ -463,7 +475,8 @@ namespace ERP.Service.Tests
                         "123 Test Address", // CustomerAddress
                         1000.00m, // TotalAmount
                         100.00m, // SalesTax
-                        1100.00m // NetAmount
+                        1100.00m, // NetAmount
+                        1 // UserId
                     );
                 });
                 await dbContext.SaveChangesAsync();
@@ -512,7 +525,8 @@ namespace ERP.Service.Tests
                         "123 Test Address " + i, // CustomerAddress
                         1000.00m + i, // TotalAmount
                         100.00m + i, // SalesTax
-                        1100.00m + i // NetAmount
+                        1100.00m + i, // NetAmount
+                        1 + i // UserId
                     );
                 }
                 var endTime = DateTime.UtcNow;
@@ -541,7 +555,8 @@ namespace ERP.Service.Tests
                     "123 Test Address " + id, // CustomerAddress
                     1000.00m + id, // TotalAmount
                     100.00m + id, // SalesTax
-                    1100.00m + id // NetAmount
+                    1100.00m + id, // NetAmount
+                    1 + id // UserId
                 );
                 tasks.Add(task);
             }
@@ -589,7 +604,8 @@ namespace ERP.Service.Tests
                         "123 Test Address " + (i + 1), // CustomerAddress
                         1000.00m + i, // TotalAmount
                         100.00m + i, // SalesTax
-                        1100.00m + i // NetAmount
+                        1100.00m + i, // NetAmount
+                        1 + i // UserId
                     );
                 }
                 var duration = DateTime.UtcNow - start;

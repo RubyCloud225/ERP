@@ -2,6 +2,7 @@ using ERP.Model;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using static ERP.Model.ApplicationDbContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Service
 {
@@ -18,7 +19,7 @@ namespace ERP.Service
             _llmService = llmService;
         }
 
-        public async Task UploadPurchaseInvoiceAsync(IFormFile document)
+        public async Task UploadPurchaseInvoiceAsync(IFormFile document, int userId)
         {
             using (var stream = document.OpenReadStream())
             {
@@ -42,7 +43,8 @@ namespace ERP.Service
                     PurchaseInvoiceDate = invoiceDate,
                     Description = "Purchase Invoice from " + supplierName + invoiceNumber,
                     SupplierAddress = supplierAddress,
-                    BlobName = fileName
+                    BlobName = fileName,
+                    UserId = userId
                 };
                 string prompt = await _documentProcessor.GeneratePromptFromPurchaseInvoiceAsync(purchaseInvoiceInstance);
                 // step 2: process the document using the llm
@@ -127,7 +129,7 @@ namespace ERP.Service
             return true;
         }
 
-        public async Task<bool> AmendPurchaseInvoiceAsync(ApplicationDbContext.PurchaseInvoice updatedInvoice)
+        public async Task<bool> AmendPurchaseInvoiceAsync(ApplicationDbContext.PurchaseInvoice updatedInvoice, int userId)
         {
             if (updatedInvoice == null)
             {
@@ -135,11 +137,11 @@ namespace ERP.Service
                 return false;
             }
 
-            // Find the existing invoice by ID
-            var existingInvoice = await _dbContext.PurchaseInvoices.FindAsync(updatedInvoice.Id);
+            // Find the existing invoice by ID and UserId
+            var existingInvoice = await _dbContext.PurchaseInvoices.FirstOrDefaultAsync(pi => pi.Id == updatedInvoice.Id && pi.UserId == userId);
             if (existingInvoice == null)
             {
-                Console.WriteLine("Invoice does not exist in the database.");
+                Console.WriteLine("Invoice does not exist in the database for the specified user.");
                 return false;
             }
 
@@ -163,6 +165,11 @@ namespace ERP.Service
             return await _dbContext.PurchaseInvoices.FindAsync(purchaseInvoiceId);
         }
 
+        public async Task<ApplicationDbContext.PurchaseInvoice?> GetPurchaseInvoiceAsync(ApplicationDbContext.PurchaseInvoice purchaseInvoiceId, int userId)
+        {
+            return await _dbContext.PurchaseInvoices.FirstOrDefaultAsync(pi => pi.Id == purchaseInvoiceId.Id && pi.UserId == userId);
+        }
+
         public async Task<bool> DeletePurchaseInvoiceAsync(ApplicationDbContext.PurchaseInvoice deletedInvoice)
         {
             if (deletedInvoice == null)
@@ -174,15 +181,27 @@ namespace ERP.Service
             await _dbContext.SaveChangesAsync();
             Console.WriteLine("Invoice deleted successfully.");
             return true;
+        }
 
+        public async Task<bool> DeletePurchaseInvoiceAsync(ApplicationDbContext.PurchaseInvoice deletedInvoice, int userId)
+        {
+            if (deletedInvoice == null || deletedInvoice.UserId != userId)
+            {
+                Console.WriteLine("Invoice does not exist in the database for the specified user.");
+                return false;
+            }
+            _dbContext.PurchaseInvoices.Remove(deletedInvoice);
+            await _dbContext.SaveChangesAsync();
+            Console.WriteLine("Invoice deleted successfully.");
+            return true;
         }
     }
 
     public interface IPurchaseInvoiceService
     {
-        Task UploadPurchaseInvoiceAsync(IFormFile document);
-        Task<bool> AmendPurchaseInvoiceAsync(ApplicationDbContext.PurchaseInvoice updatedInvoice);
-        Task<ApplicationDbContext.PurchaseInvoice?> GetPurchaseInvoiceAsync(ApplicationDbContext.PurchaseInvoice purchaseInvoiceId);
-        Task<bool> DeletePurchaseInvoiceAsync(ApplicationDbContext.PurchaseInvoice deletedInvoice);
+        Task UploadPurchaseInvoiceAsync(IFormFile document, int userId);
+        Task<bool> AmendPurchaseInvoiceAsync(ApplicationDbContext.PurchaseInvoice updatedInvoice, int userId);
+        Task<ApplicationDbContext.PurchaseInvoice?> GetPurchaseInvoiceAsync(ApplicationDbContext.PurchaseInvoice purchaseInvoiceId, int userId);
+        Task<bool> DeletePurchaseInvoiceAsync(ApplicationDbContext.PurchaseInvoice deletedInvoice, int userId);
     }
 }

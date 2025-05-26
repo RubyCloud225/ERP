@@ -15,27 +15,27 @@ namespace ERP.Controllers
             _purchaseInvoiceService = purchaseInvoiceService;
         }
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadPurchaseInvoice(IFormFile document)
+        public async Task<IActionResult> UploadPurchaseInvoice(IFormFile document, int userId)
         {
-            await _purchaseInvoiceService.UploadPurchaseInvoiceAsync(document);
+            await _purchaseInvoiceService.UploadPurchaseInvoiceAsync(document, userId);
             return Ok(document);
         }
         [HttpDelete("Delete")]
-        public async Task<IActionResult> DeletePurchaseInvoice(ApplicationDbContext.PurchaseInvoice deletedInvoice)
+        public async Task<IActionResult> DeletePurchaseInvoice(ApplicationDbContext.PurchaseInvoice deletedInvoice, int userId)
         {
-            await _purchaseInvoiceService.DeletePurchaseInvoiceAsync(deletedInvoice);
+            await _purchaseInvoiceService.DeletePurchaseInvoiceAsync(deletedInvoice, userId);
             return Ok();
         }
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAllPurchaseInvoice(ApplicationDbContext.PurchaseInvoice purchaseInvoiceId)
+        public async Task<IActionResult> GetAllPurchaseInvoice(ApplicationDbContext.PurchaseInvoice purchaseInvoiceId, int userId)
         {
-            await _purchaseInvoiceService.GetPurchaseInvoiceAsync(purchaseInvoiceId);
-            return Ok();
+            var result = await _purchaseInvoiceService.GetPurchaseInvoiceAsync(purchaseInvoiceId, userId);
+            return Ok(result);
         }
         [HttpPost("update")]
-        public async Task<IActionResult> UpdatePurchaseInvoice(ApplicationDbContext.PurchaseInvoice updatedInvoice)
+        public async Task<IActionResult> UpdatePurchaseInvoice(ApplicationDbContext.PurchaseInvoice updatedInvoice, int userId)
         {
-            await _purchaseInvoiceService.AmendPurchaseInvoiceAsync(updatedInvoice);
+            await _purchaseInvoiceService.AmendPurchaseInvoiceAsync(updatedInvoice, userId);
             return Ok(updatedInvoice);
         }
     }
