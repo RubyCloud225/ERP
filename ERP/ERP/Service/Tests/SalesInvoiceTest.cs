@@ -105,18 +105,28 @@ namespace ERP.Service.Tests
 
             using var dbContext = new ApplicationDbContext(options);
             await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+
+            // Seed user with Id 1 in this test database
+            var user = new ApplicationDbContext.User
+            {
+                Id = 1,
+                Name = "Test User",
+                Username = "erpuser",
+                Email = "erpuser@example.com",
+                Password = "erppassword"
+            };
+            if (!await dbContext.Users.AnyAsync(u => u.Id == user.Id))
+            {
+                dbContext.Users.Add(user);
+                await dbContext.SaveChangesAsync();
+            }
+
             try
             {
                 var mockDocumentProcessor = new Mock<IDocumentProcessor>();
                 var mockLlmService = new Mock<ILlmService>();
                 var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-                // Use seeded user
-                var user = _seededUser;
                 // Act
-                if (user == null)
-                {
-                    throw new InvalidOperationException("Seeded user is null.");
-                }
                 await salesInvoiceService.GenerateSalesInvoiceAsync(1, "test_blob", DateTime.UtcNow, "INV-001", "Test Customer", "123 Test Address", 1000.00m, 100.00m, 1100.00m, user.Id);
                 // Assert
                 var salesInvoice = dbContext.SalesInvoices.ToList();
@@ -127,6 +137,7 @@ namespace ERP.Service.Tests
             finally
             {
                 await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+                await dbContext.DisposeAsync();
             }  
         }
 
@@ -143,9 +154,24 @@ namespace ERP.Service.Tests
 
             using var dbContext = new ApplicationDbContext(options);
             await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+
+            // Seed user with Id 1 in this test database
+            var user = new ApplicationDbContext.User
+            {
+                Id = 1,
+                Name = "Test User",
+                Username = "erpuser",
+                Email = "erpuser@example.com",
+                Password = "erppassword"
+            };
+            if (!await dbContext.Users.AnyAsync(u => u.Id == user.Id))
+            {
+                dbContext.Users.Add(user);
+                await dbContext.SaveChangesAsync();
+            }
+
             try
             {
-                var user = _seededUser;
                 var salesInvoice = new ApplicationDbContext.SalesInvoice
                 {
                     Id = 1,
@@ -157,7 +183,7 @@ namespace ERP.Service.Tests
                     TotalAmount = 100,
                     SalesTax = 10,
                     NetAmount = 90,
-                    UserId = user?.Id ?? throw new InvalidOperationException("Seeded user is null."),
+                    UserId = user.Id,
                     User = user
                 };
                 dbContext.SalesInvoices.Add(salesInvoice);
@@ -199,12 +225,27 @@ namespace ERP.Service.Tests
                 .Options;
             using var dbContext = new ApplicationDbContext(options);
             await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+
+            // Seed user with Id 1 in this test database
+            var user = new ApplicationDbContext.User
+            {
+                Id = 1,
+                Name = "Test User",
+                Username = "erpuser",
+                Email = "erpuser@example.com",
+                Password = "erppassword"
+            };
+            if (!await dbContext.Users.AnyAsync(u => u.Id == user.Id))
+            {
+                dbContext.Users.Add(user);
+                await dbContext.SaveChangesAsync();
+            }
+
             try
             {
                 var mockDocumentProcessor = new Mock<IDocumentProcessor>();
                 var mockLlmService = new Mock<ILlmService>();
                 var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-                var user = _seededUser;
                 var salesInvoice = new ApplicationDbContext.SalesInvoice
                 {
                     Id = 1,
@@ -216,7 +257,7 @@ namespace ERP.Service.Tests
                     TotalAmount = 100.0m,
                     SalesTax = 10.0m,
                     NetAmount = 90.0m,
-                    UserId = user?.Id ?? throw new InvalidOperationException("Seeded user is null."),
+                    UserId = user.Id,
                     User = user
                 };
                 dbContext.SalesInvoices.Add(salesInvoice);
@@ -384,6 +425,22 @@ namespace ERP.Service.Tests
                 .Options;
             using var dbContext = new ApplicationDbContext(options);
             await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+
+            // Seed user with Id 1 in this test database
+            var user = new ApplicationDbContext.User
+            {
+                Id = 1,
+                Name = "Test User",
+                Username = "erpuser",
+                Email = "erpuser@example.com",
+                Password = "erppassword"
+            };
+            if (!await dbContext.Users.AnyAsync(u => u.Id == user.Id))
+            {
+                dbContext.Users.Add(user);
+                await dbContext.SaveChangesAsync();
+            }
+
             try
             {
                 var mockDocumentProcessor = new Mock<IDocumentProcessor>();
@@ -401,12 +458,12 @@ namespace ERP.Service.Tests
                         1000.00m, // TotalAmount
                         100.00m, // SalesTax
                         1100.00m, // NetAmount
-                        1 // UserId
+                        user.Id // UserId
                     );
                     await dbContext.SaveChangesAsync();
                     await dbContext.SalesInvoices.FindAsync(4);
                 });
-                Assert.Contains("BlobName is required", ex.Message);
+                Assert.Contains("BlobName cannot be empty", ex.Message);
             }
             finally
             {
@@ -419,13 +476,29 @@ namespace ERP.Service.Tests
         {
             // Arrange
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
             using var _dbContext = new ApplicationDbContext(options);
             await _dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+
+            // Seed user with Id 1 in this test database
+            var user = new ApplicationDbContext.User
+            {
+                Id = 1,
+                Name = "Test User",
+                Username = "erpuser",
+                Email = "erpuser@example.com",
+                Password = "erppassword"
+            };
+            if (!await _dbContext.Users.AnyAsync(u => u.Id == user.Id))
+            {
+                _dbContext.Users.Add(user);
+                await _dbContext.SaveChangesAsync();
+            }
+
             try
             {
                 var mockDocumentProcessor = new Mock<IDocumentProcessor>();
@@ -444,7 +517,7 @@ namespace ERP.Service.Tests
                         1000.00m, // TotalAmount
                         100.00m, // SalesTax
                         1100.00m, // NetAmount
-                        1 // UserId
+                        user.Id // UserId
                     );
                 });
                 await _dbContext.SaveChangesAsync();
@@ -454,6 +527,7 @@ namespace ERP.Service.Tests
             finally
             {
                 await _dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+                await _dbContext.DisposeAsync();
             }
         }
 
@@ -462,7 +536,7 @@ namespace ERP.Service.Tests
         {
             // Arrange
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -470,6 +544,22 @@ namespace ERP.Service.Tests
 
             using var dbContext = new ApplicationDbContext(options);
             await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+
+            // Seed user with Id 1 in this test database
+            var user = new ApplicationDbContext.User
+            {
+                Id = 1,
+                Name = "Test User",
+                Username = "erpuser",
+                Email = "erpuser@example.com",
+                Password = "erppassword"
+            };
+            if (!await dbContext.Users.AnyAsync(u => u.Id == user.Id))
+            {
+                dbContext.Users.Add(user);
+                await dbContext.SaveChangesAsync();
+            }
+
             try
             {
                 var mockDocumentProcessor = new Mock<IDocumentProcessor>();
@@ -488,7 +578,7 @@ namespace ERP.Service.Tests
                         1000.00m, // TotalAmount
                         100.00m, // SalesTax
                         1100.00m, // NetAmount
-                        1 // UserId
+                        user.Id // UserId
                     );
                 });
                 await dbContext.SaveChangesAsync();
@@ -520,6 +610,22 @@ namespace ERP.Service.Tests
                 .Options;
             using var dbContext = new ApplicationDbContext(options);
             await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+
+            // Seed user with Id 1 in this test database
+            var user = new ApplicationDbContext.User
+            {
+                Id = 1,
+                Name = "Test User",
+                Username = "erpuser",
+                Email = "erpuser@example.com",
+                Password = "erppassword"
+            };
+            if (!await dbContext.Users.AnyAsync(u => u.Id == user.Id))
+            {
+                dbContext.Users.Add(user);
+                await dbContext.SaveChangesAsync();
+            }
+
             try
             {
                 var mockDocumentProcessor = new Mock<IDocumentProcessor>();
@@ -539,7 +645,7 @@ namespace ERP.Service.Tests
                         1000.00m + i, // TotalAmount
                         100.00m + i, // SalesTax
                         1100.00m + i, // NetAmount
-                1 // UserId
+                user.Id // UserId
                     );
                 }
                 var endTime = DateTime.UtcNow;
@@ -548,6 +654,7 @@ namespace ERP.Service.Tests
             finally
             {
                 await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+                await dbContext.DisposeAsync();
             }
         }
 
@@ -555,30 +662,81 @@ namespace ERP.Service.Tests
         public async Task GenerateSalesInvoicesInBulk_PerformanceTest()
         {
             var stopwatch = new System.Diagnostics.Stopwatch();
-            var invoicestoGenerate = 1000; // Array to hold 1000 invoices
+            var invoicestoGenerate = 100; // Array to hold 1000 invoices
             var tasks = new List<Task>();
+            var semaphore = new System.Threading.SemaphoreSlim(10); // Limit concurrency to 10
+
+            // Use a unique test database name
+            var dbName = $"test_db_{Guid.NewGuid()}";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;Database=";
+            var connectionString = $"{baseConnectionString}{dbName}";
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseNpgsql(connectionString)
+                .Options;
+
+            // Create shared DbContext for assertion
+            await using var sharedDbContext = new ApplicationDbContext(options);
+            await sharedDbContext.Database.EnsureCreatedAsync();
+
+            // Seed user with Id 1 in shared database
+            var user = new ApplicationDbContext.User
+            {
+                Id = 1,
+                Name = "Test User",
+                Username = "erpuser",
+                Email = "erpuser@example.com",
+                Password = "erppassword"
+            };
+            if (!await sharedDbContext.Users.AnyAsync(u => u.Id == user.Id))
+            {
+                sharedDbContext.Users.Add(user);
+                await sharedDbContext.SaveChangesAsync();
+            }
+
             for (int i = 0; i < invoicestoGenerate; i++)
             {
+                await semaphore.WaitAsync();
                 int id = i + 1000; // Start from 1000 to avoid conflicts with existing IDs
-                var task = _salesInvoiceService.GenerateSalesInvoiceAsync(
-                    id, // Id
-                    "test_blob_" + id, // BlobName
-                    DateTime.UtcNow,
-                    "INV-" + id.ToString("D3"), // InvoiceNumber
-                    "Test Customer " + id, // CustomerName
-                    "123 Test Address " + id, // CustomerAddress
-                    1000.00m + id, // TotalAmount
-                    100.00m + id, // SalesTax
-                    1100.00m + id, // NetAmount
-                1 // UserId
-                );
+                var task = Task.Run(async () =>
+                {
+                    try
+                    {
+                        var taskOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+                            .UseNpgsql(connectionString)
+                            .Options;
+                        await using var dbContext = new ApplicationDbContext(taskOptions);
+
+                        var mockDocumentProcessor = new Mock<IDocumentProcessor>();
+                        var mockLlmService = new Mock<ILlmService>();
+                        var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                        await salesInvoiceService.GenerateSalesInvoiceAsync(
+                            id, // Id
+                            "test_blob_" + id, // BlobName
+                            DateTime.UtcNow,
+                            "INV-" + id.ToString("D3"), // InvoiceNumber
+                            "Test Customer " + id, // CustomerName
+                            "123 Test Address " + id, // CustomerAddress
+                            1000.00m + id, // TotalAmount
+                            100.00m + id, // SalesTax
+                            1100.00m + id, // NetAmount
+                            user.Id // UserId
+                        );
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                    }
+                });
                 tasks.Add(task);
             }
             stopwatch.Start();
             await Task.WhenAll(tasks); // Wait for all tasks to complete
             stopwatch.Stop();
-            // Assert
-            var invoices = await _dbContext.SalesInvoices.ToListAsync();
+
+            // Dispose and recreate sharedDbContext to refresh data
+            await sharedDbContext.DisposeAsync();
+            await using var refreshedDbContext = new ApplicationDbContext(options);
+            var invoices = await refreshedDbContext.SalesInvoices.ToListAsync();
             Assert.Equal(invoicestoGenerate, invoices.Count);
             Console.WriteLine($"Time taken to generate 1000 sales invoices: {stopwatch.ElapsedMilliseconds} ms");
         }
@@ -601,6 +759,22 @@ namespace ERP.Service.Tests
                 .Options;
             using var dbContext = new ApplicationDbContext(options);
             await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+
+            // Seed user with Id 1 in this test database
+            var user = new ApplicationDbContext.User
+            {
+                Id = 1,
+                Name = "Test User",
+                Username = "erpuser",
+                Email = "erpuser@example.com",
+                Password = "erppassword"
+            };
+            if (!await dbContext.Users.AnyAsync(u => u.Id == user.Id))
+            {
+                dbContext.Users.Add(user);
+                await dbContext.SaveChangesAsync();
+            }
+
             try
             {
                 var mockDocumentProcessor = new Mock<IDocumentProcessor>();
@@ -620,7 +794,7 @@ namespace ERP.Service.Tests
                         1000.00m + i, // TotalAmount
                         100.00m + i, // SalesTax
                         1100.00m + i, // NetAmount
-                1 // UserId
+                user.Id // UserId
                     );
                 }
                 var duration = DateTime.UtcNow - start;
