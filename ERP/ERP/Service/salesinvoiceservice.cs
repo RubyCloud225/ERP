@@ -7,7 +7,7 @@ namespace ERP.Service
 {
     public class SalesInvoiceService : ISalesInvoiceService
     {
-        private ApplicationDbContext _dbContext;
+        private readonly ApplicationDbContext _dbContext;
         private readonly ILlmService _llmService;
         private readonly IDocumentProcessor _documentProcessor;
         public SalesInvoiceService(ApplicationDbContext dbContext, ILlmService llmService, IDocumentProcessor documentProcessor)
@@ -133,6 +133,7 @@ namespace ERP.Service
         public async Task UpdateSalesInvoiceAsync(int Id, string blobName, DateTime invoiceDate, string invoiceNumber, string customerName, string customerAddress, decimal totalAmount, decimal salesTax, decimal netAmount, int UserId)
         {
             var salesInvoice = await _dbContext.SalesInvoices.FindAsync(Id);
+
             if (salesInvoice == null)
             {
                 throw new Exception($"Sales Invoice with Id {Id} not found");
@@ -155,6 +156,8 @@ namespace ERP.Service
         }
         public async Task<bool> DeleteSalesInvoiceAsync(int Id, int UserId)
         {
+            // Removed redundant redeclaration of _dbContext
+
             var salesInvoice = await _dbContext.SalesInvoices.FindAsync(Id);
             if (salesInvoice == null)
             {

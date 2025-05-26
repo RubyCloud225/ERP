@@ -8,6 +8,8 @@ using Xunit;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Npgsql;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ERP.Service.Tests
 {
@@ -17,6 +19,8 @@ namespace ERP.Service.Tests
         private readonly Mock<IDocumentProcessor> _documentServiceMock;
         private readonly ApplicationDbContext _dbContext;
         private readonly SalesInvoiceService _salesInvoiceService;
+        private ApplicationDbContext.User? _seededUser;
+
         public SalesInvoiceServiceTests()
         {
             var config = new ConfigurationBuilder()
@@ -24,80 +28,76 @@ namespace ERP.Service.Tests
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .Build();
 
-            // Override to use consistent testuser credentials
-            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
+            // Override to use consistent erpuser credentials
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;Database=";
             var dbName = $"test_db_{Guid.NewGuid()}";
             var connectionString = baseConnectionString + dbName;
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
 
-
             _dbContext = new ApplicationDbContext(options);
             try
             {
                 _dbContext.Database.EnsureDeleted(); // Ensure the database is deleted before each test
                 _dbContext.Database.EnsureCreated();
-                SeedTestUser();
+                SeedUsers();
+                SeedUser();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Failed to Initialize the test database {ex.Message}");
             }
-            // Seed the test user
-            var user = new ApplicationDbContext.User
-            {
-                Id = 1,
-                Name = "TestUser",
-                Username = "testuser",
-                Email = "testuser@example.com",
-                Password = "testpassword"
-            };
-            _dbContext.Users.Add(user);
-            // seed the database with a Sales Invoice
-            var salesInvoice = new ApplicationDbContext.SalesInvoice
-            {
-                Id = 1,
-                BlobName = "test_blob",
-                InvoiceDate = DateTime.UtcNow,
-                InvoiceNumber = "INV0001",
-                CustomerName = "Test Customer",
-                CustomerAddress = "123 Test Address",
-                TotalAmount = 1000.00m,
-                SalesTax = 100.00m,
-                NetAmount = 1100.00m,
-                UserId = user.Id,
-                User = user
-            };
             // Initialize mocks and service
             _llmServiceMock = new Mock<ILlmService>();
             _documentServiceMock = new Mock<IDocumentProcessor>();
             _salesInvoiceService = new SalesInvoiceService(_dbContext, _llmServiceMock.Object, _documentServiceMock.Object);
         }
 
-        private void SeedTestUser()
+        private void SeedUser()
         {
             var user = new ApplicationDbContext.User
             {
-                Id = 2,
+                Id = 1,
                 Name = "Test User",
-                Username = "testuser",
-                Email = "testuser@example.com",
-                Password = "TestPassword"
+                Username = "erpuser",
+                Email = "erpuser@example.com",
+                Password = "erppassword"
             };
             if (!_dbContext.Users.AnyAsync(u => u.Id == user.Id).GetAwaiter().GetResult())
             {
                 _dbContext.Users.Add(user);
                 _dbContext.SaveChanges();
             }
+            _seededUser = user;
         }
-        // Create sales invoice service with mocked dependencies
+
+        private void SeedUsers()
+        {
+            for (int i = 1; i <= 2000; i++)
+            {
+                var user = new ApplicationDbContext.User
+                {
+                    Id = i,
+                    Name = $"Test User {i}",
+                    Username = $"erpuser{i}",
+                    Email = $"erpuser{i}@example.com",
+                    Password = "erppassword"
+                };
+                if (!_dbContext.Users.AnyAsync(u => u.Id == user.Id).GetAwaiter().GetResult())
+                {
+                    _dbContext.Users.Add(user);
+                }
+            }
+            _dbContext.SaveChanges();
+        }
+
         [Fact]
         public async Task CreateSalesInvoice_with_Accounting_entries()
         {
             // Arrange
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                .UseNpgsql(connectionString) // Unique database name for each test
@@ -110,18 +110,13 @@ namespace ERP.Service.Tests
                 var mockDocumentProcessor = new Mock<IDocumentProcessor>();
                 var mockLlmService = new Mock<ILlmService>();
                 var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-                //Seed the user
-                var user = new ApplicationDbContext.User
-                {
-                    Id = 1,
-                    Name = "Test User",
-                    Username = "testuser",
-                    Email = "testuser@example.com",
-                    Password = "TestPassword"
-                };
-                dbContext.Users.Add(user);
-                await dbContext.SaveChangesAsync();
+                // Use seeded user
+                var user = _seededUser;
                 // Act
+                if (user == null)
+                {
+                    throw new InvalidOperationException("Seeded user is null.");
+                }
                 await salesInvoiceService.GenerateSalesInvoiceAsync(1, "test_blob", DateTime.UtcNow, "INV-001", "Test Customer", "123 Test Address", 1000.00m, 100.00m, 1100.00m, user.Id);
                 // Assert
                 var salesInvoice = dbContext.SalesInvoices.ToList();
@@ -134,13 +129,13 @@ namespace ERP.Service.Tests
                 await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
             }  
         }
-        // Update sales invoice service with mocked dependencies
+
         [Fact]
         public async Task UpdateSalesInvoice_ShouldUpdateInvoiceNumber_whenInvoiceExists()
         {
             // Arrange
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -150,14 +145,7 @@ namespace ERP.Service.Tests
             await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
             try
             {
-                var user = new ApplicationDbContext.User
-                {
-                    Id = 1,
-                    Name = "Test User",
-                    Username = "testuser",
-                    Email = "testuser@example.com",
-                    Password = "TestPassword"
-                };
+                var user = _seededUser;
                 var salesInvoice = new ApplicationDbContext.SalesInvoice
                 {
                     Id = 1,
@@ -169,7 +157,7 @@ namespace ERP.Service.Tests
                     TotalAmount = 100,
                     SalesTax = 10,
                     NetAmount = 90,
-                    UserId = user.Id,
+                    UserId = user?.Id ?? throw new InvalidOperationException("Seeded user is null."),
                     User = user
                 };
                 dbContext.SalesInvoices.Add(salesInvoice);
@@ -198,14 +186,13 @@ namespace ERP.Service.Tests
             {
                 await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
             }
-            // Assert    
         }
-        // Delete Sales Invoices 
+
         [Fact]
         public async Task DeleteSalesInvoice_ShouldDeleteInvoice_whenInvoiceExists()
         {
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -217,14 +204,7 @@ namespace ERP.Service.Tests
                 var mockDocumentProcessor = new Mock<IDocumentProcessor>();
                 var mockLlmService = new Mock<ILlmService>();
                 var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-                var user = new ApplicationDbContext.User
-                {
-                    Id = 1,
-                    Name = "Test User", // Set the required Name property
-                    Email = "test@example.com",
-                    Username = "Test User",
-                    Password = "test_password"
-                };
+                var user = _seededUser;
                 var salesInvoice = new ApplicationDbContext.SalesInvoice
                 {
                     Id = 1,
@@ -236,7 +216,7 @@ namespace ERP.Service.Tests
                     TotalAmount = 100.0m,
                     SalesTax = 10.0m,
                     NetAmount = 90.0m,
-                    UserId = user.Id,
+                    UserId = user?.Id ?? throw new InvalidOperationException("Seeded user is null."),
                     User = user
                 };
                 dbContext.SalesInvoices.Add(salesInvoice);
@@ -252,7 +232,7 @@ namespace ERP.Service.Tests
                 await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
             }
         }
-        // Edge cases
+
         [Fact]
         public async Task GenerateSalesInvoiceRequest_ShouldAddSalesInvoiceAndAccountingEntries()
         {
@@ -276,11 +256,12 @@ namespace ERP.Service.Tests
             var accountingEntries = await _dbContext.AccountingEntries.ToListAsync();
             Assert.Equal(3, accountingEntries.Count);
         }
+
         [Fact]
         public async Task GenerateSalesInvoiceAsync_withEmptyLLMResponse_shouldStillCreateInvoice()
         {
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -321,16 +302,17 @@ namespace ERP.Service.Tests
                 await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
             }
         }
+
         [Fact]
         public async Task UpdateSalesInvoiceAsync_WithInvalidId_ShouldThrowExemption()
         {
             // Arrange
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseNpgsql(connectionString) // Unique database name for each test
-                .Options;
+               .UseNpgsql(connectionString) // Unique database name for each test
+               .Options;
             using var dbContext = new ApplicationDbContext(options);
             await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
             try
@@ -360,11 +342,12 @@ namespace ERP.Service.Tests
                 await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
             }
         }
+
         [Fact]
         public async Task DeleteSalesInvoiceAsync_WithInvalidId_ShouldThrowException()
         {
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -394,7 +377,7 @@ namespace ERP.Service.Tests
         public async Task GenerateSalesInvoiceAsync_ShouldThrowException_WhenBlobNameIsEmpty()
         {
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;Database=";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;Database=";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -430,12 +413,13 @@ namespace ERP.Service.Tests
                 await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
             }
         }
+
         [Fact]
         public async Task GenerateSalesInvoiceAsync_ShouldThrowException_WhenInvoiceNumberIsEmpty()
         {
             // Arrange
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -472,12 +456,13 @@ namespace ERP.Service.Tests
                 await _dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
             }
         }
+
         [Fact]
         public async Task GenerateSalesInvoiceAsync_ShouldThrowException_WhenCustomerNameIsEmpty()
         {
             // Arrange
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=testpass;";
+            var baseConnectionString = "Host=localhost;Port=5432;Username=erpuser;Password=erppassword;";
             var connectionString = $"{baseConnectionString}{dbName}";
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
@@ -515,6 +500,7 @@ namespace ERP.Service.Tests
                 await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
             }
         }
+
         [Fact]
         public async Task GenerateSalesInvoice_PerformanceTest_lengthPerInvoice()
         {
@@ -524,9 +510,9 @@ namespace ERP.Service.Tests
             {
                 Host = "localhost",
                 Port = 5432,
-                Username = "testuser",
-                Password = "testpass",
-                Database = dbName
+            Username = "erpuser",
+            Password = "erppassword",
+            Database = dbName
             };
             var connectionString = builder.ToString();
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -553,7 +539,7 @@ namespace ERP.Service.Tests
                         1000.00m + i, // TotalAmount
                         100.00m + i, // SalesTax
                         1100.00m + i, // NetAmount
-                        2 + i // UserId
+                1 // UserId
                     );
                 }
                 var endTime = DateTime.UtcNow;
@@ -564,6 +550,7 @@ namespace ERP.Service.Tests
                 await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
             }
         }
+
         [Fact]
         public async Task GenerateSalesInvoicesInBulk_PerformanceTest()
         {
@@ -583,7 +570,7 @@ namespace ERP.Service.Tests
                     1000.00m + id, // TotalAmount
                     100.00m + id, // SalesTax
                     1100.00m + id, // NetAmount
-                    2 + id // UserId
+                1 // UserId
                 );
                 tasks.Add(task);
             }
@@ -595,6 +582,7 @@ namespace ERP.Service.Tests
             Assert.Equal(invoicestoGenerate, invoices.Count);
             Console.WriteLine($"Time taken to generate 1000 sales invoices: {stopwatch.ElapsedMilliseconds} ms");
         }
+
         [Fact]
         public async Task GenerateSalesInvoices_PerformanceTest()
         {
@@ -603,9 +591,9 @@ namespace ERP.Service.Tests
             {
                 Host = "localhost",
                 Port = 5432,
-                Username = "testuser",
-                Password = "testpass",
-                Database = dbName
+            Username = "erpuser",
+            Password = "erppassword",
+            Database = dbName
             };
             var connectionString = builder.ToString();
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -632,7 +620,7 @@ namespace ERP.Service.Tests
                         1000.00m + i, // TotalAmount
                         100.00m + i, // SalesTax
                         1100.00m + i, // NetAmount
-                        2 + i // UserId
+                1 // UserId
                     );
                 }
                 var duration = DateTime.UtcNow - start;
