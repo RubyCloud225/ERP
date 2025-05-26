@@ -7,6 +7,7 @@ using Moq;
 using Xunit;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Npgsql;
 
 namespace ERP.Service.Tests
 {
@@ -478,9 +479,16 @@ namespace ERP.Service.Tests
         public async Task GenerateSalesInvoice_PerformanceTest_lengthPerInvoice()
         {
             // Arrange
-            var dbName = $"testdb_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=postgres;Password=testpass;";
-            var connectionString = $"{baseConnectionString}{dbName}";
+            var dbName = $"testdb_{Guid.NewGuid():N}"; // Unique database name for each test
+            var builder = new NpgsqlConnectionStringBuilder
+            {
+                Host = "localhost",
+                Port = 5432,
+                Username = "testuser",
+                Password = "testpass",
+                Database = dbName
+            };
+            var connectionString = builder.ToString();
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
@@ -549,8 +557,15 @@ namespace ERP.Service.Tests
         public async Task GenerateSalesInvoices_PerformanceTest()
         {
             var dbName = $"test_db_{Guid.NewGuid()}"; // Unique database name for each test
-            var baseConnectionString = "Host=localhost;Port=5432;Username=testuser;Password=testpass;";
-            var connectionString = $"{baseConnectionString}{dbName}";
+            var builder = new NpgsqlConnectionStringBuilder
+            {
+                Host = "localhost",
+                Port = 5432,
+                Username = "testuser",
+                Password = "testpass",
+                Database = dbName
+            };
+            var connectionString = builder.ToString();
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseNpgsql(connectionString) // Unique database name for each test
                 .Options;
