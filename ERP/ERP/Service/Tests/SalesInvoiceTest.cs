@@ -44,6 +44,31 @@ namespace ERP.Service.Tests
             {
                 Console.WriteLine($"Failed to Initialize the test database {ex.Message}");
             }
+            // Seed the test user
+            var user = new ApplicationDbContext.User
+            {
+                Id = 1,
+                Name = "TestUser",
+                Username = "testuser",
+                Email = "testuser@example.com",
+                Password = "testpassword"
+            };
+            _dbContext.Users.Add(user);
+            // seed the database with a Sales Invoice
+            var salesInvoice = new ApplicationDbContext.SalesInvoice
+            {
+                Id = 1,
+                BlobName = "test_blob",
+                InvoiceDate = DateTime.UtcNow,
+                InvoiceNumber = "INV0001",
+                CustomerName = "Test Customer",
+                CustomerAddress = "123 Test Address",
+                TotalAmount = 1000.00m,
+                SalesTax = 100.00m,
+                NetAmount = 1100.00m,
+                UserId = user.Id,
+                User = user
+            };
             // Initialize mocks and service
             _llmServiceMock = new Mock<ILlmService>();
             _documentServiceMock = new Mock<IDocumentProcessor>();
@@ -54,7 +79,7 @@ namespace ERP.Service.Tests
         {
             var user = new ApplicationDbContext.User
             {
-                Id = 1,
+                Id = 2,
                 Name = "Test User",
                 Username = "testuser",
                 Email = "testuser@example.com",
@@ -77,53 +102,37 @@ namespace ERP.Service.Tests
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                .UseNpgsql(connectionString) // Unique database name for each test
                .Options;
-            var mockDocumentProcessor = new Mock<IDocumentProcessor>();
-            var mockLlmService = new Mock<ILlmService>();
-            var dbContext = new ApplicationDbContext(options);
-            var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
-            var user = new ApplicationDbContext.User
-            {
-                Id = 1, // Set the required UserId property
-                Name = "Test Name",
-                Username = "TestUsername",
-                Email = "testuser@example.com",
-                Password = "TestPassword123"
-            };
-            var salesInvoice = new ApplicationDbContext.SalesInvoice
-            {
-                Id = 1,
-                BlobName = "test_blob",
-                InvoiceDate = DateTime.UtcNow,
-                InvoiceNumber = "INV-001",
-                CustomerName = "Test Customer",
-                CustomerAddress = "123 Test Address",
-                TotalAmount = 1000.00m,
-                SalesTax = 100.00m,
-                NetAmount = 1100.00m,
-                UserId = user.Id,
-                User = user
-            };
-            mockDocumentProcessor.Setup(p => p.GeneratePromptFromSalesInvoiceAsync(It.IsAny<ApplicationDbContext.SalesInvoice>()))
-                .ReturnsAsync("Mocked Prompt");
-            mockLlmService.Setup(l => l.GenerateResponseAsync(It.IsAny<string>()))
-                .ReturnsAsync("Mocked LLM Response");
-            // Act
-            await salesInvoiceService.GenerateSalesInvoiceAsync(
-                salesInvoice.Id, // Id
-                salesInvoice.BlobName, // BlobName
-                salesInvoice.InvoiceDate, // InvoiceDate
-                salesInvoice.InvoiceNumber, // InvoiceNumber
-                salesInvoice.CustomerName, // CustomerName
-                salesInvoice.CustomerAddress, // CustomerAddress
-                salesInvoice.TotalAmount, // TotalAmount
-                salesInvoice.SalesTax, // SalesTax
-                salesInvoice.NetAmount, // NetAmount
-                salesInvoice.UserId // UserId
-            );
-            // Assert
-            var salesInvoices = dbContext.SalesInvoices.ToList();
-            Assert.Single(salesInvoices);
 
+            using var dbContext = new ApplicationDbContext(options);
+            await dbContext.Database.EnsureCreatedAsync(); // Ensure the database is created for testing
+            try
+            {
+                var mockDocumentProcessor = new Mock<IDocumentProcessor>();
+                var mockLlmService = new Mock<ILlmService>();
+                var salesInvoiceService = new SalesInvoiceService(dbContext, mockLlmService.Object, mockDocumentProcessor.Object);
+                //Seed the user
+                var user = new ApplicationDbContext.User
+                {
+                    Id = 1,
+                    Name = "Test User",
+                    Username = "testuser",
+                    Email = "testuser@example.com",
+                    Password = "TestPassword"
+                };
+                dbContext.Users.Add(user);
+                await dbContext.SaveChangesAsync();
+                // Act
+                await salesInvoiceService.GenerateSalesInvoiceAsync(1, "test_blob", DateTime.UtcNow, "INV-001", "Test Customer", "123 Test Address", 1000.00m, 100.00m, 1100.00m, user.Id);
+                // Assert
+                var salesInvoice = dbContext.SalesInvoices.ToList();
+                Assert.NotNull(salesInvoice);
+                Assert.Single(salesInvoice);
+                Assert.Equal("INV-001", salesInvoice[0].InvoiceNumber);
+            }
+            finally
+            {
+                await dbContext.Database.EnsureDeletedAsync(); // Clean up the database after the test
+            }  
         }
         // Update sales invoice service with mocked dependencies
         [Fact]
@@ -401,7 +410,7 @@ namespace ERP.Service.Tests
                 {
                     await salesInvoiceService.GenerateSalesInvoiceAsync(
                         4, // Id
-                        string.Empty, // BlobName
+                        "", // BlobName
                         DateTime.UtcNow,
                         "INV-004", // InvoiceNumber
                         "Test Customer", // CustomerName
@@ -544,7 +553,7 @@ namespace ERP.Service.Tests
                         1000.00m + i, // TotalAmount
                         100.00m + i, // SalesTax
                         1100.00m + i, // NetAmount
-                        1 + i // UserId
+                        2 + i // UserId
                     );
                 }
                 var endTime = DateTime.UtcNow;
@@ -574,7 +583,7 @@ namespace ERP.Service.Tests
                     1000.00m + id, // TotalAmount
                     100.00m + id, // SalesTax
                     1100.00m + id, // NetAmount
-                    1 + id // UserId
+                    2 + id // UserId
                 );
                 tasks.Add(task);
             }
@@ -623,7 +632,7 @@ namespace ERP.Service.Tests
                         1000.00m + i, // TotalAmount
                         100.00m + i, // SalesTax
                         1100.00m + i, // NetAmount
-                        1 + i // UserId
+                        2 + i // UserId
                     );
                 }
                 var duration = DateTime.UtcNow - start;
