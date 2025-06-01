@@ -1,8 +1,9 @@
 using ERP.Model;
+using ERP.Program;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 
-public class CustomWebAppFactory : WebApplicationFactory<Program>
+public class CustomWebAppFactory : WebApplicationFactory<ApplicationMain>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {

@@ -42,7 +42,7 @@ namespace ERP.Repository
             await _dbContext.SaveChangesAsync();
             return bankReceipt;
         }
-        public Task<ApplicationDbContext.BankStatement> GetBankStatement(int Id)
+        public Task<ApplicationDbContext.BankStatement> GetBankStatement(Guid Id)
         {
             var statement = _dbContext.BankStatements.FirstOrDefault(x => x.Id == Id);
             if (statement == null)
@@ -51,7 +51,7 @@ namespace ERP.Repository
             }
             return Task.FromResult(statement);
         }
-        public Task<ApplicationDbContext.BankPayment> GetBankPayment(int Id)
+        public Task<ApplicationDbContext.BankPayment> GetBankPayment(Guid Id)
         {
             var payment = _dbContext.BankPayments.FirstOrDefault(x => x.Id == Id);
             if (payment == null)
@@ -60,7 +60,7 @@ namespace ERP.Repository
             }
             return Task.FromResult(payment);
         }
-        public Task<ApplicationDbContext.BankReceipt> GetBankReceipt(int Id) {
+        public Task<ApplicationDbContext.BankReceipt> GetBankReceipt(Guid Id) {
             var receipt = _dbContext.BankReceipts.FirstOrDefault(x => x.Id == Id);
             if (receipt == null)
             {
@@ -68,7 +68,7 @@ namespace ERP.Repository
             }
             return Task.FromResult(receipt);
         }
-        public async Task<ApplicationDbContext.BankStatement> DeleteBankStatement(int Id)
+        public async Task<ApplicationDbContext.BankStatement> DeleteBankStatement(Guid Id)
         {
             var statement = await GetBankStatement(Id);
             if (statement == null)
@@ -79,7 +79,7 @@ namespace ERP.Repository
             await _dbContext.SaveChangesAsync();
             return statement;
         }
-        public async Task<ApplicationDbContext.BankPayment> DeleteBankPayment(int Id)
+        public async Task<ApplicationDbContext.BankPayment> DeleteBankPayment(Guid Id)
         {
             var payment = await GetBankPayment(Id);
             if (payment == null)
@@ -90,7 +90,7 @@ namespace ERP.Repository
             await _dbContext.SaveChangesAsync();
             return payment;
         }
-        public async Task<ApplicationDbContext.BankReceipt> DeleteBankReceipt(int Id)
+        public async Task<ApplicationDbContext.BankReceipt> DeleteBankReceipt(Guid Id)
         {
             var receipt = await GetBankReceipt(Id);
             if (receipt == null)
@@ -149,14 +149,14 @@ namespace ERP.Repository
         Task<ApplicationDbContext.BankStatement> UpdateBankStatement(ApplicationDbContext.BankStatement bankStatement);
         Task<ApplicationDbContext.BankPayment> UpdateBankPayment(ApplicationDbContext.BankPayment bankPayment);
         Task<ApplicationDbContext.BankReceipt> UpdateBankReceipt(ApplicationDbContext.BankReceipt bankReceipt);
-        Task<ApplicationDbContext.BankStatement> DeleteBankStatement(int Id);
-        Task<ApplicationDbContext.BankPayment> DeleteBankPayment(int Id);
-        Task<ApplicationDbContext.BankReceipt> DeleteBankReceipt(int Id);
+        Task<ApplicationDbContext.BankStatement> DeleteBankStatement(Guid Id);
+        Task<ApplicationDbContext.BankPayment> DeleteBankPayment(Guid Id);
+        Task<ApplicationDbContext.BankReceipt> DeleteBankReceipt(Guid Id);
         Task<ApplicationDbContext.BankStatement> AddBankStatement(ApplicationDbContext.BankStatement bankStatement);
         Task<ApplicationDbContext.BankPayment> AddBankPayment(ApplicationDbContext.BankPayment bankPayment);
         Task<ApplicationDbContext.BankReceipt> AddBankReceipt(ApplicationDbContext.BankReceipt bankReceipt);
-        Task<ApplicationDbContext.BankStatement> GetBankStatement(int Id);
-        Task<ApplicationDbContext.BankPayment> GetBankPayment(int Id);
-        Task<ApplicationDbContext.BankReceipt> GetBankReceipt(int Id);
+        Task<ApplicationDbContext.BankStatement> GetBankStatement(Guid Id);
+        Task<ApplicationDbContext.BankPayment> GetBankPayment(Guid Id);
+        Task<ApplicationDbContext.BankReceipt> GetBankReceipt(Guid Id);
     }
 }

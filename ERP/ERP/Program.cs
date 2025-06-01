@@ -10,20 +10,20 @@ using ERP.Model;
 using ERP.Middleware;
 using ERP.Service;
 
-
-public class Program
+namespace ERP.Program;
+public class ApplicationMain
 {
     public static void Main(string[] args)
     {
         Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder =>
             {
-                webBuilder.UseStartup<Program>();
+                webBuilder.UseStartup<ApplicationMain>();
             })
             .Build()
             .Run();
     }
-    public Program(IConfiguration configuration)
+    public ApplicationMain(IConfiguration configuration)
     {
         Configuration = configuration;
     }
@@ -52,6 +52,7 @@ public class Program
         services.AddHttpClient<IPurchaseInvoiceService, PurchaseInvoiceService>();
         services.AddHttpClient<ISalesInvoiceService, SalesInvoiceService>();
         services.AddHttpClient<IUserService, UserService>();
+        services.AddHttpClient<IBankService, BankService>();
 
         services.AddStackExchangeRedisCache(options =>
         {
@@ -78,6 +79,14 @@ public class Program
         app.UseStaticFiles();
 
         app.UseRouting();
+        app.UseMiddleware<UserDataFilterMiddleware>();
+        app.UseMiddleware<ErrorHandlingMiddleware>();
+        app.UseMiddleware<PropertyValidationMiddleware>();
+        app.UseMiddleware<PropertyCachingMiddleware>();
+        app.UseMiddleware<PropertyLoggingMiddleware>();
+        app.UseMiddleware<RateLimitingMiddleware>();
+        app.UseMiddleware<FileValidationMiddleware>();
+
 
         app.UseCors("AllowSpecificOrigin");
 

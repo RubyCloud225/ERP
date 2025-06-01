@@ -20,7 +20,7 @@ namespace ERP.Repository
             await _dbContext.SaveChangesAsync();
             return bankAccount;
         }
-        public Task<ApplicationDbContext.BankAccount> GetAccounts(int Id)
+        public Task<ApplicationDbContext.BankAccount> GetAccounts(Guid Id)
         {
             var account = _dbContext.BankAccounts.FirstOrDefault(x => x.Id == Id);
             if (account == null)
@@ -29,7 +29,7 @@ namespace ERP.Repository
             }
             return Task.FromResult(account);
         }
-        public async Task<ApplicationDbContext.BankAccount> DeleteAccount (int Id)
+        public async Task<ApplicationDbContext.BankAccount> DeleteAccount (Guid Id)
         {
             var account = await GetAccounts(Id);
             if (account == null)
@@ -55,7 +55,7 @@ namespace ERP.Repository
             await _dbContext.SaveChangesAsync();
             return existingAccount;
         }
-        public void ReconcileAccount(int accountId, decimal debits, decimal credits)
+        public void ReconcileAccount(Guid accountId, decimal debits, decimal credits)
         {
             var account = _dbContext.BankAccounts.FirstOrDefault(x => x.Id == accountId) ?? throw new InvalidOperationException("Account not found");
             decimal netEffect = debits - credits;
@@ -69,9 +69,9 @@ namespace ERP.Repository
     public interface IAccountRepository
     {
         Task<ApplicationDbContext.BankAccount> UpdateAccount(ApplicationDbContext.BankAccount bankAccount);
-        Task<ApplicationDbContext.BankAccount> DeleteAccount (int Id);
-        Task<ApplicationDbContext.BankAccount> GetAccounts(int Id);
+        Task<ApplicationDbContext.BankAccount> DeleteAccount (Guid Id);
+        Task<ApplicationDbContext.BankAccount> GetAccounts(Guid Id);
         Task<ApplicationDbContext.BankAccount> addAccount(ApplicationDbContext.BankAccount bankAccount);
-        void ReconcileAccount(int accountId, decimal debits, decimal credits);
+        void ReconcileAccount(Guid accountId, decimal debits, decimal credits);
     }
 }
