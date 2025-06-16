@@ -15,7 +15,6 @@ namespace ERP.Model
         public DbSet<UserDto> userDtos { get; set; }
         public DbSet<SalesInvoice> SalesInvoices { get; set; }
         public DbSet<JournalEntry> JournalEntries { get; set; }
-        public DbSet<JournalEntryLine> JournalEntryLines { get; set; }
         public DbSet<PropertyLog> PropertyLogs { get; set; }
         public DbSet<DocumentRecord> DocumentRecords { get; set; }
         public DbSet<LlmResponse> LlmResponses { get; set; }
@@ -157,6 +156,7 @@ namespace ERP.Model
         public class AccountingEntry
         {
             public Guid Id { get; set; }
+            public int? PurchaseInvoiceId { get; set; }
             public required string Account { get; set; }
             public decimal Debit { get; set; }
             public decimal Credit { get; set; }
@@ -202,57 +202,13 @@ namespace ERP.Model
 
         public class JournalEntry
         {
-            public Guid Id { get; set; } = Guid.NewGuid();
+            public Guid Id { get; set; }
             public required string Description { get; set; }
             public decimal Amount { get; set; }
             public DateTime EntryDate { get; set; }
             public int? UserId { get; set; }
             public User? User { get; set; }
-            public List<JournalEntryLine> Lines { get; set; } = new();
         }
-
-        public class JournalEntryLine
-        {
-            public Guid Id { get; set; } = Guid.NewGuid();
-            public required string AccountName { get; set; }
-            public decimal Debit { get; set; }
-            public decimal Credit { get; set; }
-            public int? UserId { get; set; }
-            public User? User { get; set; }
-            public Guid JournalEntryId { get; set; }
-        }
-
-        public class JournalEntryDto
-        {
-            public string Description { get; set; } = string.Empty;
-            public DateTime EntryDate { get; set; } = DateTime.Now;
-            public int? UserId { get; set; }
-            public List<JournalEntryLineDto> Lines { get; set; } = new();
-        }
-        public class JournalEntryLineDto
-        {
-            public string AccountName { get; set; } = string.Empty;
-            public decimal Debit { get; set; }
-            public decimal Credit { get; set; }
-        }
-
-        public class Result<T>
-        {
-            public bool Success { get; }
-            public string? Error { get; }
-            public T? Value { get; }
-
-            private Result(bool success, T? value = default, string? error = null)
-            {
-                this.Success = success;
-                Value = value;
-                Error = error;
-            }
-            public static Result<T> SuccessResult(T value) => new(true, value);
-            public static Result<T> Fail(string error) => new(false, error: error);
-        }
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -327,12 +283,6 @@ namespace ERP.Model
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<JournalEntry>()
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(j => j.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<JournalEntryLine>()
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(j => j.UserId)
