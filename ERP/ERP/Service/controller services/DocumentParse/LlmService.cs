@@ -14,6 +14,7 @@ namespace ERP.Service
         Task<string> GenerateResponseAsync(string prompt);
         Task<string> GenerateDocumentCatagoryPromptAsync(DocumentRecord documentRecord);
         Task<parsedSalesInvoiceDto> GeneratePromptFromSalesInvoiceAsync(GenerateSalesInvoiceDto request);
+        Task<ParsedPurchaseInvoiceDto> GeneratePromptFromPurchaseInvoiceAsync(ParsedPurchaseInvoiceDto request);
            
     }
 
@@ -118,21 +119,43 @@ namespace ERP.Service
                 RecommendedTaxNominalType = NominalAccountType.Liability, // Placeholder for recommended tax nominal type
             };
         }
-        public async Task<string> GeneratePromptFromPurchaseInvoiceAsync(PurchaseInvoice purchaseInvoice)
+        public async Task<ParsedPurchaseInvoiceDto> GeneratePromptFromPurchaseInvoiceAsync(ParsedPurchaseInvoiceDto request)
         {
-            string prompt = $"You are tasked with reading {purchaseInvoice.BlobName} classified as a PurchaseInvoice" +
-                            $"Please use the following details: \n" +
-                            $"Document Name: {purchaseInvoice.BlobName}\n" +
-                            $"Invoice Date: {purchaseInvoice.PurchaseInvoiceDate.ToString("yyyy-MM-dd")}\n" +
-                            $"Invoice Number: {purchaseInvoice.PurchaseInvoiceNumber}\n" +
-                            $"Supplier Name: {purchaseInvoice.Supplier}\n" +
-                            $"Supplier Address: {purchaseInvoice.SupplierAddress}\n" +
-                            $"Total Amount: {purchaseInvoice.GrossAmount:C} (in currency)\n" +
-                            $"Purchase Tax: {purchaseInvoice.TaxAmount:C} (in currency)\n" +
-                            $"Net Amount: {purchaseInvoice.NetAmount:C} (in currency)\n" +
-                            $"Please post a purchase invoice to the appropriate nominal and expense account based on the above details.";
-            string response = await GenerateResponseAsync(prompt);
-            return response.Trim();
+            string prompt = $"You are an expert accounting AI. I have a purchase invoice with the following details:\n\n" +
+                            $"Document Name: {request.BlobName}\n" +
+                            $"Invoice Name: {request.InvoiceNumber}\n" +
+                            $"Invoice Date: {request.InvoiceDate.ToString("yyyy-MM-dd")}\n" +
+                            $"SupplierName: {request.SupplierName}\n" +
+                            $"Supplier Address: {request.Address}\n" +
+                            $"Total Amount: {request.TotalAmount:C} (in currency)\n" +
+                            $"Purchase Tax: {request.TaxAmount:C} (in currency)\n" +
+                            $"Net Amount: {request.NetAmount:C} (in currency)\n" +
+                            $"Due Date: {request.DueDate:C}\n" +
+                            $"Line Items: {string.Join("\n", request.LineItems.Select(line =>
+                                $"Line Item: {line.Description}, Quantity: {line.Quantity}, Unit Price: {line.UnitPrice:C}, Total Line Amount: {line.TotalAmount:C}"))}\n\n" +
+                            $"Based on these details, please recommend the appropriate nominal accounts for double-entry accounting record. \n" +
+                            $"Focus on the primary nominal accounts for the purchase invoice, including:\n" +
+                            $"RecommendedExpenseNominal: {request.RecommendedExpenseNominal}\n" +
+                            $"RecommendedPayableNominal: {request.RecommendedPayableNominal}\n" +
+                            $"RecommendedTaxNominal: {request.RecommendedTaxNominal}\n" +
+                            $"Please recommend a purchase invoice to the appropriate nominal and expense account based on the above details";
+            await Task.Delay(1000); // Simulate some processing delay
+            return new ParsedPurchaseInvoiceDto
+            {
+                BlobName = request.BlobName,
+                InvoiceNumber = request.InvoiceNumber,
+                InvoiceDate = request.InvoiceDate,
+                SupplierName = request.SupplierName,
+                Address = request.Address,
+                TotalAmount = request.TotalAmount,
+                TaxAmount = request.TaxAmount,
+                NetAmount = request.NetAmount,
+                DueDate = request.DueDate,
+                LineItems = request.LineItems,
+                RecommendedExpenseNominal = request.RecommendedExpenseNominal,
+                RecommendedPayableNominal = request.RecommendedPayableNominal,
+                RecommendedTaxNominal = request.RecommendedTaxNominal
+            };
         }
 
         

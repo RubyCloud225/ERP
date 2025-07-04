@@ -110,6 +110,8 @@ namespace ERP.Model
             public Guid? BankStatementId { get; set; }
             public BankStatement? bankStatement { get; set; }// Renamed property
             public AccountingEntry? AccountingEntry { get; set; } // Added property
+            public Guid? NominalAccountId { get; set; } // Added nominal account id
+            public NominalAccount? NominalAccount { get; set; } // Added navigation property
         }
         public class ParsedBankStatementDto
         {
@@ -162,10 +164,24 @@ namespace ERP.Model
         {
             public Guid Id { get; set; }
             public required string Description { get; set; }
-            public decimal Amount { get; set; }
+            public required decimal Quantity { get; set; }
+            public required decimal UnitPrice { get; set; }
+            public required decimal TotalPrice { get; set; } // Calculate total price based on quantity and unit price
+            public Guid? NominalAccountId { get; set; } // Optional, if you want to link to a nominal account
             public decimal TaxAmount { get; set; } // Ensure this property is included
             public Guid? PurchaseInvoiceId { get; set; }
             public PurchaseInvoice? PurchaseInvoice { get; set; }
+        }
+
+        public class PurchaseInvoiceLineDto
+        {
+            public required string Description { get; set; }
+            public required decimal Quantity { get; set; }
+            public required decimal UnitPrice { get; set; }
+            public required decimal TotalPrice { get; set; } // Calculate total price based on quantity and unit price
+            public decimal TaxAmount { get; set; } // Ensure this property is included
+            public string? RecommendedNominalAccount { get; set; } // Optional, if you want to recommend a nominal account
+            public NominalAccountType? RecommendedNominalAccountType { get; set; } // Optional, if you want to recommend a nominal account type
         }
 
         public class ParsedPurchaseInvoiceDto
@@ -174,10 +190,12 @@ namespace ERP.Model
             public required string InvoiceNumber { get; set; }
             public DateTime InvoiceDate { get; set; }
             public required string SupplierName { get; set; }
+            public required string Address { get; set; }
             public decimal TotalAmount { get; set; }
             public decimal TaxAmount { get; set; }
             public decimal NetAmount { get; set; }
             public DateTime? DueDate { get; set; }
+            public List<ParsedInvoiceLineDto> LineItems { get; set; } = new List<ParsedInvoiceLineDto>();
 
             // If your LLM can categorize line items, you might add:
             // public List<ParsedInvoiceLineDto> LineItems { get; set; } = new List<ParsedInvoiceLineDto>();
@@ -187,6 +205,22 @@ namespace ERP.Model
             public NominalAccountType? RecommendedExpenseNominalType { get; set; } // e.g., "Purchase Expense"
             public string? RecommendedTaxNominal { get; set; } // e.g., "VAT Input" or "GST Input"
             public NominalAccountType? RecommendedTaxNominalType { get; set; } //
+        }
+        public class ParsedInvoiceLineDto
+        {
+            public required string Description { get; set; }
+            public decimal Quantity { get; set; }
+            public decimal UnitPrice { get; set; }
+            public decimal TotalAmount => Quantity * UnitPrice; // Calculate total price based on quantity and unit price
+            public decimal TaxAmount { get; set; }
+            public string? RecommendedNominalAccount { get; set; } // Optional, if you want
+            public NominalAccountType? RecommendedNominalAccountType { get; set; } // Optional
+
+        }
+        public class CreatePurchaseInvoiceDto
+        {
+            public ParsedPurchaseInvoiceDto? ParsedInvoice { get; set; } = default;
+            public Guid? UserId { get; set; } // Optional user ID for the creator
         }
         //-------------------- Accounting Schema ---------------------//
         public enum NominalAccountType
@@ -235,6 +269,8 @@ namespace ERP.Model
             public Guid? BankTransactionId { get; set; } // Added property
             public BankTransaction? BankTransaction { get; set; } // Added navigation property
             public Guid? SalesInvoiceId { get; set; } // Added property
+            public Guid? PurchaseInvoiceId { get; set; } // Added property for purchase invoice
+            public PurchaseInvoice? PurchaseInvoice { get; set; } // Navigation property for purchase invoice
         }
         public class AccountingEntryLine
         {
@@ -589,6 +625,17 @@ namespace ERP.Model
                 .HasOne<SalesInvoice>()
                 .WithMany()
                 .HasForeignKey(a => a.SalesInvoiceId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<AccountingEntry>()
+                .HasIndex(a => a.PurchaseInvoiceId)
+                .IsUnique()
+                .HasFilter("PurchaseInvoiceId IS NOT NULL");
+
+            modelBuilder.Entity<AccountingEntry>()
+                .HasOne<PurchaseInvoice>()
+                .WithMany()
+                .HasForeignKey(a => a.PurchaseInvoiceId)
                 .OnDelete(DeleteBehavior.Restrict);
             
             modelBuilder.Entity<PurchaseInvoice>()
