@@ -22,7 +22,8 @@ namespace ERP.Controllers
         {
             try
             {
-                var result = await _salesInvoiceService.GenerateSalesInvoiceAsync(request, blobName, userId);
+                var newId = Guid.NewGuid();
+                var result = await _salesInvoiceService.GenerateSalesInvoiceAsync(newId, request, blobName, userId);
                 return CreatedAtAction(nameof(GetSalesInvoiceById), new { id = result.Id }, result);
             }
             catch (Exception ex)
@@ -95,6 +96,20 @@ namespace ERP.Controllers
                     return NotFound($"Sales invoice for user with id {userId} not found.");
                 }
                 return Ok(salesInvoice);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("customer/{customerId}/total-sales")]
+        public async Task<IActionResult> GetTotalSalesAmountForCustomer(Guid customerId)
+        {
+            try
+            {
+                var totalSales = await _salesInvoiceService.GetTotalSalesAmountForCustomerAsync(customerId);
+                return Ok(new { CustomerId = customerId, TotalSalesAmount = totalSales });
             }
             catch (Exception ex)
             {

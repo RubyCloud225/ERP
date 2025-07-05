@@ -15,7 +15,7 @@ namespace ERP.Service
         Task<string> GenerateDocumentCatagoryPromptAsync(DocumentRecord documentRecord);
         Task<parsedSalesInvoiceDto> GeneratePromptFromSalesInvoiceAsync(GenerateSalesInvoiceDto request);
         Task<ParsedPurchaseInvoiceDto> GeneratePromptFromPurchaseInvoiceAsync(ParsedPurchaseInvoiceDto request);
-           
+        Task<string> GenerateKpiAndTrendAnalysisAsync(FinancialDataDto financialData);
     }
 
     public class LlmService : ILlmService
@@ -156,6 +156,27 @@ namespace ERP.Service
                 RecommendedPayableNominal = request.RecommendedPayableNominal,
                 RecommendedTaxNominal = request.RecommendedTaxNominal
             };
+        }
+
+        public async Task<string> GenerateKpiAndTrendAnalysisAsync(FinancialDataDto financialData)
+        {
+            string prompt = $"You are a market analyst AI. Based on the following financial data, assess the industry of the company and provide KPIs and trend analysis of its competitors in the market.\n\n" +
+                            $"Company Name: {financialData.CompanyName}\n" +
+                            $"Industry: {financialData.Industry}\n" +
+                            $"Geography: {financialData.Geography}\n" +
+                            $"Currency: {financialData.Currency}\n" +
+                            $"Seasonality: {financialData.Seasonality}\n" +
+                            $"Financial Metrics:\n";
+
+            foreach (var metric in financialData.FinancialMetrics)
+            {
+                prompt += $"- {metric.Key}: {metric.Value}\n";
+            }
+
+            prompt += "\nPlease provide a detailed market analysis including key performance indicators, competitor trends, and relevant industry insights.";
+
+            string response = await GenerateResponseAsync(prompt);
+            return response;
         }
 
         

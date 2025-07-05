@@ -11,11 +11,13 @@ namespace ERP.Service
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly ILogger<CustomerService> _logger;
+        private readonly ISalesInvoiceService _salesInvoiceService;
 
-        public CustomerService(ApplicationDbContext dbContext, ILogger<CustomerService> logger)
+        public CustomerService(ApplicationDbContext dbContext, ILogger<CustomerService> logger, ISalesInvoiceService salesInvoiceService)
         {
             _dbContext = dbContext;
             _logger = logger;
+            _salesInvoiceService = salesInvoiceService;
         }
 
         public async Task<Guid> AddCustomer(ApplicationDbContext.Customer customer)
@@ -32,6 +34,19 @@ namespace ERP.Service
             {
                 _logger.LogError(ex, "Failed to add customer {Name}.", customer.Name);
                 return Guid.Empty;
+            }
+        }
+
+        public async Task<decimal> GetTotalSalesAmountAsync(Guid customerId)
+        {
+            try
+            {
+                return await _salesInvoiceService.GetTotalSalesAmountForCustomerAsync(customerId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to get total sales amount for customer with ID {CustomerId}.", customerId);
+                return 0m;
             }
         }
 

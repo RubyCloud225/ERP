@@ -382,12 +382,16 @@ namespace ERP.Model
                 public decimal TotalAmount { get; set; }
                 public DateTime? DueDate { get; set; } // Nullable to allow for no due date
                 public bool IsPaid { get; set; } = false; // Default to false, can be changed later
-                public required Guid UserId { get; set; }
-                public required User User { get; set; } // Assuming UserId is a string, adjust as necessary
-                public ICollection<SalesInvoiceLine> Lines { get; set; } = new List<SalesInvoiceLine>();
-                public Guid? AccountingEntryId { get; set; }
-                public AccountingEntry? AccountingEntry { get; set; }
-            }
+            public required Guid UserId { get; set; }
+            public required User User { get; set; } // Assuming UserId is a string, adjust as necessary
+
+            public Guid? CustomerId { get; set; }
+            public Customer? Customer { get; set; }
+
+            public ICollection<SalesInvoiceLine> Lines { get; set; } = new List<SalesInvoiceLine>();
+            public Guid? AccountingEntryId { get; set; }
+            public AccountingEntry? AccountingEntry { get; set; }
+        }
         public class SalesInvoiceLine
         {
             public Guid Id { get; set; }
@@ -593,7 +597,13 @@ namespace ERP.Model
                 .WithMany()
                 .HasForeignKey(s => s.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
-                
+
+            modelBuilder.Entity<SalesInvoice>()
+                .HasOne(s => s.Customer)
+                .WithMany()
+                .HasForeignKey(s => s.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
                 modelBuilder.Entity<SalesInvoice>()
                 .Property(s => s.CustomerName)
                 .IsRequired();

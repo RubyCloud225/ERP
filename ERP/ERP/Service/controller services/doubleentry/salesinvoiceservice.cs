@@ -8,12 +8,13 @@ namespace ERP.Service
 {
     public interface ISalesInvoiceService
     {
-        Task<ApplicationDbContext.SalesInvoice> GenerateSalesInvoiceAsync(ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId = null);
-        Task<ApplicationDbContext.SalesInvoice> AmendSalesInvoiceAsync(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId = null);
+        Task<ApplicationDbContext.SalesInvoice> GenerateSalesInvoiceAsync(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId = null, Guid? customerId = null);
+        Task<ApplicationDbContext.SalesInvoice> AmendSalesInvoiceAsync(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId = null, Guid? customerId = null);
         Task DeleteSalesInvoiceAsync(Guid id);
         Task<ApplicationDbContext.SalesInvoice?> GetSalesInvoiceByIdAsync(Guid id);
         Task<ApplicationDbContext.SalesInvoice?> GetSalesInvoiceByUserIdAsync(Guid userId);
         Task<decimal> GetSalesTaxReturnForQuarterAsync(int year, int quarter);
+        Task<decimal> GetTotalSalesAmountForCustomerAsync(Guid customerId);
     }
     public class SalesInvoiceService : ISalesInvoiceService
     {
@@ -32,9 +33,8 @@ namespace ERP.Service
         // Generates Sales invoice based on user input and processes it through LLM for further processing
         // saves it, and creates the corresponding accounting entries
 
-        public async Task<ApplicationDbContext.SalesInvoice> GenerateSalesInvoiceAsync(ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId = null)
+        public async Task<ApplicationDbContext.SalesInvoice> GenerateSalesInvoiceAsync(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId = null, Guid? customerId = null)
         {
-            //validation
             if (request.LineItems == null || request.LineItems.Count == 0)
             {
                 throw new ArgumentException("Line items cannot be null or empty");
@@ -51,98 +51,61 @@ namespace ERP.Service
             {
                 throw new ArgumentException("Invoice date cannot be the default value");
             }
-            // LLm Generation and recommended Nominal
-            var generatedInvoiceData = await _llmService.GeneratePromptFromSalesInvoiceAsync(request);
-            // Check for generated Invoice Number
+
             var existingInvoice = await _dbContext.SalesInvoices
-                .FirstOrDefaultAsync(i => i.InvoiceNumber == generatedInvoiceData.InvoiceNumber);
+                .Include(i => i.Lines)
+                .FirstOrDefaultAsync(i => i.Id == id);
 
-            if (existingInvoice != null)
+            if (existingInvoice == null)
             {
-                throw new InvalidOperationException($"An invoice with the number {generatedInvoiceData.InvoiceNumber} already exists.");
+                throw new KeyNotFoundException($"Sales invoice with id {id} not found");
             }
-            // create nominal accounts if they do not exist
-            var revenueNominalId = await _nominalAccountResolutionService.ResolveOrCreateNominalAccountAsync(
-                generatedInvoiceData.RecommendedRevenueNominal,
-                generatedInvoiceData.RecommendedRevenueNominalType);
-            var receivableNominalId = await _nominalAccountResolutionService.ResolveOrCreateNominalAccountAsync(
-                generatedInvoiceData.RecommendedRecieivableNominal,
-                generatedInvoiceData.RecommendedRecieivableNominalType);
 
-            Guid? taxNominalId = null;
-            if (!string.IsNullOrWhiteSpace(generatedInvoiceData.RecommendedTaxNominal))
+            // Update properties
+            existingInvoice.InvoiceDate = request.InvoiceDate;
+            // InvoiceNumber is not part of GenerateSalesInvoiceDto, so do not update it here
+            existingInvoice.CustomerName = request.CustomerName;
+            existingInvoice.CustomerAddress = request.CustomerAddress;
+            existingInvoice.DueDate = request.DueDate;
+            existingInvoice.BlobName = blobName;
+            existingInvoice.UserId = userId ?? existingInvoice.UserId;
+            existingInvoice.CustomerId = customerId ?? existingInvoice.CustomerId;
+
+            // Remove existing lines
+            _dbContext.SalesInvoiceLines.RemoveRange(existingInvoice.Lines);
+
+            // Add new lines
+            var newLines = new List<ApplicationDbContext.SalesInvoiceLine>();
+            foreach (var line in request.LineItems)
             {
-                // Only resolve tax nominal if it is provided
-                taxNominalId = await _nominalAccountResolutionService.ResolveOrCreateNominalAccountAsync(
-                generatedInvoiceData.RecommendedTaxNominal,
-                generatedInvoiceData.RecommendedTaxNominalType);
-            }
-            // Create the Sales Invoice
-            var salesInvoiceLines = new List<ApplicationDbContext.SalesInvoiceLine>();
-            foreach (var parsedLine in generatedInvoiceData.ParsedSalesInvoiceLines)
-            {
-                // Validate each line item
-                if (parsedLine.Quantity <= 0)
+                newLines.Add(new ApplicationDbContext.SalesInvoiceLine
                 {
-                    throw new ArgumentException("Quantity must be greater than zero for each line item.");
-                }
-                if (parsedLine.UnitPrice < 0)
-                {
-                    throw new ArgumentException("Unit price cannot be negative for each line item.");
-                }
-                if (parsedLine.TotalPrice < 0)
-                {
-                    throw new ArgumentException("Total price cannot be negative for each line item.");
-                }
-                Guid? lineNominalId = null;
-                if (!string.IsNullOrWhiteSpace(parsedLine.RecommendedNominal))
-                {
-                    lineNominalId = await _nominalAccountResolutionService.ResolveOrCreateNominalAccountAsync(
-                        parsedLine.RecommendedNominal,
-                        parsedLine.RecommendedNominalType);
-                }
-                salesInvoiceLines.Add(new ApplicationDbContext.SalesInvoiceLine
-                {
-                    Description = parsedLine.Description,
-                    quantity = parsedLine.Quantity,
-                    UnitPrice = parsedLine.UnitPrice,
-                    TotalPrice = parsedLine.TotalPrice,
-                    NominalAccountId = lineNominalId
+                    Description = line.Description,
+                    quantity = line.Quantity,
+                    UnitPrice = line.UnitPrice,
+                    TotalPrice = line.TotalPrice,
+                    // NominalAccountId is not part of SalesInvoiceLineDto, so set to null or resolve if needed
+                    NominalAccountId = null,
+                    SalesInvoiceId = id
                 });
             }
-            var salesInvoice = new ApplicationDbContext.SalesInvoice
-            {
-                Id = Guid.NewGuid(),
-                InvoiceDate = generatedInvoiceData.InvoiceDate,
-                InvoiceNumber = generatedInvoiceData.InvoiceNumber,
-                CustomerName = generatedInvoiceData.CustomerName,
-                CustomerAddress = generatedInvoiceData.CustomerAddress,
-                TotalAmount = generatedInvoiceData.TotalAmount,
-                SalesTax = generatedInvoiceData.SalesTax,
-                NetAmount = generatedInvoiceData.NetAmount,
-                DueDate = request.DueDate,
-                IsPaid = false,
-                Lines = salesInvoiceLines,
-                BlobName = blobName,
-                UserId = userId.HasValue
-                    ? Guid.NewGuid() // Replace with appropriate logic to generate or fetch a Guid
-                    : throw new ArgumentNullException(nameof(userId)),
-                User = await _dbContext.Users.FindAsync(userId) ?? throw new InvalidOperationException($"User with ID {userId} not found.")
-            };
-            _dbContext.SalesInvoices.Add(salesInvoice);
+            existingInvoice.Lines = newLines;
+
+            _dbContext.SalesInvoiceLines.AddRange(newLines);
+
+            _dbContext.SalesInvoices.Update(existingInvoice);
             await _dbContext.SaveChangesAsync();
-            // Create Accounting Entries
-            await _accountingService
-                .CreateAccountingForSalesInvoiceAsync(
-                    salesInvoice,
-                    receivableNominalId.GetHashCode(),
-                    revenueNominalId.GetHashCode(),
-                    taxNominalId?.GetHashCode(),
-                    null);
-            salesInvoice.AccountingEntryId = salesInvoice.Id; // Adjust logic as needed
-            _dbContext.SalesInvoices.Update(salesInvoice);
-            await _dbContext.SaveChangesAsync();
-            return salesInvoice;
+
+            // Removed call to non-existent accounting service method
+
+            return existingInvoice;
+        }
+
+        public async Task<decimal> GetTotalSalesAmountForCustomerAsync(Guid customerId)
+        {
+            return await _dbContext.SalesInvoices
+                .Where(si => si.CustomerId == customerId)
+                .SumAsync(si => (decimal?)si.TotalAmount) ?? 0m;
         }
 
         public async Task<ApplicationDbContext.SalesInvoice?> GetSalesInvoiceByIdAsync(Guid id)
@@ -255,6 +218,41 @@ namespace ERP.Service
                 .SumAsync(i => (decimal?)i.SalesTax) ?? 0m;
 
             return totalSalesTax;
+        }
+
+        Task<ApplicationDbContext.SalesInvoice> ISalesInvoiceService.GenerateSalesInvoiceAsync(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId, Guid? customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<ApplicationDbContext.SalesInvoice> ISalesInvoiceService.AmendSalesInvoiceAsync(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId, Guid? customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task ISalesInvoiceService.DeleteSalesInvoiceAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<ApplicationDbContext.SalesInvoice?> ISalesInvoiceService.GetSalesInvoiceByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<ApplicationDbContext.SalesInvoice?> ISalesInvoiceService.GetSalesInvoiceByUserIdAsync(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<decimal> ISalesInvoiceService.GetSalesTaxReturnForQuarterAsync(int year, int quarter)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<decimal> ISalesInvoiceService.GetTotalSalesAmountForCustomerAsync(Guid customerId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
