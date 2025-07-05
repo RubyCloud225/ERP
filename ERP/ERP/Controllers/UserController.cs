@@ -1,88 +1,88 @@
-using Azure.Identity;
 using ERP.Model;
 using ERP.Service;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
-namespace ERP.Controller
+namespace ERP.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly ILogger _logger;
         private readonly IUserService _userService;
-        private readonly ApplicationDbContext _dbContext;
-        public UserController(ILogger<UserController> logger, IUserService userService, ApplicationDbContext dbContext)
+        public UserController(IUserService userService)
         {
-            _logger = logger;
             _userService = userService;
-            _dbContext = dbContext;
-        }
-        // add new user
-        [HttpPost("add")]
-        public async Task<IActionResult> AddUser([FromBody] ApplicationDbContext.UserDto userDto) // error will be resolved by the user service
-        {
-            if(!ModelState.IsValid)
-            {
-                _logger.LogWarning("Invalid User Data provided");
-                return BadRequest(ModelState);
-            }
-
-            var userId = await _userService.AddUser(userDto);
-            if (userId == null)
-            {
-                _logger.LogWarning("Failed to add user");
-                return StatusCode(500, "Failed to add user");
-           }
-            _logger.LogInformation("User added successfully");
-            return Ok(userId);
-        }
-        [HttpPost("login ")]
-        public async Task<IActionResult> Login([FromBody] ApplicationDbContext.loginDto loginDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                _logger.LogWarning("Invalid Login Data provided");
-                return BadRequest(ModelState);
-            }
-            var token = await _userService.Login(loginDto.Username, loginDto.Password);
-            if (token == null)
-            {
-                _logger.LogWarning("Failed to login user");
-                return Unauthorized();
-            }
-            _logger.LogInformation("User logged in successfully");
-            return Ok(token);
-        }
-        [HttpPut("{userId}")]
-        public async Task<IActionResult> UpdateUser (string userId, [FromBody]ApplicationDbContext.UserDto userDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                _logger.LogWarning("Invalid User Data provided");
-                return BadRequest(ModelState);
-            }
-            var result = await _userService.UpdateUser(userId, userDto);
-            if (!result)
-            {
-                _logger.LogWarning("Failed to update user");
-                return NotFound();
-            }
-            _logger.LogInformation("User updated successfully");
-            return Ok();
         }
 
-        [HttpDelete("{userId}")]
-        public async Task<IActionResult> DeleteUser(string userId)
+        [HttpPost("signup")]
+        public async Task<IActionResult> SignUp([FromBody] ApplicationDbContext.UserSignUpDto userSignUpDto)
         {
-            var result = await _userService.DeleteUser(userId);
-            if (!result)
+            if (userSignUpDto == null)
             {
-                _logger.LogWarning("Failed to delete user");
+                return BadRequest("User data is required.");
+            }
+
+            var userId = await _userService.AddUser(userSignUpDto);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return BadRequest("Failed to create user.");
+            }
+            return CreatedAtAction(nameof(GetUserById), new { id = userId }, userId);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+        {
+            if (loginRequest == null || string.IsNullOrEmpty(loginRequest.Username) || string.IsNullOrEmpty(loginRequest.Password))
+            {
+                return BadRequest("Username and password are required.");
+            }
+
+            var token = await _userService.Login(loginRequest.Username, loginRequest.Password);
+            if (string.IsNullOrEmpty(token))
+            {
+                return Unauthorized("Invalid username or password.");
+            }
+            return Ok(new { Token = token });
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("User ID is required.");
+            }
+
+            var user = await _userService.GetUserByIdAsync(id);
+            if (user == null)
+            {
                 return NotFound();
             }
-            _logger.LogInformation("User deleted successfully");
-            return Ok();
+
+            // Return user details excluding sensitive information like password
+            var userDto = new
+            {
+                user.Id,
+                user.Name,
+                user.Username,
+                user.Email,
+                user.CompanyName,
+                user.CountryOfOrigin,
+                user.Address,
+                user.NumberOfRoles,
+                user.CompanyNumber
+            };
+
+            return Ok(userDto);
         }
+    }
+
+    public class LoginRequest
+    {
+        public string? Username { get; set; }
+        public string? Password { get; set; }
     }
 }

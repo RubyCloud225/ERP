@@ -20,7 +20,7 @@ namespace ERP.Service
             _jwtSecret = jwtSecret;
         }
 
-        public async Task<string> AddUser(ApplicationDbContext.UserDto userDto)
+        public async Task<string> AddUser(ApplicationDbContext.UserSignUpDto userDto)
         {
             try
             {
@@ -29,8 +29,13 @@ namespace ERP.Service
                 {
                     Name = userDto.Name,
                     Email = userDto.Email,
-                    Password = userDto.Password,
-                    Username = userDto.Username
+                    Password = hashedPassword,
+                    Username = userDto.Username,
+                    CompanyName = userDto.CompanyName,
+                    CountryOfOrigin = userDto.CountryOfOrigin,
+                    Address = userDto.Address,
+                    NumberOfRoles = userDto.NumberOfRoles,
+                    CompanyNumber = userDto.CompanyNumber
                 };
 
                 _dbContext.Users.Add(user);
@@ -127,13 +132,19 @@ namespace ERP.Service
                 throw;
             }
         }
+
+        public async Task<ApplicationDbContext.User?> GetUserByIdAsync(string userId)
+        {
+            return await _dbContext.Users.FindAsync(userId);
+        }
     }
 
     public interface IUserService
     {
-        Task<string> AddUser (ApplicationDbContext.UserDto userDto);
+        Task<string> AddUser (ApplicationDbContext.UserSignUpDto userDto);
         Task<bool> UpdateUser (string userId, ApplicationDbContext.UserDto userDto);
         Task<bool> DeleteUser (string userId);  
         Task<string?> Login(string username, string Password);
+        Task<ApplicationDbContext.User?> GetUserByIdAsync(string userId);
     }
 }

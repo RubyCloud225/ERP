@@ -1,0 +1,69 @@
+public async Task<IActionResult> ImportDocument(IFormFile document)
+        {
+            if (document == null || document.Length == 0)
+            {
+                return BadRequest("No file selected");
+            }
+            if (document.Length > 5 * 1024 * 1024)
+            {
+                return BadRequest("File size is too large");
+            }
+            // Save Pdf to the cloud
+            using (var stream = new MemoryStream())
+            {
+                await document.CopyToAsync(stream);
+                stream.Position = 0;
+                // Create a blobName and save to database
+                // save directly to cloud storage.
+                var blobName = Guid.NewGuid().ToString();
+                var filePath = $"{blobName}.pdf";
+                // save to cloud and get the url
+                var fileUrl = await _cloudStorageService.UploadToCloudStorageAsync(blobName, filePath);
+                var documentRecord = await _dbContext.DocumentRecords.FirstOrDefaultAsync(d => d.BlobName == blobName);
+                if (documentRecord == null)
+                {
+                    return NotFound("Document record not found.");
+                }
+                var Response = await _documentService.ExtractRelevantInfoFromDocumentAsync(documentRecord.BlobName, "Document");
+                var Type = await _documentService.CategorizeDocumentAsync(blobName);
+                return Ok(new {FileUrl = fileUrl, Response, Type});
+            }
+        }
+=======
+        [HttpPost("import")]
+        public async Task<IActionResult> ImportDocument(IFormFile document)
+        {
+            if (document == null || document.Length == 0)
+            {
+                return BadRequest("No file selected");
+            }
+            if (document.Length > 5 * 1024 * 1024)
+            {
+                return BadRequest("File size is too large");
+            }
+            // Save Pdf to the cloud
+            using (var stream = new MemoryStream())
+            {
+                await document.CopyToAsync(stream);
+                stream.Position = 0;
+                // Create a blobName and save to database
+                var blobName = Guid.NewGuid().ToString();
+                var filePath = $"{blobName}.pdf";
+                // save to cloud and get the url
+                var fileUrl = await _cloudStorageService.UploadToCloudStorageAsync(blobName, filePath);
+
+                // Create and save DocumentRecord before querying
+                var documentRecordToAdd = new DocumentRecord { BlobName = blobName };
+                _dbContext.DocumentRecords.Add(documentRecordToAdd);
+                await _dbContext.SaveChangesAsync();
+
+                var documentRecord = await _dbContext.DocumentRecords.FirstOrDefaultAsync(d => d.BlobName == blobName);
+                if (documentRecord == null)
+                {
+                    return NotFound("Document record not found.");
+                }
+                var Response = await _documentService.ExtractRelevantInfoFromDocumentAsync(documentRecord.BlobName, "Document");
+                var Type = await _documentService.CategorizeDocumentAsync(blobName);
+                return Ok(new {FileUrl = fileUrl, Response, Type});
+            }
+        }

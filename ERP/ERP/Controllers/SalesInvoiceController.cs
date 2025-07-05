@@ -1,8 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using ERP.Model;
 using ERP.Service;
-using Castle.Components.DictionaryAdapter;
 
 namespace ERP.Controllers
 {
@@ -17,80 +17,88 @@ namespace ERP.Controllers
             _salesInvoiceService = salesInvoiceService;
         }
 
-        [HttpPost("Generate")]
-        public async Task<IActionResult> GenerateSalesInvoice([FromBody] Model.ApplicationDbContext.GenerateSalesInvoiceRequest request)
+        [HttpPost]
+        public async Task<IActionResult> CreateSalesInvoice([FromBody] ApplicationDbContext.GenerateSalesInvoiceDto request, [FromQuery] string blobName, [FromQuery] Guid? userId)
         {
-            if (request == null)
-            {
-                return BadRequest("Request body is null.");
-            }
-
             try
             {
-                await _salesInvoiceService.GenerateSalesInvoiceAsync(
-                    request.Id,
-                    request.BlobName,
-                    request.InvoiceDate,
-                    request.InvoiceNumber,
-                    request.CustomerName,
-                    request.CustomerAddress,
-                    request.TotalAmount,
-                    request.SalesTax,
-                    request.NetAmount,
-                    request.UserId
-                );
-
-                return Ok(new { message = "Sales invoice generated successfully." });
+                var result = await _salesInvoiceService.GenerateSalesInvoiceAsync(request, blobName, userId);
+                return CreatedAtAction(nameof(GetSalesInvoiceById), new { id = result.Id }, result);
             }
             catch (Exception ex)
             {
-                // Log the exception here if logging is set up
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return BadRequest(ex.Message);
             }
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteSalesInvoice([FromQuery] int id, [FromQuery] int userId)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AmendSalesInvoice(Guid id, [FromBody] ApplicationDbContext.GenerateSalesInvoiceDto request, [FromQuery] string blobName, [FromQuery] Guid? userId)
         {
             try
             {
-                await _salesInvoiceService.DeleteSalesInvoiceAsync(Guid.NewGuid(), userId);
-                return Ok(new { message = "Sales invoice deleted successfully." });
+                var result = await _salesInvoiceService.AmendSalesInvoiceAsync(id, request, blobName, userId);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound($"Sales invoice with id {id} not found.");
             }
             catch (Exception ex)
             {
-                // Log exception if logging is set up
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return BadRequest(ex.Message);
             }
         }
 
-        [HttpPost("update")]
-        public async Task<IActionResult> UpdateSalesInvoice([FromBody] Model.ApplicationDbContext.SalesInvoice updatedSalesInvoice)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSalesInvoice(Guid id)
         {
-            if (updatedSalesInvoice == null)
-            {
-                return BadRequest("Request body is null.");
-            }
             try
             {
-                await _salesInvoiceService.UpdateSalesInvoiceAsync(
-                    updatedSalesInvoice.Id,
-                    updatedSalesInvoice.BlobName,
-                    updatedSalesInvoice.InvoiceDate,
-                    updatedSalesInvoice.InvoiceNumber,
-                    updatedSalesInvoice.CustomerName,
-                    updatedSalesInvoice.CustomerAddress,
-                    updatedSalesInvoice.TotalAmount,
-                    updatedSalesInvoice.SalesTax,
-                    updatedSalesInvoice.NetAmount,
-                    updatedSalesInvoice.UserId
-                );
-                return Ok(new { message = "Sales invoice updated successfully." });
+                await _salesInvoiceService.DeleteSalesInvoiceAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound($"Sales invoice with id {id} not found.");
             }
             catch (Exception ex)
             {
-                // Log exception if logging is set up
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSalesInvoiceById(Guid id)
+        {
+            try
+            {
+                var salesInvoice = await _salesInvoiceService.GetSalesInvoiceByIdAsync(id);
+                if (salesInvoice == null)
+                {
+                    return NotFound($"Sales invoice with id {id} not found.");
+                }
+                return Ok(salesInvoice);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetSalesInvoiceByUserId(Guid userId)
+        {
+            try
+            {
+                var salesInvoice = await _salesInvoiceService.GetSalesInvoiceByUserIdAsync(userId);
+                if (salesInvoice == null)
+                {
+                    return NotFound($"Sales invoice for user with id {userId} not found.");
+                }
+                return Ok(salesInvoice);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
     }

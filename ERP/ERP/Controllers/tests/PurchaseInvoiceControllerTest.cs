@@ -1,93 +1,219 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using ERP.Controllers;
 using ERP.Model;
-using Microsoft.AspNetCore.Mvc.Testing;
+using ERP.Service;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
 using Xunit;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json;
-using Microsoft.AspNetCore.Hosting;
 
 namespace ERP.Service.Tests
 {
-    public class PurchaseInvoiceControllerTest : IClassFixture<CustomWebAppFactory>
+    public class PurchaseInvoiceControllerTest
     {
-        private readonly HttpClient _client;
+        private readonly Mock<IPurchaseInvoiceService> _mockService;
+        private readonly PurchaseInvoiceController _controller;
 
-        public PurchaseInvoiceControllerTest(CustomWebAppFactory factory)
+        public PurchaseInvoiceControllerTest()
         {
-            _client = factory.CreateClient();
+            _mockService = new Mock<IPurchaseInvoiceService>();
+            _controller = new PurchaseInvoiceController(_mockService.Object);
         }
 
         [Fact]
-        public async Task UploadPurchaseInvoice_ShouldReturnOk()
+        public async Task CreatePurchaseInvoice_ReturnsCreatedResult()
         {
-            var content = new MultipartFormDataContent();
-            var fileContent = new ByteArrayContent(new byte[] { 1, 2, 3, 4 });
-            fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/pdf");
-            content.Add(fileContent, "document", "test.pdf");
-            content.Add(new StringContent("1"), "userId");
-
-            var response = await _client.PostAsync("api/PurchaseInvoice/upload", content);
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task DeletePurchaseInvoice_ShouldReturnOk()
-        {
+            var dto = new ApplicationDbContext.CreatePurchaseInvoiceDto { UserId = Guid.NewGuid() };
             var purchaseInvoice = new ApplicationDbContext.PurchaseInvoice
             {
                 Id = Guid.NewGuid(),
-                UserId = 1,
-                BlobName = "test_blob",
+                BlobName = "blob",
                 PurchaseInvoiceNumber = "INV-001",
-                Supplier = "Test Supplier",
-                Description = "Test Description",
-                SupplierAddress = "Test Address"
+                Supplier = "Supplier",
+                Description = "Description",
+                SupplierAddress = "Address",
+                DocumentType = "Purchase Invoice",
+                Response = "Processed"
             };
-            var json = JsonSerializer.Serialize(purchaseInvoice);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var request = new HttpRequestMessage(HttpMethod.Delete, "api/PurchaseInvoice/Delete?userId=1")
-            {
-                Content = content
-            };
-            var response = await _client.SendAsync(request);
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            _mockService.Setup(s => s.ProcessPurchaseInvoiceAsync(dto))
+                .ReturnsAsync(purchaseInvoice);
+
+            var result = await _controller.CreatePurchaseInvoice(dto);
+
+            var createdResult = Assert.IsType<CreatedAtActionResult>(result);
+            Assert.Equal(nameof(_controller.GetPurchaseInvoiceById), createdResult.ActionName);
+            Assert.Equal(purchaseInvoice, createdResult.Value);
         }
 
         [Fact]
-        public async Task GetAllPurchaseInvoice_ShouldReturnOk()
+        public async Task AmendPurchaseInvoice_ReturnsOkResult()
         {
+            var id = Guid.NewGuid();
+            var dto = new ApplicationDbContext.CreatePurchaseInvoiceDto { UserId = Guid.NewGuid() };
+            var purchaseInvoice = new ApplicationDbContext.PurchaseInvoice
+            {
+                BlobName = "blob",
+                PurchaseInvoiceNumber = "INV-001",
+                Supplier = "Supplier",
+                Description = "Description",
+                SupplierAddress = "Address",
+                DocumentType = "Purchase Invoice",
+                Response = "Processed",
+                Id = id,
+                UserId = dto.UserId
+            };
+
+            _mockService.Setup(s => s.AmendPurchaseInvoiceAsync(id, dto))
+                .ReturnsAsync(purchaseInvoice);
+
+            var result = await _controller.AmendPurchaseInvoice(id, dto);
+
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(purchaseInvoice, okResult.Value);
+        }
+
+        [Fact]
+        public async Task AmendPurchaseInvoice_ReturnsNotFound_WhenKeyNotFound()
+        {
+            var id = Guid.NewGuid();
+            var dto = new ApplicationDbContext.CreatePurchaseInvoiceDto();
+
+            _mockService.Setup(s => s.AmendPurchaseInvoiceAsync(id, dto))
+                .ThrowsAsync(new KeyNotFoundException());
+
+            var result = await _controller.AmendPurchaseInvoice(id, dto);
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task DeletePurchaseInvoice_ReturnsNoContent()
+        {
+            var id = Guid.NewGuid();
+
+            _mockService.Setup(s => s.DeletePurchaseInvoiceAsync(id))
+                .Returns(Task.CompletedTask);
+
+            var result = await _controller.DeletePurchaseInvoice(id);
+
+            Assert.IsType<NoContentResult>(result);
+        }
+
+        [Fact]
+        public async Task DeletePurchaseInvoice_ReturnsNotFound_WhenKeyNotFound()
+        {
+            var id = Guid.NewGuid();
+
+            _mockService.Setup(s => s.DeletePurchaseInvoiceAsync(id))
+                .ThrowsAsync(new KeyNotFoundException());
+
+            var result = await _controller.DeletePurchaseInvoice(id);
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task GetPurchaseInvoiceById_ReturnsOkResult()
+        {
+            var id = Guid.NewGuid();
+            var purchaseInvoice = new ApplicationDbContext.PurchaseInvoice
+            {
+                Id = id,
+                BlobName = "blob",
+                PurchaseInvoiceNumber = "INV-001",
+                Supplier = "Supplier",
+                Description = "Description",
+                SupplierAddress = "Address",
+                DocumentType = "Purchase Invoice",
+                Response = "Processed",
+                UserId = Guid.NewGuid()
+            };
+
+            _mockService.Setup(s => s.GetPurchaseInvoiceByIdAsync(id))
+                .ReturnsAsync(purchaseInvoice);
+
+            var result = await _controller.GetPurchaseInvoiceById(id);
+
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(purchaseInvoice, okResult.Value);
+        }
+
+        [Fact]
+        public async Task GetPurchaseInvoiceById_ReturnsNotFound_WhenNull()
+        {
+            var id = Guid.NewGuid();
+
+            _mockService.Setup(s => s.GetPurchaseInvoiceByIdAsync(id))
+                .ReturnsAsync((ApplicationDbContext.PurchaseInvoice?)null);
+
+            var result = await _controller.GetPurchaseInvoiceById(id);
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task GetPurchaseInvoiceByUserId_ReturnsOkResult()
+        {
+            var userId = Guid.NewGuid();
             var purchaseInvoice = new ApplicationDbContext.PurchaseInvoice
             {
                 Id = Guid.NewGuid(),
-                UserId = 1,
-                BlobName = "test_blob",
+                BlobName = "blob",
                 PurchaseInvoiceNumber = "INV-001",
-                Supplier = "Test Supplier",
-                Description = "Test Description",
-                SupplierAddress = "Test Address"
+                Supplier = "Supplier",
+                Description = "Description",
+                SupplierAddress = "Address",
+                DocumentType = "Purchase Invoice",
+                Response = "Processed",
+                UserId = userId
             };
-            var response = await _client.GetAsync($"api/PurchaseInvoice/GetAll?purchaseInvoiceId.Id={purchaseInvoice.Id}&userId={purchaseInvoice.UserId}");
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            _mockService.Setup(s => s.GetPurchaseInvoiceByUserIdAsync(userId))
+                .ReturnsAsync(purchaseInvoice);
+
+            var result = await _controller.GetPurchaseInvoiceByUserId(userId);
+
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(purchaseInvoice, okResult.Value);
         }
 
         [Fact]
-        public async Task UpdatePurchaseInvoice_ShouldReturnOk()
+        public async Task GetPurchaseInvoiceByUserId_ReturnsNotFound_WhenNull()
         {
-            var updatedInvoice = new ApplicationDbContext.PurchaseInvoice
-            {
+            var userId = Guid.NewGuid();
+
+            _mockService.Setup(s => s.GetPurchaseInvoiceByUserIdAsync(userId))
+                .ReturnsAsync((ApplicationDbContext.PurchaseInvoice?)null);
+
+            var result = await _controller.GetPurchaseInvoiceByUserId(userId);
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task GetAllPurchaseInvoices_ReturnsOkResult()
+        {
+            var list = new List<ApplicationDbContext.PurchaseInvoice> { new ApplicationDbContext.PurchaseInvoice {
                 Id = Guid.NewGuid(),
-                UserId = 1,
-                BlobName = "test_blob",
+                BlobName = "blob",
                 PurchaseInvoiceNumber = "INV-001",
-                Supplier = "Test Supplier",
-                Description = "Test Description",
-                SupplierAddress = "Test Address"
-            };
-            var content = JsonContent.Create(updatedInvoice);
-            var response = await _client.PostAsync("api/PurchaseInvoice/update?userId=1", content);
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+                Supplier = "Supplier",
+                Description = "Description",
+                SupplierAddress = "Address",
+                DocumentType = "Purchase Invoice",
+                Response = "Processed",
+                UserId = Guid.NewGuid()
+            }};
+
+            _mockService.Setup(s => s.GetAllPurchaseInvoicesAsync())
+                .ReturnsAsync(list);
+
+            var result = await _controller.GetAllPurchaseInvoices();
+
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(list, okResult.Value);
         }
     }
 }
-

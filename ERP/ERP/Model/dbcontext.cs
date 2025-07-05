@@ -40,6 +40,11 @@ namespace ERP.Model
             public required string Username { get; set; }
             public required string Email { get; set; }
             public required string Password { get; set; }
+            public string? CompanyName { get; set; }
+            public string? CountryOfOrigin { get; set; }
+            public string? Address { get; set; }
+            public int? NumberOfRoles { get; set; }
+            public string? CompanyNumber { get; set; }
             public ICollection<BankAccount> BankAccounts { get; set; } = new List<BankAccount>();
             public ICollection<PurchaseInvoice> PurchaseInvoices { get; set; } = new List<PurchaseInvoice>();
             public ICollection<SalesInvoice> SalesInvoices { get; set; } = new List<SalesInvoice>();
@@ -60,6 +65,19 @@ namespace ERP.Model
             public string? Username { get; set; }
             public string? Email { get; set; }
             public string? Name { get; set; }
+            public string? Password { get; set; }
+        }
+
+        public class UserSignUpDto
+        {
+            public string? CompanyName { get; set; }
+            public string? CountryOfOrigin { get; set; }
+            public string? Address { get; set; }
+            public int? NumberOfRoles { get; set; }
+            public string? CompanyNumber { get; set; }
+            public string? Name { get; set; }
+            public string? Username { get; set; }
+            public string? Email { get; set; }
             public string? Password { get; set; }
         }
 
@@ -90,6 +108,7 @@ namespace ERP.Model
             public User? User { get; set; }
             public DateTime LastUpdated { get; set; }
             public DateTime CreatedAt { get; set; }
+            public bool Reconciled { get; set; } = false;
             public ICollection<BankTransaction> Transactions { get; set; } = new List<BankTransaction>();
 
             // Removed invalid implicit operator definition
@@ -113,6 +132,9 @@ namespace ERP.Model
             public Guid? NominalAccountId { get; set; } // Added nominal account id
             public NominalAccount? NominalAccount { get; set; } // Added navigation property
         }
+        /// <summary>
+        /// DTO representing a parsed bank statement.
+        /// </summary>
         public class ParsedBankStatementDto
         {
             public Guid Id { get; set; }
@@ -121,16 +143,31 @@ namespace ERP.Model
             public DateTime StatementEndDate { get; set; }
             public decimal OpeningBalance { get; set; }
             public decimal ClosingBalance { get; set; }
-            public List<BankTransaction> Transactions { get; set; } = new();
+            /// <summary>
+            /// List of parsed bank transactions with optional manual nominal entry.
+            /// </summary>
+            public List<ParsedBankTransactionsDto> Transactions { get; set; } = new();
             public decimal StatementNumber { get; set; }
         }
+        /// <summary>
+        /// DTO representing a parsed bank transaction.
+        /// Nominal accounts follow the public enum NominalAccountType:
+        /// Asset, Liability, Equity, Revenue, Expense.
+        /// </summary>
         public class ParsedBankTransactionsDto
         {
             public required string Description { get; set; }
             public required DateTime TransactionDate { get; set; }
             public required decimal Amount { get; set; }
             public required TransactionType TransactionType { get; set; }
+            /// <summary>
+            /// Recommended nominal account name, can be set manually or by LLM.
+            /// </summary>
             public string? RecommendedNominalAccount { get; set; }
+            /// <summary>
+            /// Optional nominal account type for manual entry.
+            /// </summary>
+            public NominalAccountType? RecommendedNominalAccountType { get; set; }
         }
 
         //-------------------- Purchase Invoice Schema ---------------------//
@@ -233,6 +270,7 @@ namespace ERP.Model
         }
         public class NominalAccount
         {
+            public NominalAccount() { }
             public Guid Id { get; set; }
             public required string Name { get; set; }
             public required string Code { get; set; }
@@ -256,6 +294,7 @@ namespace ERP.Model
         }
         public class AccountingEntry
         {
+            public AccountingEntry() { }
             public Guid Id { get; set; }
             public required string Description { get; set; }
             public decimal TotalDebit { get; set; }
@@ -412,6 +451,16 @@ namespace ERP.Model
             public required string PropertyValue { get; set; }
             public required string PropertyType { get; set; }
             public DateTime LoggedAt { get; set; }
+            public Guid? UserId { get; set; }
+            public User? User { get; set; }
+        }
+
+        //-------------------- Journal Entry Schema ---------------------//
+        public class JournalEntry
+        {
+            public Guid Id { get; set; }
+            public required string Description { get; set; }
+            public DateTime EntryDate { get; set; }
             public Guid? UserId { get; set; }
             public User? User { get; set; }
         }

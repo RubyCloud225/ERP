@@ -4,6 +4,10 @@ using ERP.Service;
 using Microsoft.AspNetCore.Mvc;
 using ERP.Model;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using System;
 
 namespace ERP.Controller
 {
@@ -11,19 +15,17 @@ namespace ERP.Controller
     [Route("api/[controller]")]
     public class DocumentController : ControllerBase
     {
-        private readonly DocumentService _documentService;
-        private readonly DocumentProcessor _documentProcessor;
+        private readonly IDocumentProcessor _documentProcessor;
         private readonly CloudStorageService _cloudStorageService;
         private readonly ApplicationDbContext _dbContext;
 
-        public DocumentController(DocumentService documentService, DocumentProcessor documentProcessor, CloudStorageService cloudStorageService, ApplicationDbContext dbContext)
+        public DocumentController(IDocumentProcessor documentProcessor, object @object, CloudStorageService cloudStorageService, ApplicationDbContext dbContext)
         {
-            _documentService = documentService;
             _documentProcessor = documentProcessor;
             _cloudStorageService = cloudStorageService;
             _dbContext = dbContext;
         }
-        //import Document fron front end
+        //import Document from front end
         [HttpPost("import")]
         public async Task<IActionResult> ImportDocument(IFormFile document)
         {
@@ -51,8 +53,8 @@ namespace ERP.Controller
                 {
                     return NotFound("Document record not found.");
                 }
-                var Response = await _documentProcessor.ProcessDocumentAsync(documentRecord);
-                var Type = await _documentService.CategorizeDocumentAsync(blobName);
+                var Response = await _documentProcessor.ExtractRelevantInfoFromDocumentAsync(documentRecord.BlobName, "Document");
+                var Type = await _documentProcessor.CategorizeDocumentAsync(blobName);
                 return Ok(new {FileUrl = fileUrl, Response, Type});
             }
         }
@@ -67,7 +69,7 @@ namespace ERP.Controller
             List<string> documents;
             try
             {
-                documents = await _documentService.GetDocumentsByTypeAsync(documentType);
+                documents = await _documentProcessor.GetDocumentsByTypeAsync(documentType);
             }
             catch (Exception ex)
             {
@@ -89,7 +91,7 @@ namespace ERP.Controller
             }
             try
             {
-                await _documentService.DeleteDocumentAsync(documentId);
+                await _documentProcessor.DeleteDocumentAsync(documentId);
             }
             catch (Exception ex)
             {
@@ -106,7 +108,7 @@ namespace ERP.Controller
             }
             try
             {
-                var document = await _documentService.DownloadDocumentAsync(documentId);
+                var document = await _documentProcessor.DownloadDocumentAsync(documentId);
                 if (document == null)
                 {
                     return NotFound();

@@ -1,0 +1,138 @@
+using ERP.Service;
+using ERP.Model;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Moq;
+using Xunit;
+using ERP.Controller;
+
+namespace ERP.Service.Tests
+{
+    public class DocumentControllerTest
+    {
+        private readonly Mock<DocumentService> _mockDocumentService;
+        private readonly Mock<DocumentProcessor> _mockDocumentProcessor;
+        private readonly Mock<CloudStorageService> _mockCloudStorageService;
+        private readonly Mock<ApplicationDbContext> _mockDbContext;
+        private readonly DocumentController _controller;
+
+        public DocumentControllerTest()
+        {
+            _mockDocumentService = new Mock<DocumentService>(null, null);
+            _mockDocumentProcessor = new Mock<DocumentProcessor>(null, null);
+            _mockCloudStorageService = new Mock<CloudStorageService>(null);
+            _mockDbContext = new Mock<ApplicationDbContext>(null);
+
+            // Mock Add and SaveChangesAsync for DocumentRecords
+            _mockDbContext.Setup(db => db.DocumentRecords.Add(It.IsAny<DocumentRecord>()));
+            _mockDbContext.Setup(db => db.SaveChangesAsync(default)).ReturnsAsync(1);
+
+            _controller = new DocumentController(_mockDocumentService.Object, _mockDocumentProcessor.Object, _mockCloudStorageService.Object, _mockDbContext.Object);
+        }
+=======
+using ERP.Controllers;
+using ERP.Service;
+using ERP.Model;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Moq;
+using Xunit;
+using ERP.Controller;
+
+namespace ERP.Service.Tests
+{
+    public class DocumentControllerTest
+    {
+        private readonly Mock<DocumentService> _mockDocumentService;
+        private readonly Mock<DocumentProcessor> _mockDocumentProcessor;
+        private readonly Mock<CloudStorageService> _mockCloudStorageService;
+        private readonly Mock<ApplicationDbContext> _mockDbContext;
+        private readonly DocumentController _controller;
+
+        public DocumentControllerTest()
+        {
+            _mockDocumentService = new Mock<DocumentService>(null, null);
+            _mockDocumentProcessor = new Mock<DocumentProcessor>(null, null);
+            _mockCloudStorageService = new Mock<CloudStorageService>(null);
+            _mockDbContext = new Mock<ApplicationDbContext>(null);
+
+            // Mock Add and SaveChangesAsync for DocumentRecords
+            _mockDbContext.Setup(db => db.DocumentRecords.Add(It.IsAny<ERP.Model.DocumentRecord>()));
+            _mockDbContext.Setup(db => db.SaveChangesAsync(default)).ReturnsAsync(1);
+
+            _controller = new DocumentController(_mockDocumentService.Object, _mockDocumentProcessor.Object, _mockCloudStorageService.Object, _mockDbContext.Object);
+        }
+>>>>>>> REPLACE
+<<<<<<< SEARCH
+        [Fact]
+        public async Task ImportDocument_ReturnsOk_WhenSuccess()
+        {
+            var mockFile = new Mock<IFormFile>();
+            mockFile.Setup(f => f.Length).Returns(1024);
+            mockFile.Setup(f => f.CopyToAsync(It.IsAny<Stream>(), default)).Returns(Task.CompletedTask);
+
+            var documentRecord = new ApplicationDbContext.DocumentRecord
+            {
+                BlobName = "blob",
+                Id = Guid.NewGuid(),
+                Name = "name",
+                Size = 1024,
+                Type = "type"
+            };
+
+            _mockCloudStorageService.Setup(s => s.UploadToCloudStorageAsync(It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync("http://fakeurl.com/blob.pdf");
+
+            _mockDbContext.Setup(db => db.DocumentRecords.FirstOrDefaultAsync(It.IsAny<System.Linq.Expressions.Expression<Func<ERP.Model.DocumentRecord, bool>>>(), default))
+                .ReturnsAsync(documentRecord);
+
+            _mockDocumentProcessor.Setup(p => p.ProcessDocumentAsync(documentRecord))
+                .ReturnsAsync("Processed");
+
+            _mockDocumentService.Setup(s => s.CategorizeDocumentAsync("blob"))
+                .ReturnsAsync("Type");
+
+            var result = await _controller.ImportDocument(mockFile.Object);
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var value = Assert.IsType<Dictionary<string, object>>(okResult.Value);
+            Assert.Equal("http://fakeurl.com/blob.pdf", value["FileUrl"]);
+            Assert.Equal("Processed", value["Response"]);
+            Assert.Equal("Type", value["Type"]);
+        }
+=======
+        [Fact]
+        public async Task ImportDocument_ReturnsOk_WhenSuccess()
+        {
+            var mockFile = new Mock<IFormFile>();
+            mockFile.Setup(f => f.Length).Returns(1024);
+            mockFile.Setup(f => f.CopyToAsync(It.IsAny<Stream>(), default)).Returns(Task.CompletedTask);
+
+            var documentRecord = new ERP.Model.DocumentRecord
+            {
+                BlobName = "blob",
+                Id = Guid.NewGuid(),
+                DocumentContent = new byte[0], // required member
+                DocumentType = "pdf" // required member
+            };
+
+            _mockCloudStorageService.Setup(s => s.UploadToCloudStorageAsync(It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync("http://fakeurl.com/blob.pdf");
+
+            _mockDbContext.Setup(db => db.DocumentRecords.FirstOrDefaultAsync(It.IsAny<System.Linq.Expressions.Expression<Func<ERP.Model.DocumentRecord, bool>>>(), default))
+                .ReturnsAsync(documentRecord);
+
+            _mockDocumentProcessor.Setup(p => p.ProcessDocumentAsync(documentRecord))
+                .ReturnsAsync("Processed");
+
+            _mockDocumentService.Setup(s => s.CategorizeDocumentAsync("blob"))
+                .ReturnsAsync("Type");
+
+            var result = await _controller.ImportDocument(mockFile.Object);
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var value = Assert.IsType<Dictionary<string, object>>(okResult.Value);
+            Assert.Equal("http://fakeurl.com/blob.pdf", value["FileUrl"]);
+            Assert.Equal("Processed", value["Response"]);
+            Assert.Equal("Type", value["Type"]);
+        }

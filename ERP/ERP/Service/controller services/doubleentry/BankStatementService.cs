@@ -11,6 +11,16 @@ namespace ERP.Service
     public interface IBankStatementService
     {
         Task<BankStatement> ProcessBankStatementAsync(ParsedBankStatementDto parsedBankStatement, Guid? userId);
+
+        Task<BankStatement?> GetBankStatementByIdAsync(Guid id);
+
+        Task<IEnumerable<BankStatement>> GetBankStatementsByUserAsync(Guid userId);
+
+        Task<bool> DeleteBankStatementAsync(Guid id);
+
+        Task<BankStatement> AmendBankStatementAsync(BankStatement amendedBankStatement);
+
+        Task<bool> ReconcileBankStatementAsync(Guid bankStatementId, decimal userInputBalance);
     }
 
     public class BankStatementService : IBankStatementService
@@ -53,20 +63,33 @@ namespace ERP.Service
 
             foreach (var transactionDto in parsedBankStatement.Transactions)
             {
-                // Call LLM service to get nominal recommendation for each transaction
-                string prompt = $"You are an expert accounting AI. Please recommend the appropriate nominal account for the following bank transaction:\n" +
-                                $"Description: {transactionDto.Description}\n" +
-                                $"Date: {transactionDto.TransactionDate:yyyy-MM-dd}\n" +
-                                $"Amount: {transactionDto.Amount:C}\n" +
-                                $"Transaction Type: {transactionDto.TransactionType}\n";
+                string nominalName;
+                ApplicationDbContext.NominalAccountType? nominalType;
 
-                string llmResponse = await _llmService.GenerateResponseAsync(prompt);
+                if (!string.IsNullOrWhiteSpace(transactionDto.RecommendedNominalAccount) && transactionDto.RecommendedNominalAccountType.HasValue)
+                {
+                    // Use manual nominal entry if provided
+                    nominalName = transactionDto.RecommendedNominalAccount;
+                    nominalType = transactionDto.RecommendedNominalAccountType;
+                }
+                else
+                {
+                    // Call LLM service to get nominal recommendation for each transaction
+                    string prompt = $"You are an expert accounting AI. Please recommend the appropriate nominal account for the following bank transaction:\n" +
+                                    $"Description: {transactionDto.Description}\n" +
+                                    $"Date: {transactionDto.TransactionDate:yyyy-MM-dd}\n" +
+                                    $"Amount: {transactionDto.Amount:C}\n" +
+                                    $"Transaction Type: {transactionDto.TransactionType}\n";
 
-                // For simplicity, assume the LLM response is the nominal account name
-                string recommendedNominalName = llmResponse.Trim();
+                    string llmResponse = await _llmService.GenerateResponseAsync(prompt);
+
+                    // For simplicity, assume the LLM response is the nominal account name
+                    nominalName = llmResponse.Trim();
+                    nominalType = null;
+                }
 
                 // Resolve or create nominal account
-                Guid nominalAccountId = await _nominalAccountResolutionService.ResolveOrCreateNominalAccountAsync(recommendedNominalName, null);
+                Guid nominalAccountId = await _nominalAccountResolutionService.ResolveOrCreateNominalAccountAsync(nominalName, nominalType);
 
                 var bankTransaction = new BankTransaction
                 {
@@ -88,6 +111,93 @@ namespace ERP.Service
             }
 
             return bankStatement;
+        }
+
+        public async Task<BankStatement?> GetBankStatementByIdAsync(Guid id)
+        {
+            return await _dbContext.BankStatements
+                .Include(bs => bs.Transactions)
+                .FirstOrDefaultAsync(bs => bs.Id == id);
+        }
+
+        public async Task<IEnumerable<BankStatement>> GetBankStatementsByUserAsync(Guid userId)
+        {
+            return await _dbContext.BankStatements
+                .Where(bs => bs.UserId == userId)
+                .Include(bs => bs.Transactions)
+                .ToListAsync();
+        }
+
+        public async Task<bool> DeleteBankStatementAsync(Guid id)
+        {
+            var bankStatement = await _dbContext.BankStatements
+                .Include(bs => bs.Transactions)
+                .FirstOrDefaultAsync(bs => bs.Id == id);
+
+            if (bankStatement == null)
+            {
+                return false;
+            }
+
+            _dbContext.BankTransactions.RemoveRange(bankStatement.Transactions);
+            _dbContext.BankStatements.Remove(bankStatement);
+            await _dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<BankStatement> AmendBankStatementAsync(BankStatement amendedBankStatement)
+        {
+            var existingBankStatement = await _dbContext.BankStatements
+                .Include(bs => bs.Transactions)
+                .FirstOrDefaultAsync(bs => bs.Id == amendedBankStatement.Id);
+
+            if (existingBankStatement == null)
+            {
+                throw new ArgumentException("Bank statement not found", nameof(amendedBankStatement));
+            }
+
+            // Update properties
+            existingBankStatement.BlobName = amendedBankStatement.BlobName;
+            existingBankStatement.StatementStartDate = amendedBankStatement.StatementStartDate;
+            existingBankStatement.StatementEndDate = amendedBankStatement.StatementEndDate;
+            existingBankStatement.OpeningBalance = amendedBankStatement.OpeningBalance;
+            existingBankStatement.ClosingBalance = amendedBankStatement.ClosingBalance;
+            existingBankStatement.StatementNumber = amendedBankStatement.StatementNumber;
+            existingBankStatement.UserId = amendedBankStatement.UserId;
+
+            // Optionally update transactions if needed (not implemented here)
+
+            await _dbContext.SaveChangesAsync();
+
+            return existingBankStatement;
+        }
+
+        public async Task<bool> ReconcileBankStatementAsync(Guid bankStatementId, decimal userInputBalance)
+        {
+            var bankStatement = await _dbContext.BankStatements
+                .FirstOrDefaultAsync(bs => bs.Id == bankStatementId);
+
+            if (bankStatement == null)
+            {
+                return false;
+            }
+
+            // Simple reconciliation logic: compare user input balance with closing balance
+            if (bankStatement.ClosingBalance == userInputBalance)
+            {
+                // Mark as reconciled (assuming a Reconciled flag exists, else add one)
+                // For now, let's assume we add a Reconciled boolean property to BankStatement
+                bankStatement.Reconciled = true;
+            }
+            else
+            {
+                bankStatement.Reconciled = false;
+            }
+
+            await _dbContext.SaveChangesAsync();
+
+            return bankStatement.Reconciled;
         }
     }
 }

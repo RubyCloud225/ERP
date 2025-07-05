@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 using ERP.Model;
 using ERP.Service;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ERP.Controllers
 {
@@ -10,33 +12,115 @@ namespace ERP.Controllers
     public class PurchaseInvoiceController : ControllerBase
     {
         private readonly IPurchaseInvoiceService _purchaseInvoiceService;
+
         public PurchaseInvoiceController(IPurchaseInvoiceService purchaseInvoiceService)
         {
             _purchaseInvoiceService = purchaseInvoiceService;
         }
-        [HttpPost("upload")]
-        public async Task<IActionResult> UploadPurchaseInvoice(IFormFile document, int userId)
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePurchaseInvoice([FromBody] ApplicationDbContext.CreatePurchaseInvoiceDto request)
         {
-            await _purchaseInvoiceService.UploadPurchaseInvoiceAsync(document, userId);
-            return Ok(document);
+            try
+            {
+                var result = await _purchaseInvoiceService.ProcessPurchaseInvoiceAsync(request);
+                return CreatedAtAction(nameof(GetPurchaseInvoiceById), new { id = result.Id }, result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        [HttpDelete("Delete")]
-        public async Task<IActionResult> DeletePurchaseInvoice(ApplicationDbContext.PurchaseInvoice deletedInvoice, int userId)
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AmendPurchaseInvoice(Guid id, [FromBody] ApplicationDbContext.CreatePurchaseInvoiceDto request)
         {
-            await _purchaseInvoiceService.DeletePurchaseInvoiceAsync(deletedInvoice, userId);
-            return Ok();
+            try
+            {
+                var result = await _purchaseInvoiceService.AmendPurchaseInvoiceAsync(id, request);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound($"Purchase invoice with id {id} not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAllPurchaseInvoice(ApplicationDbContext.PurchaseInvoice purchaseInvoiceId, int userId)
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePurchaseInvoice(Guid id)
         {
-            var result = await _purchaseInvoiceService.GetPurchaseInvoiceAsync(purchaseInvoiceId, userId);
-            return Ok(result);
+            try
+            {
+                await _purchaseInvoiceService.DeletePurchaseInvoiceAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound($"Purchase invoice with id {id} not found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        [HttpPost("update")]
-        public async Task<IActionResult> UpdatePurchaseInvoice(ApplicationDbContext.PurchaseInvoice updatedInvoice, int userId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPurchaseInvoiceById(Guid id)
         {
-            await _purchaseInvoiceService.AmendPurchaseInvoiceAsync(updatedInvoice, userId);
-            return Ok(updatedInvoice);
+            try
+            {
+                var result = await _purchaseInvoiceService.GetPurchaseInvoiceByIdAsync(id);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return NotFound($"Purchase invoice with id {id} not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetPurchaseInvoiceByUserId(Guid userId)
+        {
+            try
+            {
+                var result = await _purchaseInvoiceService.GetPurchaseInvoiceByUserIdAsync(userId);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return NotFound($"Purchase invoice for user with id {userId} not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllPurchaseInvoices()
+        {
+            try
+            {
+                var result = await _purchaseInvoiceService.GetAllPurchaseInvoicesAsync();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

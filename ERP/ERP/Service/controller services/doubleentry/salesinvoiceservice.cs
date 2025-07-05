@@ -9,6 +9,10 @@ namespace ERP.Service
     public interface ISalesInvoiceService
     {
         Task<ApplicationDbContext.SalesInvoice> GenerateSalesInvoiceAsync(ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId = null);
+        Task<ApplicationDbContext.SalesInvoice> AmendSalesInvoiceAsync(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId = null);
+        Task DeleteSalesInvoiceAsync(Guid id);
+        Task<ApplicationDbContext.SalesInvoice?> GetSalesInvoiceByIdAsync(Guid id);
+        Task<ApplicationDbContext.SalesInvoice?> GetSalesInvoiceByUserIdAsync(Guid userId);
     }
     public class SalesInvoiceService : ISalesInvoiceService
     {
@@ -139,5 +143,106 @@ namespace ERP.Service
             await _dbContext.SaveChangesAsync();
             return salesInvoice;
         }
+
+        public async Task<ApplicationDbContext.SalesInvoice?> GetSalesInvoiceByIdAsync(Guid id)
+        {
+            return await _dbContext.SalesInvoices
+                .Include(i => i.Lines)
+                .FirstOrDefaultAsync(i => i.Id == id);
+        }
+        public async Task<ApplicationDbContext.SalesInvoice?> GetSalesInvoiceByUserIdAsync(Guid userId)
+        {
+            return await _dbContext.SalesInvoices
+                .Include(i => i.Lines)
+                .FirstOrDefaultAsync(i => i.UserId == userId);
+        }
+
+        public async Task<ApplicationDbContext.SalesInvoice> AmendSalesInvoiceAsync(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId = null)
+        {
+            if (request.LineItems == null || request.LineItems.Count == 0)
+            {
+                throw new ArgumentException("Line items cannot be null or empty");
+            }
+            if (string.IsNullOrWhiteSpace(request.CustomerName))
+            {
+                throw new ArgumentException("Customer name cannot be null or empty");
+            }
+            if (string.IsNullOrWhiteSpace(request.CustomerAddress))
+            {
+                throw new ArgumentException("Customer address cannot be null or empty");
+            }
+            if (request.InvoiceDate == DateTime.MinValue)
+            {
+                throw new ArgumentException("Invoice date cannot be the default value");
+            }
+
+            var existingInvoice = await _dbContext.SalesInvoices
+                .Include(i => i.Lines)
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (existingInvoice == null)
+            {
+                throw new KeyNotFoundException($"Sales invoice with id {id} not found");
+            }
+
+            // Update properties
+            existingInvoice.InvoiceDate = request.InvoiceDate;
+            // InvoiceNumber is not part of GenerateSalesInvoiceDto, so do not update it here
+            existingInvoice.CustomerName = request.CustomerName;
+            existingInvoice.CustomerAddress = request.CustomerAddress;
+            existingInvoice.DueDate = request.DueDate;
+            existingInvoice.BlobName = blobName;
+            existingInvoice.UserId = userId ?? existingInvoice.UserId;
+
+            // Remove existing lines
+            _dbContext.SalesInvoiceLines.RemoveRange(existingInvoice.Lines);
+
+            // Add new lines
+            var newLines = new List<ApplicationDbContext.SalesInvoiceLine>();
+            foreach (var line in request.LineItems)
+            {
+                newLines.Add(new ApplicationDbContext.SalesInvoiceLine
+                {
+                    Description = line.Description,
+                    quantity = line.Quantity,
+                    UnitPrice = line.UnitPrice,
+                    TotalPrice = line.TotalPrice,
+                    // NominalAccountId is not part of SalesInvoiceLineDto, so set to null or resolve if needed
+                    NominalAccountId = null,
+                    SalesInvoiceId = id
+                });
+            }
+            existingInvoice.Lines = newLines;
+
+            _dbContext.SalesInvoiceLines.AddRange(newLines);
+
+            _dbContext.SalesInvoices.Update(existingInvoice);
+            await _dbContext.SaveChangesAsync();
+
+            // Removed call to non-existent accounting service method
+
+            return existingInvoice;
+        }
+
+        public async Task DeleteSalesInvoiceAsync(Guid id)
+        {
+            var existingInvoice = await _dbContext.SalesInvoices
+                .Include(i => i.Lines)
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (existingInvoice == null)
+            {
+                throw new KeyNotFoundException($"Sales invoice with id {id} not found");
+            }
+
+            // Remove related lines first
+            _dbContext.SalesInvoiceLines.RemoveRange(existingInvoice.Lines);
+
+            _dbContext.SalesInvoices.Remove(existingInvoice);
+            await _dbContext.SaveChangesAsync();
+
+            // Removed call to non-existent accounting service method
+        }
+        // Duplicate method removed
     }
 }

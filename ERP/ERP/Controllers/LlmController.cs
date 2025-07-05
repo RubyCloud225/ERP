@@ -7,10 +7,10 @@ namespace ERP.Controller
     [Route("api/[controller]")]
     public class LlmController : ControllerBase
     {
-        private readonly ILlmService _llmService;
-        public LlmController(ILlmService llmService)
+        private readonly IDocumentProcessor _documentProcessor;
+        public LlmController(IDocumentProcessor documentProcessor)
         {
-            _llmService = llmService;
+            _documentProcessor = documentProcessor;
         }
         [HttpPost("generate")]
         public async Task<IActionResult> Generate([FromBody] string prompt)
@@ -19,7 +19,7 @@ namespace ERP.Controller
             {
                 return BadRequest("Prompt is required");
             }
-            var response = await _llmService.GenerateResponseAsync(prompt);
+            var response = await _documentProcessor.GenerateResponseAsync(prompt);
             return Ok(new { Response = response });
         }
     }

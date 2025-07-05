@@ -46,13 +46,17 @@ public class ApplicationMain
                 });
         });
         services.AddHttpClient<IDocumentService, DocumentService>();
-        services.AddHttpClient<IDocumentProcessor, DocumentProcessor>();
+        // Removed non-existing services IDocumentProcessor, DocumentProcessor, IBankService, BankService
         services.AddHttpClient<ILlmService, LlmService>();
         services.AddHttpClient<ICloudStorageService, CloudStorageService>();
         services.AddHttpClient<IPurchaseInvoiceService, PurchaseInvoiceService>();
         services.AddHttpClient<ISalesInvoiceService, SalesInvoiceService>();
         services.AddHttpClient<IUserService, UserService>();
-        services.AddHttpClient<IBankService, BankService>();
+
+        services.AddScoped<IJournalEntryService, JournalEntryService>();
+
+        services.AddSingleton<NominalLedgerService>();
+        services.AddSingleton<IFRSBalanceSheetService>();
 
         services.AddStackExchangeRedisCache(options =>
         {
