@@ -13,6 +13,7 @@ namespace ERP.Service
         Task DeleteSalesInvoiceAsync(Guid id);
         Task<ApplicationDbContext.SalesInvoice?> GetSalesInvoiceByIdAsync(Guid id);
         Task<ApplicationDbContext.SalesInvoice?> GetSalesInvoiceByUserIdAsync(Guid userId);
+        Task<decimal> GetSalesTaxReturnForQuarterAsync(int year, int quarter);
     }
     public class SalesInvoiceService : ISalesInvoiceService
     {
@@ -243,6 +244,17 @@ namespace ERP.Service
 
             // Removed call to non-existent accounting service method
         }
-        // Duplicate method removed
+
+        public async Task<decimal> GetSalesTaxReturnForQuarterAsync(int year, int quarter)
+        {
+            var startDate = new DateTime(year, (quarter - 1) * 3 + 1, 1);
+            var endDate = startDate.AddMonths(3);
+
+            var totalSalesTax = await _dbContext.SalesInvoices
+                .Where(i => i.InvoiceDate >= startDate && i.InvoiceDate < endDate)
+                .SumAsync(i => (decimal?)i.SalesTax) ?? 0m;
+
+            return totalSalesTax;
+        }
     }
 }

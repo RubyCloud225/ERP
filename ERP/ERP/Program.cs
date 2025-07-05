@@ -53,6 +53,8 @@ public class ApplicationMain
         services.AddHttpClient<ISalesInvoiceService, SalesInvoiceService>();
         services.AddHttpClient<IUserService, UserService>();
 
+        services.AddScoped<IVATReturnService, VATReturnService>();
+
         services.AddScoped<IJournalEntryService, JournalEntryService>();
 
         services.AddSingleton<NominalLedgerService>();

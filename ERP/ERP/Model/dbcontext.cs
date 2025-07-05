@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Humanizer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
@@ -31,7 +33,48 @@ namespace ERP.Model
         public DbSet<parsedSalesInvoiceLineDto>  ParsedSalesInvoiceLine { get; set; }
         public DbSet<NominalAccountSuggestionDto> NominalAccountSuggestions { get; set; }
         public DbSet<AccountingEntryLine> AccountingEntryLines { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<SalesPipeline> SalesPipelines { get; set; }
 
+        //-------------------- Customer CRM Schema ---------------------//
+
+        public class Customer
+        {
+            [Key]
+            public Guid Id { get; set; }
+            [Required]
+            [MaxLength(100)]
+            public required string Name { get; set; }
+            [MaxLength(100)]
+            public required string Email { get; set; }
+            [MaxLength(20)]
+            public required string Phone { get; set; }
+            [MaxLength(200)]
+            public required string Address { get; set; }
+            [MaxLength(100)]
+            public required string Company { get; set; }
+            public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class SalesPipeline
+        {
+            [Key]
+            public Guid Id { get; set; }
+
+            [Required]
+            [MaxLength(150)]
+            public required string Name { get; set; }
+            [MaxLength(50)]
+            public required string Stage { get; set; }
+            public DateTime? ExpectedCloseDate { get; set; }
+            [Column(TypeName = "decimal(18,2)")]
+            public decimal? Amount { get; set; }
+            public Guid? CustomerId { get; set; }
+            [ForeignKey("CustomerId")]
+            public Customer? Customer { get; set; }
+            public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+            public DateTime? UpdatedAt { get; set; }
+        }
         //-------------------- User Schema ---------------------//
         public class User
         {
