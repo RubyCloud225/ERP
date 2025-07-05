@@ -35,10 +35,28 @@ namespace ERP.Model
         public DbSet<AccountingEntryLine> AccountingEntryLines { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<SalesPipeline> SalesPipelines { get; set; }
-
-        //-------------------- Customer CRM Schema ---------------------//
-
-        public class Customer
+        public DbSet<VisionMissionReport> VisionMissionReports { get; set; }
+        public DbSet<StrategicObjectivesReport> StrategicObjectivesReports { get; set; }
+        public DbSet<SWOTAnalysisReport> SWOTAnalysisReports { get; set; }
+        public DbSet<PESTELAnalysisReport> PESTELAnalysisReports { get; set; }
+        public DbSet<MarketEntryReport> MarketEntryReports { get; set; }
+        public DbSet<MarketSizingGrowthReport> MarketSizingGrowthReports { get; set; }
+        public DbSet<MarketSegmentationTargetingReport> MarketSegmentationTargetingReports { get; set; }
+        public DbSet<MarketLandscapeAnalysisReport> MarketLandscapeAnalysisReports { get; set; }
+        public DbSet<MarketPersonaReport> MarketPersonaReports { get; set; }
+        public DbSet<PricingStrategyReport> PricingStrategyReports { get; set; }
+        public DbSet<GoToMarketReport> GoToMarketReports { get; set; }
+        public DbSet<ProductMarketFitReport> ProductMarketFitReports { get; set; }
+        public DbSet<CapitalAllocationReport> CapitalAllocationReports { get; set; }
+        public DbSet<ROICReport> ROICReports { get; set; }
+        public DbSet<CostOptimizationBenchmarkingReport> CostOptimizationBenchmarkingReports { get; set; }
+        public DbSet<RiskAdjustedReport> RiskAdjustedReports { get; set; }
+        public DbSet<MandAModelingReport> MandAModelingReports { get; set; }
+        public DbSet<GeneralBusinessStrategyReport> GeneralBusinessStrategyReports { get; set; }
+ 
+         //-------------------- Customer CRM Schema ---------------------//
+ 
+         public class Customer
         {
             [Key]
             public Guid Id { get; set; }

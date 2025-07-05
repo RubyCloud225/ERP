@@ -16,14 +16,873 @@ namespace ERP.Service
         Task<parsedSalesInvoiceDto> GeneratePromptFromSalesInvoiceAsync(GenerateSalesInvoiceDto request);
         Task<ParsedPurchaseInvoiceDto> GeneratePromptFromPurchaseInvoiceAsync(ParsedPurchaseInvoiceDto request);
         Task<string> GenerateKpiAndTrendAnalysisAsync(FinancialDataDto financialData);
+        Task<VisionMissionReport> GenerateVisionMissionAlignmentReportAsync(Guid userId, string userAims);
+        Task<VisionMissionReport> GetVisionMissionReportByIdAsync(Guid id);
+        Task<VisionMissionReport> UpdateVisionMissionReportAsync(Guid id, string updatedContent);
+        Task<StrategicObjectivesReport> GenerateStrategicObjectivesReportAsync(Guid userId, string userObjectives);
+        Task<StrategicObjectivesReport> GetStrategicObjectivesReportByIdAsync(Guid id);
+        Task<StrategicObjectivesReport> UpdateStrategicObjectivesReportAsync(Guid id, string updatedContent);
+        Task<SWOTAnalysisReport> GenerateSWOTAnalysisReportAsync(Guid userId, string userInput);
+        Task<SWOTAnalysisReport> GetSWOTAnalysisReportByIdAsync(Guid id);
+        Task<SWOTAnalysisReport> UpdateSWOTAnalysisReportAsync(Guid id, string updatedContent);
+        Task<PESTELAnalysisReport> GeneratePESTELAnalysisReportAsync(Guid userId, string userInput);
+        Task<PESTELAnalysisReport> GetPESTELAnalysisReportByIdAsync(Guid id);
+        Task<PESTELAnalysisReport> UpdatePESTELAnalysisReportAsync(Guid id, string updatedContent);
+        Task<MarketEntryReport> GenerateMarketEntryReportAsync(Guid userId, string userInput);
+        Task<MarketEntryReport> GetMarketEntryReportByIdAsync(Guid id);
+        Task<MarketEntryReport> UpdateMarketEntryReportAsync(Guid id, string updatedContent);
+        Task<MarketSizingGrowthReport> GenerateMarketSizingGrowthReportAsync(Guid userId, string userInput);
+        Task<MarketSizingGrowthReport> GetMarketSizingGrowthReportByIdAsync(Guid id);
+        Task<MarketSizingGrowthReport> UpdateMarketSizingGrowthReportAsync(Guid id, string updatedContent);
+        Task<MarketSegmentationTargetingReport> GenerateMarketSegmentationTargetingReportAsync(Guid userId, string userInput);
+        Task<MarketSegmentationTargetingReport> GetMarketSegmentationTargetingReportByIdAsync(Guid id);
+        Task<MarketSegmentationTargetingReport> UpdateMarketSegmentationTargetingReportAsync(Guid id, string updatedContent);
+        Task<MarketLandscapeAnalysisReport> GenerateMarketLandscapeAnalysisReportAsync(Guid userId, string userInput);
+        Task<MarketLandscapeAnalysisReport> GetMarketLandscapeAnalysisReportByIdAsync(Guid id);
+        Task<MarketLandscapeAnalysisReport> UpdateMarketLandscapeAnalysisReportAsync(Guid id, string updatedContent);
+        Task<MarketPersonaReport> GenerateMarketPersonaReportAsync(Guid userId, string userInput);
+        Task<MarketPersonaReport> GetMarketPersonaReportByIdAsync(Guid id);
+        Task<MarketPersonaReport> UpdateMarketPersonaReportAsync(Guid id, string updatedContent);
+        Task<PricingStrategyReport> GeneratePricingStrategyReportAsync(Guid userId, string userInput);
+        Task<PricingStrategyReport> GetPricingStrategyReportByIdAsync(Guid id);
+        Task<PricingStrategyReport> UpdatePricingStrategyReportAsync(Guid id, string updatedContent);
+        Task<GoToMarketReport> GenerateGoToMarketReportAsync(Guid userId, string userInput);
+        Task<GoToMarketReport> GetGoToMarketReportByIdAsync(Guid id);
+        Task<GoToMarketReport> UpdateGoToMarketReportAsync(Guid id, string updatedContent);
+        Task<ProductMarketFitReport> GenerateProductMarketFitReportAsync(Guid userId, string userInput);
+        Task<ProductMarketFitReport> GetProductMarketFitReportByIdAsync(Guid id);
+        Task<ProductMarketFitReport> UpdateProductMarketFitReportAsync(Guid id, string updatedContent);
+        Task<CapitalAllocationReport> GenerateCapitalAllocationReportAsync(Guid userId, string userInput);
+        Task<CapitalAllocationReport> GetCapitalAllocationReportByIdAsync(Guid id);
+        Task<CapitalAllocationReport> UpdateCapitalAllocationReportAsync(Guid id, string updatedContent);
+        Task<ROICReport> GenerateROICReportAsync(Guid userId, string userInput);
+        Task<ROICReport> GetROICReportByIdAsync(Guid id);
+        Task<ROICReport> UpdateROICReportAsync(Guid id, string updatedContent);
+        Task<CostOptimizationBenchmarkingReport> GenerateCostOptimizationBenchmarkingReportAsync(Guid userId, string userInput);
+        Task<CostOptimizationBenchmarkingReport> GetCostOptimizationBenchmarkingReportByIdAsync(Guid id);
+        Task<CostOptimizationBenchmarkingReport> UpdateCostOptimizationBenchmarkingReportAsync(Guid id, string updatedContent);
+        Task<RiskAdjustedReport> GenerateRiskAdjustedReportAsync(Guid userId, string userInput);
+        Task<RiskAdjustedReport> GetRiskAdjustedReportByIdAsync(Guid id);
+        Task<RiskAdjustedReport> UpdateRiskAdjustedReportAsync(Guid id, string updatedContent);
+        Task<MandAModelingReport> GenerateMandAModelingReportAsync(Guid userId, string userInput);
+        Task<MandAModelingReport> GetMandAModelingReportByIdAsync(Guid id);
+        Task<MandAModelingReport> UpdateMandAModelingReportAsync(Guid id, string updatedContent);
+        Task<GeneralBusinessStrategyReport> GenerateGeneralBusinessStrategyReportAsync(Guid userId, string userInput);
+        Task<GeneralBusinessStrategyReport> GetGeneralBusinessStrategyReportByIdAsync(Guid id);
+        Task<GeneralBusinessStrategyReport> UpdateGeneralBusinessStrategyReportAsync(Guid id, string updatedContent);
+        Task<string> GeneratePitchDeckAsync(Guid userId, string userInput);
     }
-
+ 
     public class LlmService : ILlmService
     {
         private readonly HttpClient _httpClient;
-        public LlmService(HttpClient httpClient)
+        private readonly ApplicationDbContext _dbContext;
+
+        public LlmService(HttpClient httpClient, ApplicationDbContext dbContext)
         {
             _httpClient = httpClient;
+            _dbContext = dbContext;
+        }
+
+        public async Task<GeneralBusinessStrategyReport> GenerateGeneralBusinessStrategyReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a comprehensive general business strategy report based on the following input:\n{userInput}\nPlease provide a clear and concise report integrating all relevant aspects.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new GeneralBusinessStrategyReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                CombinedReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.GeneralBusinessStrategyReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<GeneralBusinessStrategyReport> GetGeneralBusinessStrategyReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.GeneralBusinessStrategyReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"GeneralBusinessStrategyReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<GeneralBusinessStrategyReport> UpdateGeneralBusinessStrategyReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.GeneralBusinessStrategyReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"GeneralBusinessStrategyReport with id {id} not found.");
+            }
+            report.CombinedReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.GeneralBusinessStrategyReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<string> GeneratePitchDeckAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Generate a pitch deck content based on the following business strategy input:\n{userInput}\nPlease provide a structured and persuasive pitch deck content.";
+
+            string pitchDeckContent = await GenerateResponseAsync(prompt);
+
+            return pitchDeckContent;
+        }
+
+        public async Task<CapitalAllocationReport> GenerateCapitalAllocationReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a capital allocation report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new CapitalAllocationReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.CapitalAllocationReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<CapitalAllocationReport> GetCapitalAllocationReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.CapitalAllocationReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"CapitalAllocationReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<CapitalAllocationReport> UpdateCapitalAllocationReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.CapitalAllocationReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"CapitalAllocationReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.CapitalAllocationReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<ROICReport> GenerateROICReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a ROIC report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new ROICReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.ROICReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<ROICReport> GetROICReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.ROICReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"ROICReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<ROICReport> UpdateROICReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.ROICReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"ROICReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.ROICReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<CostOptimizationBenchmarkingReport> GenerateCostOptimizationBenchmarkingReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a cost optimization benchmarking report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new CostOptimizationBenchmarkingReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.CostOptimizationBenchmarkingReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<CostOptimizationBenchmarkingReport> GetCostOptimizationBenchmarkingReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.CostOptimizationBenchmarkingReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"CostOptimizationBenchmarkingReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<CostOptimizationBenchmarkingReport> UpdateCostOptimizationBenchmarkingReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.CostOptimizationBenchmarkingReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"CostOptimizationBenchmarkingReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.CostOptimizationBenchmarkingReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<RiskAdjustedReport> GenerateRiskAdjustedReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a risk adjusted report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new RiskAdjustedReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.RiskAdjustedReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<RiskAdjustedReport> GetRiskAdjustedReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.RiskAdjustedReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"RiskAdjustedReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<RiskAdjustedReport> UpdateRiskAdjustedReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.RiskAdjustedReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"RiskAdjustedReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.RiskAdjustedReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<MandAModelingReport> GenerateMandAModelingReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft an M&A modeling report with DCF model based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new MandAModelingReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.MandAModelingReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<MandAModelingReport> GetMandAModelingReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.MandAModelingReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"MandAModelingReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<MandAModelingReport> UpdateMandAModelingReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.MandAModelingReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"MandAModelingReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.MandAModelingReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<MarketEntryReport> GenerateMarketEntryReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a market entry report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new MarketEntryReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.MarketEntryReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<MarketEntryReport> GetMarketEntryReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.MarketEntryReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"MarketEntryReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<MarketEntryReport> UpdateMarketEntryReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.MarketEntryReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"MarketEntryReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.MarketEntryReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<MarketSizingGrowthReport> GenerateMarketSizingGrowthReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a market sizing and growth report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new MarketSizingGrowthReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.MarketSizingGrowthReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<MarketSizingGrowthReport> GetMarketSizingGrowthReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.MarketSizingGrowthReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"MarketSizingGrowthReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<MarketSizingGrowthReport> UpdateMarketSizingGrowthReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.MarketSizingGrowthReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"MarketSizingGrowthReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.MarketSizingGrowthReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<MarketSegmentationTargetingReport> GenerateMarketSegmentationTargetingReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a market segmentation and targeting report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new MarketSegmentationTargetingReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.MarketSegmentationTargetingReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<MarketSegmentationTargetingReport> GetMarketSegmentationTargetingReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.MarketSegmentationTargetingReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"MarketSegmentationTargetingReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<MarketSegmentationTargetingReport> UpdateMarketSegmentationTargetingReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.MarketSegmentationTargetingReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"MarketSegmentationTargetingReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.MarketSegmentationTargetingReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<MarketLandscapeAnalysisReport> GenerateMarketLandscapeAnalysisReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a market landscape analysis report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new MarketLandscapeAnalysisReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.MarketLandscapeAnalysisReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<MarketLandscapeAnalysisReport> GetMarketLandscapeAnalysisReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.MarketLandscapeAnalysisReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"MarketLandscapeAnalysisReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<MarketLandscapeAnalysisReport> UpdateMarketLandscapeAnalysisReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.MarketLandscapeAnalysisReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"MarketLandscapeAnalysisReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.MarketLandscapeAnalysisReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<MarketPersonaReport> GenerateMarketPersonaReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a market persona report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new MarketPersonaReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.MarketPersonaReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<MarketPersonaReport> GetMarketPersonaReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.MarketPersonaReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"MarketPersonaReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<MarketPersonaReport> UpdateMarketPersonaReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.MarketPersonaReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"MarketPersonaReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.MarketPersonaReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<PricingStrategyReport> GeneratePricingStrategyReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a pricing strategy report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new PricingStrategyReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.PricingStrategyReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<PricingStrategyReport> GetPricingStrategyReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.PricingStrategyReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"PricingStrategyReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<PricingStrategyReport> UpdatePricingStrategyReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.PricingStrategyReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"PricingStrategyReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.PricingStrategyReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<GoToMarketReport> GenerateGoToMarketReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a go to market report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new GoToMarketReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.GoToMarketReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<GoToMarketReport> GetGoToMarketReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.GoToMarketReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"GoToMarketReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<GoToMarketReport> UpdateGoToMarketReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.GoToMarketReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"GoToMarketReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.GoToMarketReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<ProductMarketFitReport> GenerateProductMarketFitReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a product market fit report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new ProductMarketFitReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.ProductMarketFitReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<ProductMarketFitReport> GetProductMarketFitReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.ProductMarketFitReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"ProductMarketFitReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<ProductMarketFitReport> UpdateProductMarketFitReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.ProductMarketFitReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"ProductMarketFitReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.ProductMarketFitReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<SWOTAnalysisReport> GenerateSWOTAnalysisReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a SWOT analysis report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new SWOTAnalysisReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.SWOTAnalysisReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<SWOTAnalysisReport> GetSWOTAnalysisReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.SWOTAnalysisReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"SWOTAnalysisReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<SWOTAnalysisReport> UpdateSWOTAnalysisReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.SWOTAnalysisReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"SWOTAnalysisReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.SWOTAnalysisReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<PESTELAnalysisReport> GeneratePESTELAnalysisReportAsync(Guid userId, string userInput)
+        {
+            string prompt = $"Draft a PESTEL analysis report based on the following input:\n{userInput}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new PESTELAnalysisReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.PESTELAnalysisReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<PESTELAnalysisReport> GetPESTELAnalysisReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.PESTELAnalysisReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"PESTELAnalysisReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<PESTELAnalysisReport> UpdatePESTELAnalysisReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.PESTELAnalysisReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"PESTELAnalysisReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.PESTELAnalysisReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<StrategicObjectivesReport> GenerateStrategicObjectivesReportAsync(Guid userId, string userObjectives)
+        {
+            string prompt = $"Draft a strategic objectives and key results report based on the following user objectives:\n{userObjectives}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new StrategicObjectivesReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.StrategicObjectivesReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<StrategicObjectivesReport> GetStrategicObjectivesReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.StrategicObjectivesReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"StrategicObjectivesReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<StrategicObjectivesReport> UpdateStrategicObjectivesReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.StrategicObjectivesReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"StrategicObjectivesReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.StrategicObjectivesReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
+        }
+
+        public async Task<VisionMissionReport> GenerateVisionMissionAlignmentReportAsync(Guid userId, string userAims)
+        {
+            string prompt = $"Draft a vision and mission alignment report based on the following user aims:\n{userAims}\nPlease provide a clear and concise report.";
+
+            string reportContent = await GenerateResponseAsync(prompt);
+
+            var report = new VisionMissionReport
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId,
+                ReportContent = reportContent,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _dbContext.VisionMissionReports.Add(report);
+            await _dbContext.SaveChangesAsync();
+
+            return report;
+        }
+
+        public async Task<VisionMissionReport> GetVisionMissionReportByIdAsync(Guid id)
+        {
+            var report = await _dbContext.VisionMissionReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"VisionMissionReport with id {id} not found.");
+            }
+            return report;
+        }
+
+        public async Task<VisionMissionReport> UpdateVisionMissionReportAsync(Guid id, string updatedContent)
+        {
+            var report = await _dbContext.VisionMissionReports.FindAsync(id);
+            if (report == null)
+            {
+                throw new KeyNotFoundException($"VisionMissionReport with id {id} not found.");
+            }
+            report.ReportContent = updatedContent;
+            report.UpdatedAt = DateTime.UtcNow;
+            _dbContext.VisionMissionReports.Update(report);
+            await _dbContext.SaveChangesAsync();
+            return report;
         }
 
         public async Task<string> GenerateResponseAsync(string prompt)
