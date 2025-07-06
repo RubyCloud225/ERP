@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from '../login/login.component';
-import { DocumentListComponent } from '../document-list/document-list.component';
-import { DocumentUploadComponent } from '../document-upload/document-upload.component';
+import { LoginComponent } from '../models/login_signup/login/login.component';
+import { DocumentListComponent } from '../components/Agent/document-list/document-list.component';
+import { DocumentUploadComponent } from '../components/Agent/document-upload/document-upload.component';
 import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
