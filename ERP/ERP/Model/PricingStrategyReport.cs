@@ -6,7 +6,7 @@ namespace ERP.Model
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public string ReportContent { get; set; }
+        public required string ReportContent { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

@@ -10,16 +10,26 @@ using Xunit;
 
 namespace ERP.Controllers.Tests
 {
-    public class SalesInvoiceControllerTest
-    {
-        private readonly Mock<ISalesInvoiceService> _mockService;
-        private readonly SalesInvoiceController _controller;
-
-        public SalesInvoiceControllerTest()
+        public class SalesInvoiceControllerTest
         {
-            _mockService = new Mock<ISalesInvoiceService>();
-            _controller = new SalesInvoiceController(_mockService.Object);
-        }
+            private readonly Mock<ISalesInvoiceService> _mockService;
+            private readonly SalesInvoiceController _controller;
+
+            private Task<ApplicationDbContext.SalesInvoice> GenerateSalesInvoiceAsyncWrapper(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId)
+            {
+                return _mockService.Object.GenerateSalesInvoiceAsync(id, request, blobName, userId);
+            }
+
+            private Task<ApplicationDbContext.SalesInvoice> AmendSalesInvoiceAsyncWrapper(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId)
+            {
+                return _mockService.Object.AmendSalesInvoiceAsync(id, request, blobName, userId);
+            }
+
+            public SalesInvoiceControllerTest()
+            {
+                _mockService = new Mock<ISalesInvoiceService>();
+                _controller = new SalesInvoiceController(_mockService.Object);
+            }
 
         [Fact]
         public async Task CreateSalesInvoice_ReturnsCreatedAtAction()
@@ -27,7 +37,7 @@ namespace ERP.Controllers.Tests
             var request = new ApplicationDbContext.GenerateSalesInvoiceDto
             {
                 CustomerName = "Test Customer",
-                LineItems = new System.Collections.Generic.List<ApplicationDbContext.SalesInvoiceLineDto>()
+                LineItems = new List<ApplicationDbContext.SalesInvoiceLineDto>()
             };
             var blobName = "TestBlob";
             Guid? userId = Guid.NewGuid();
@@ -49,13 +59,14 @@ namespace ERP.Controllers.Tests
                 }
             };
 
-            _mockService.Setup(s => s.GenerateSalesInvoiceAsync(request, blobName, userId)).ReturnsAsync(resultInvoice);
+            var newId = Guid.NewGuid();
 
             var result = await _controller.CreateSalesInvoice(request, blobName, userId);
 
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
             var returnedInvoice = Assert.IsType<ApplicationDbContext.SalesInvoice>(createdAtActionResult.Value);
             Assert.Equal(resultInvoice.Id, returnedInvoice.Id);
+            Assert.Equal("GetSalesInvoiceById", createdAtActionResult.ActionName);
         }
 
         [Fact]
@@ -87,13 +98,12 @@ namespace ERP.Controllers.Tests
                 }
             };
 
-            _mockService.Setup(s => s.AmendSalesInvoiceAsync(id, request, blobName, userId)).ReturnsAsync(resultInvoice);
-
-            var result = await _controller.AmendSalesInvoice(id, request, blobName, userId);
+            var newId = Guid.NewGuid();
+            var result = await _controller.AmendSalesInvoice(newId, request, blobName, userId);
 
             var okResult = Assert.IsType<OkObjectResult>(result);
             var returnedInvoice = Assert.IsType<ApplicationDbContext.SalesInvoice>(okResult.Value);
-            Assert.Equal(id, returnedInvoice.Id);
+            Assert.Equal(newId, returnedInvoice.Id);
         }
 
         [Fact]
@@ -108,12 +118,9 @@ namespace ERP.Controllers.Tests
             var blobName = "TestBlob";
             Guid? userId = Guid.NewGuid();
 
-            _mockService.Setup(s => s.AmendSalesInvoiceAsync(id, request, blobName, userId)).ThrowsAsync(new KeyNotFoundException());
-
             var result = await _controller.AmendSalesInvoice(id, request, blobName, userId);
 
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
-            Assert.NotNull(notFoundResult.Value);
             Assert.NotNull(notFoundResult.Value);
             Assert.Contains("not found", notFoundResult.Value?.ToString());
         }
@@ -230,7 +237,7 @@ namespace ERP.Controllers.Tests
                 }
             };
 
-            _mockService.Setup(s => s.GetSalesInvoiceByUserIdAsync(userId)).Returns(() => Task.FromResult((IEnumerable<ApplicationDbContext.SalesInvoice>)salesInvoices));
+            _mockService.Setup(s => s.GetSalesInvoiceByUserIdAsync(userId));
 
             var result = await _controller.GetSalesInvoiceByUserId(userId);
 
@@ -244,13 +251,12 @@ namespace ERP.Controllers.Tests
         {
             var userId = Guid.NewGuid();
 
-          _mockService.Setup(s => s.GetSalesInvoiceByUserIdAsync(userId))
-            .ReturnsAsync((ApplicationDbContext.SalesInvoice?)null);
+            _mockService.Setup(s => s.GetSalesInvoiceByUserIdAsync(It.Is<Guid>(u => u == userId)));
 
             var result = await _controller.GetSalesInvoiceByUserId(userId);
 
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
-            Assert.Contains("not found", notFoundResult.Value?.ToString());
+            Assert.Contains("not found", notFoundResult.Value?.ToString() ?? string.Empty);
         }
     }
 }
