@@ -15,16 +15,6 @@ namespace ERP.Controllers.Tests
             private readonly Mock<ISalesInvoiceService> _mockService;
             private readonly SalesInvoiceController _controller;
 
-            private Task<ApplicationDbContext.SalesInvoice> GenerateSalesInvoiceAsyncWrapper(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId)
-            {
-                return _mockService.Object.GenerateSalesInvoiceAsync(id, request, blobName, userId);
-            }
-
-            private Task<ApplicationDbContext.SalesInvoice> AmendSalesInvoiceAsyncWrapper(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId)
-            {
-                return _mockService.Object.AmendSalesInvoiceAsync(id, request, blobName, userId);
-            }
-
             public SalesInvoiceControllerTest()
             {
                 _mockService = new Mock<ISalesInvoiceService>();

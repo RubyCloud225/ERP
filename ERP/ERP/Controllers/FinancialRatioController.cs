@@ -18,7 +18,7 @@ namespace ERP.Controllers
         }
 
         [HttpPost("profitability")]
-        public async Task<IActionResult> CalculateProfitabilityRatios([FromBody] FinancialDataDto financialData)
+        public async Task<IActionResult> CalculateProfitabilityRatios([FromBody] ApplicationDbContext.FinancialDataDto financialData)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace ERP.Controllers
         }
 
         [HttpPost("liquidity")]
-        public async Task<IActionResult> CalculateLiquidityRatios([FromBody] FinancialDataDto financialData)
+        public async Task<IActionResult> CalculateLiquidityRatios([FromBody] ApplicationDbContext.FinancialDataDto financialData)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace ERP.Controllers
         }
 
         [HttpPost("efficiency")]
-        public async Task<IActionResult> CalculateEfficiencyRatios([FromBody] FinancialDataDto financialData)
+        public async Task<IActionResult> CalculateEfficiencyRatios([FromBody] ApplicationDbContext.FinancialDataDto financialData)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace ERP.Controllers
         }
 
         [HttpPost("valuation")]
-        public async Task<IActionResult> CalculateValuationRatios([FromBody] FinancialDataDto financialData)
+        public async Task<IActionResult> CalculateValuationRatios([FromBody] ApplicationDbContext.FinancialDataDto financialData)
         {
             try
             {

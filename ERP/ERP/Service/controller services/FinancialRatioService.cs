@@ -7,16 +7,16 @@ namespace ERP.Service
 {
     public interface IFinancialRatioService
     {
-        Task<Dictionary<string, decimal>> CalculateProfitabilityRatiosAsync(FinancialDataDto financialData);
-        Task<Dictionary<string, decimal>> CalculateLiquidityRatiosAsync(FinancialDataDto financialData);
-        Task<Dictionary<string, decimal>> CalculateEfficiencyRatiosAsync(FinancialDataDto financialData);
-        Task<Dictionary<string, decimal>> CalculateValuationRatiosAsync(FinancialDataDto financialData);
+        Task<Dictionary<string, decimal>> CalculateProfitabilityRatiosAsync(ApplicationDbContext.FinancialDataDto financialData);
+        Task<Dictionary<string, decimal>> CalculateLiquidityRatiosAsync(ApplicationDbContext.FinancialDataDto financialData);
+        Task<Dictionary<string, decimal>> CalculateEfficiencyRatiosAsync(ApplicationDbContext.FinancialDataDto financialData);
+        Task<Dictionary<string, decimal>> CalculateValuationRatiosAsync(ApplicationDbContext.FinancialDataDto financialData);
         Task<Dictionary<string, decimal>> GetBenchmarkRatiosAsync(string industry, string geography);
     }
 
     public class FinancialRatioService : IFinancialRatioService
     {
-        public async Task<Dictionary<string, decimal>> CalculateProfitabilityRatiosAsync(FinancialDataDto financialData)
+        public async Task<Dictionary<string, decimal>> CalculateProfitabilityRatiosAsync(ApplicationDbContext.FinancialDataDto financialData)
         {
             var ratios = new Dictionary<string, decimal>();
 
@@ -38,7 +38,7 @@ namespace ERP.Service
             return await Task.FromResult(ratios);
         }
 
-        public async Task<Dictionary<string, decimal>> CalculateLiquidityRatiosAsync(FinancialDataDto financialData)
+        public async Task<Dictionary<string, decimal>> CalculateLiquidityRatiosAsync(ApplicationDbContext.FinancialDataDto financialData)
         {
             var ratios = new Dictionary<string, decimal>();
 
@@ -59,7 +59,7 @@ namespace ERP.Service
             return await Task.FromResult(ratios);
         }
 
-        public async Task<Dictionary<string, decimal>> CalculateEfficiencyRatiosAsync(FinancialDataDto financialData)
+        public async Task<Dictionary<string, decimal>> CalculateEfficiencyRatiosAsync(ApplicationDbContext.FinancialDataDto financialData)
         {
             var ratios = new Dictionary<string, decimal>();
 
@@ -80,7 +80,7 @@ namespace ERP.Service
             return await Task.FromResult(ratios);
         }
 
-        public async Task<Dictionary<string, decimal>> CalculateValuationRatiosAsync(FinancialDataDto financialData)
+        public async Task<Dictionary<string, decimal>> CalculateValuationRatiosAsync(ApplicationDbContext.FinancialDataDto financialData)
         {
             var ratios = new Dictionary<string, decimal>();
 

@@ -53,10 +53,165 @@ namespace ERP.Model
         public DbSet<RiskAdjustedReport> RiskAdjustedReports { get; set; }
         public DbSet<MandAModelingReport> MandAModelingReports { get; set; }
         public DbSet<GeneralBusinessStrategyReport> GeneralBusinessStrategyReports { get; set; }
- 
-         //-------------------- Customer CRM Schema ---------------------//
- 
-         public class Customer
+        //-------------------- Reports Schema ---------------------//
+        public class VisionMissionReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class SWOTAnalysisReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class StrategicObjectivesReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class ROICReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class RiskAdjustedReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class ProductMarketFitReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class PricingStrategyReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class PESTELAnalysisReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class MarketSizingGrowthReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class MarketSegmentationTargetingReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class MarketPersonaReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class MarketLandscapeAnalysisReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class MarketEntryReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class MandAModelingReport
+            {
+                public Guid Id { get; set; }
+                public Guid UserId { get; set; }
+                public required string ReportContent { get; set; }
+                public DateTime CreatedAt { get; set; }
+                public DateTime? UpdatedAt { get; set; }
+            }
+        public class GoToMarketReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class GeneralBusinessStrategyReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public string CombinedReportContent { get; set; } = string.Empty;
+            public string PitchDeckContent { get; set; } = string.Empty;
+            public DateTime? CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class CapitalAllocationReport
+        {
+            public Guid Id { get; set; }
+            public Guid? UserId { get; set; }
+            public string ReportContent { get; set; } = string.Empty;
+            public DateTime? CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        public class FinancialDataDto
+        {
+            public Guid UserId { get; set; }
+            public required string CompanyName { get; set; }
+            public required string Industry { get; set; }
+            public required string Geography { get; set; }
+            public required string Currency { get; set; }
+            public required string Seasonality { get; set; }
+            public Dictionary<string, decimal> FinancialMetrics { get; set; } = new Dictionary<string, decimal>();
+            // Add other relevant financial data fields as needed
+        }
+        public class CostOptimizationBenchmarkingReport
+        {
+            public Guid Id { get; set; }
+            public Guid UserId { get; set; }
+            public required string ReportContent { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public DateTime? UpdatedAt { get; set; }
+        }
+        //-------------------- Customer CRM Schema ---------------------//
+        public class Customer
         {
             [Key]
             public Guid Id { get; set; }
@@ -346,6 +501,19 @@ namespace ERP.Model
             public Guid? AccountingEntryId { get; set; }
             public AccountingEntry? AccountingEntry { get; set; }
         }
+        public class NominalLedgerEntry
+        {
+            public int Id { get; set; }
+            public string AccountCode { get; set; } = string.Empty;
+            public DateTime EntryDate { get; set; }
+            public decimal Debit { get; set; }
+            public decimal Credit { get; set; }
+            public string Description { get; set; } = string.Empty;
+
+            public NominalLedgerEntry()
+            {
+            }
+        }
         public class NominalAccountSuggestionDto
         {
             public required string Name { get; set; }
@@ -479,6 +647,14 @@ namespace ERP.Model
             public decimal TotalPrice => Quantity * UnitPrice; // Calculate total price based on quantity and unit price
             public string? RecommendedNominal { get; set; } // Optional, if you want to recommend a nominal account
             public NominalAccountType? RecommendedNominalType { get; set; } // Optional, if you want to recommend a nominal account type
+        }
+        public class SalesTaxReturnDto
+        {
+            public int Year { get; set; }
+            public int Quarter { get; set; }
+            public decimal TotalSalesTaxCollected { get; set; }
+            public decimal TotalPurchaseTaxPaid { get; set; }
+            public decimal NetTaxReturn => TotalSalesTaxCollected - TotalPurchaseTaxPaid;
         }
 
         //-------------------- LLM Schema ---------------------//
