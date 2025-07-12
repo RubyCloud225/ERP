@@ -1,0 +1,15 @@
+<header class="app-header">
+  <div class="logo">
+    <h1>ERP System</h1>
+  </div>
+  <nav class="navigation">
+    <!-- Navigation links can be added here -->
+    <a href="#" class="nav-link">Home</a>
+    <a href="#" class="nav-link">About</a>
+    <a href="#" class="nav-link">Contact</a>
+  </nav>
+  <div class="auth-actions">
+    <button *ngIf="!isLoggedIn" (click)="openLoginModel()" class="login-button">Login</button>
+    <span *ngIf="isLoggedIn" class="user-info">Welcome, User!</span>
+  </div>
+</header>

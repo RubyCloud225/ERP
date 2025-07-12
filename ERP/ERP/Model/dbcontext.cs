@@ -239,7 +239,7 @@ namespace ERP.Model
             public required string Name { get; set; }
             [MaxLength(50)]
             public required string Stage { get; set; }
-            public DateTime ExpectedCloseDate { get; set; }
+            public DateTime? ExpectedCloseDate { get; set; }
             [Column(TypeName = "decimal(18,2)")]
             public decimal? Amount { get; set; }
             public Guid? CustomerId { get; set; }
