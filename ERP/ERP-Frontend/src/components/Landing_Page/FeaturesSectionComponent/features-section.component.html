@@ -1,0 +1,17 @@
+<div *ngIf="showDashboard" class="dashboard-popup">
+  <div class="cards-container">
+    <div *ngFor="let card of cards" [ngClass]="['card', card.size]">
+      <h3>{{ card.title }}</h3>
+      <ng-container *ngIf="card.content === 'chart'; else textContent">
+        <canvas baseChart
+          [data]="salesGrowthData"
+          [options]="salesGrowthOptions"
+          [type]="'line'">
+        </canvas>
+      </ng-container>
+      <ng-template #textContent>
+        <p>{{ card.content }}</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -15,6 +15,7 @@ namespace ERP.Service
         Task<ApplicationDbContext.SalesInvoice?> GetSalesInvoiceByUserIdAsync(Guid userId);
         Task<decimal> GetSalesTaxReturnForQuarterAsync(int year, int quarter);
         Task<decimal> GetTotalSalesAmountForCustomerAsync(Guid customerId);
+        Task<SalesGrowthRateDto> GetSalesGrowthRateAsync();
     }
     public class SalesInvoiceService : ISalesInvoiceService
     {
@@ -32,6 +33,45 @@ namespace ERP.Service
         // use LLM to create a sales invoice
         // Generates Sales invoice based on user input and processes it through LLM for further processing
         // saves it, and creates the corresponding accounting entries
+
+        public async Task<SalesGrowthRateDto> GetSalesGrowthRateAsync()
+        {
+            // Example implementation: Calculate monthly sales totals and compute growth rate
+            var salesData = await _dbContext.SalesInvoices
+                .Where(si => si.InvoiceDate >= DateTime.UtcNow.AddYears(-1)) // Get last year's data
+                .GroupBy(si => new { Year = si.InvoiceDate.Year, Month = si.InvoiceDate.Month })
+                .Select(g => new
+                {
+                    YearMonth = $"{g.Key.Year}-{g.Key.Month:D2}",
+                    TotalSales = g.Sum(si => si.TotalAmount)
+                })
+                .OrderBy(x => x.YearMonth)
+                .ToListAsync();
+
+            var labels = salesData.Select(x => x.YearMonth).ToArray();
+            var totals = salesData.Select(x => x.TotalSales).ToArray();
+
+            // Calculate growth rate as percentage change month over month
+            var growthRates = new decimal[totals.Length];
+            growthRates[0] = 0;
+            for (int i = 1; i < totals.Length; i++)
+            {
+                if (totals[i - 1] == 0)
+                {
+                    growthRates[i] = 0;
+                }
+                else
+                {
+                    growthRates[i] = (totals[i] - totals[i - 1]) / totals[i - 1] * 100;
+                }
+            }
+
+            return new SalesGrowthRateDto
+            {
+                Labels = labels,
+                Data = growthRates
+            };
+        }
 
         public async Task<ApplicationDbContext.SalesInvoice> GenerateSalesInvoiceAsync(Guid id, ApplicationDbContext.GenerateSalesInvoiceDto request, string blobName, Guid? userId = null, Guid? customerId = null)
         {

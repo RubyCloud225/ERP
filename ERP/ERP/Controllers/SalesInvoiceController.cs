@@ -116,5 +116,19 @@ namespace ERP.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("sales-growth-rate")]
+        public async Task<IActionResult> GetSalesGrowthRate()
+        {
+            try
+            {
+                var result = await _salesInvoiceService.GetSalesGrowthRateAsync();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

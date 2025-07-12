@@ -5,7 +5,7 @@ namespace ERP.Service
 {
     public interface IVATReturnService
     {
-        Task<SalesTaxReturnDto> GetVatReturnAsync(int year, int quarter);
+        Task<ApplicationDbContext.SalesTaxReturnDto> GetVatReturnAsync(int year, int quarter);
     }
 
     public class VATReturnService : IVATReturnService
@@ -19,12 +19,12 @@ namespace ERP.Service
             _purchaseInvoiceService = purchaseInvoiceService;
         }
 
-        public async Task<SalesTaxReturnDto> GetVatReturnAsync(int year, int quarter)
+        public async Task<ApplicationDbContext.SalesTaxReturnDto> GetVatReturnAsync(int year, int quarter)
         {
             var totalSalesTaxCollected = await _salesInvoiceService.GetSalesTaxReturnForQuarterAsync(year, quarter);
             var totalPurchaseTaxPaid = await _purchaseInvoiceService.GetPurchaseTaxReturnForQuarterAsync(year, quarter);
 
-            return new SalesTaxReturnDto
+            return new ApplicationDbContext.SalesTaxReturnDto
             {
                 Year = year,
                 Quarter = quarter,

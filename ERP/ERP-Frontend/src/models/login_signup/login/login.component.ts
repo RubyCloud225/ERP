@@ -1,32 +1,63 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../../core/services/AuthService';
+import { ModelContent } from '../../../core/services/model.service';
 
 @Component({
-  selector: 'app-login',
-  imports: [],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  selector: 'app-login-model', // This selector is used to identify the component in templates
+  templateUrl: './login-model.component.html', // This template is used to render the component
+  styleUrls: ['./login-model.component.scss'] // This stylesheet is used to style the component
 })
-export class LoginComponent {
-  username: string = '';
-  password: string = '';
-  errorMessage: string | null = null;
+export class LoginModelComponent implements OnInit, ModelContent {
+  loginForm!: FormGroup; // FormGroup to manage the login form state
+  errorMessage: string | null = null; // Variable to hold error messages
+  isLoading: boolean = false; // Variable to manage loading state
+  close!: (result?: any) => void; // Function to close the model, provided by the ModelService
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService // AuthService to handle authentication logic
+  ) {}
 
-  constructor(private http: HttpClient) {}
-
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]], // Email field with validation
+      password: ['', [Validators.required, Validators.minLength(8)]] // Password field with validation
+    }); // Initialize the login form with FormBuilder
+  }
+  get email() {
+    return this.loginForm.get('email'); // Getter for email form control
+  }
+  get password() {
+    return this.loginForm.get('password'); // Getter for password form control
+  }
   onSubmit(): void {
-    const credentials = {
-      username: this.username,
-      password: this.password
-    };
-    this.http.post('http://localhost:3000/login', credentials).subscribe(
-      (response: any) => {
-        console.log(response);
-        // TODO: redirect to dashboard
+    this.errorMessage = null; // Reset error message
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched(); // Mark all form controls as touched to show validation errors
+      return;
+    }
+    this.isLoading = true; // Set loading state to true
+    const { email, password } = this.loginForm.value; // Extract email and password from the form value
+    // Call the login method from AuthService with email and password
+    this.authService.login(email, password).subscribe({
+      next: (response) => {
+        this.isLoading = false; // Set loading state to false
+        console.log('Login successful', response); // Log success message
+        this.close(); // Close the model after successful login
       },
-      (error: any) => {
-        console.log(error);
+      error: (err) => {
+        this.isLoading = false; // Set loading state to false
+        this.errorMessage = err.error.message || 'Login failed'; // Set error message from the response or a default message
+        console.error('Login failed', err); // Log error message
       }
-    )
+    });
+  }
+  onClose(): void {
+    this.close(); // Function to close the model, provided by the ModelService
+  }
+  openSignupModelFromLogin(): void {
+    // This function is used to open the signup model from the login model
+    console.log('Opening signup model from login model');
+    this.close({ action: 'openSignup'}); // Close the login model
   }
 }

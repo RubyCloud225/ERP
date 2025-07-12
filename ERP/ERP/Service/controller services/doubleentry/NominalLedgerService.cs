@@ -8,7 +8,7 @@ namespace ERP.Service
 {
     public interface INominalLedgerService
     {
-        IEnumerable<NominalLedgerEntry> GetEntries(DateTime startDate, DateTime endDate);
+        IEnumerable<ApplicationDbContext.NominalLedgerEntry> GetEntries(DateTime startDate, DateTime endDate);
     }
     public class NominalLedgerService : INominalLedgerService
     {
@@ -19,20 +19,20 @@ namespace ERP.Service
             _dbContext = dbContext;
         }
 
-        public IEnumerable<NominalLedgerEntry> GetEntries(DateTime startDate, DateTime endDate)
+        public IEnumerable<ApplicationDbContext.NominalLedgerEntry> GetEntries(DateTime startDate, DateTime endDate)
         {
             var entries = _dbContext.AccountingEntries
                 .Include(ae => ae.Lines)
                 .Where(ae => ae.EntryDate >= startDate && ae.EntryDate <= endDate)
                 .ToList();
 
-            var ledgerEntries = new List<NominalLedgerEntry>();
+            var ledgerEntries = new List<ApplicationDbContext.NominalLedgerEntry>();
 
             foreach (var entry in entries)
             {
                 foreach (var line in entry.Lines)
                 {
-                    ledgerEntries.Add(new NominalLedgerEntry
+                    ledgerEntries.Add(new ApplicationDbContext.NominalLedgerEntry
                     {
                         AccountCode = line.NominalAccount?.Code ?? "Unknown",
                         EntryDate = entry.EntryDate,

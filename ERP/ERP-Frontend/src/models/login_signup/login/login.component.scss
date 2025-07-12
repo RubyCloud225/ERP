@@ -1,0 +1,38 @@
+.modal-content-wrapper {
+    position: fixed; // Fixed position relative to viewport
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); // Center it precisely
+    z-index: 2000; // Ensure it's above the backdrop
+  
+    background-color: #ffffff; // Keep this on the inner content div if you want shadow on content only
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 450px; // A good size for a login form
+    animation: fadeInScale 0.3s ease-out; // Simple entrance animation
+  
+    // ... (rest of your .modal-content styles from previous example)
+    .close-button { /* ... */ }
+    .modal-title { /* ... */ }
+    // ... and so on for form-group, input, btn-primary, modal-footer
+  }
+  
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .modal-content-wrapper {
+      width: calc(100% - 2rem); // Take more width on small screens
+      margin: 1rem; // Add some margin
+    }
+  }
