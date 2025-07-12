@@ -8,22 +8,30 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClient } from '@angular/common/http';
-import { LoginComponent } from '../models/login_signup/login/login.component';
+import { LoginModelComponent } from '../models/login_signup/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { ApprovalDocumentClassComponent } from '../components/Agent/approval-document-class/approval-document-class.component';
 import { SignUpComponent } from '../models/login_signup/sign-up/sign-up.component';
 import { QuillModule } from 'ngx-quill';
-
-
+import { HeaderComponent } from '../components/Landing_Page/Layout/Header_Component/header.component';
+import { HeroComponent } from '../components/Landing_Page/Hero_Component/hero.component';
+import { FooterComponent } from '../components/Landing_Page/Footer_Component/footer.component';
+import { ModelContainerComponent } from '../core/services/modelContainerComponent';
+import { FeaturesSectionComponent } from '../components/Landing_Page/FeaturesSectionComponent/features-section.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DocumentUploadComponent,
     DocumentListComponent,
-    LoginComponent,
+    LoginModelComponent,
     ApprovalDocumentClassComponent,
-    SignUpComponent
+    SignUpComponent,
+    HeaderComponent,
+    HeroComponent,
+    FooterComponent,
+    ModelContainerComponent,
+    FeaturesSectionComponent
   ],
   imports: [
     BrowserModule,

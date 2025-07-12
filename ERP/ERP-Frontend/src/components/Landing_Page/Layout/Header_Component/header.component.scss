@@ -2,43 +2,45 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #2c3e50;
-  color: #ecf0f1;
-  font-family: Arial, sans-serif;
+  padding: 15px 30px;
+  background-color: #2980b9;
+  color: white;
+  flex-wrap: wrap;
 }
 
 .logo h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 }
 
 .navigation {
   display: flex;
-  gap: 15px;
+  gap: 20px;
 }
 
 .nav-link {
-  color: #ecf0f1;
+  color: white;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1rem;
   transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #3498db;
+  color: #ecf0f1;
 }
 
 .auth-actions {
   display: flex;
   align-items: center;
+  gap: 15px;
 }
 
 .login-button {
-  background-color: #3498db;
+  background-color: #ecf0f1;
+  color: #2980b9;
   border: none;
-  padding: 8px 15px;
-  color: white;
+  padding: 8px 16px;
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
@@ -46,10 +48,28 @@
 }
 
 .login-button:hover {
-  background-color: #2980b9;
+  background-color: #bdc3c7;
 }
 
-.user-info {
-  font-weight: 600;
-  font-size: 1rem;
+/* Responsive styles */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navigation {
+    width: 100%;
+    justify-content: space-around;
+    margin: 10px 0;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+  }
+
+  .auth-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }

@@ -6,7 +6,7 @@ import { AuthStateService } from '../../../../core/services/auth-state.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
     isLoggedIn: boolean = false; // Variable to track if the user is logged in
