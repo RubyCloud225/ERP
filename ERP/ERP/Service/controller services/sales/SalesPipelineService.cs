@@ -96,6 +96,31 @@ namespace ERP.Service
         {
             return await _dbContext.SalesPipelines.ToListAsync();
         }
+
+        public async Task<SalesPipelineClosedDto> GetClosedSalesCountAsync()
+        {
+            var grouped = await _dbContext.SalesPipelines
+                .AsNoTracking()
+                .Where(sp => sp.Stage.ToLower() == "closed")
+                .GroupBy(sp => new { Year = sp.ExpectedCloseDate.Year, Month = sp.ExpectedCloseDate.Month })
+                .Select(g => new
+                {
+                    Year = g.Key.Year,
+                    Month = g.Key.Month,
+                    Count = g.Count()
+                })
+                .OrderBy(g => g.Year).ThenBy(g => g.Month)
+                .ToListAsync();
+
+            var labels = grouped.Select(g => $"{g.Year}-{g.Month:D2}").ToArray();
+            var data = grouped.Select(g => (decimal)g.Count).ToArray();
+
+            return new SalesPipelineClosedDto
+            {
+                Labels = labels,
+                Data = data
+            };
+        }
     }
 
     public interface ISalesPipelineService
@@ -105,5 +130,6 @@ namespace ERP.Service
         Task<bool> DeleteSalesPipeline(Guid salesPipelineId);
         Task<ApplicationDbContext.SalesPipeline?> GetSalesPipelineByIdAsync(Guid salesPipelineId);
         Task<List<ApplicationDbContext.SalesPipeline>> GetAllSalesPipelinesAsync();
+        Task<SalesPipelineClosedDto> GetClosedSalesCountAsync();
     }
 }

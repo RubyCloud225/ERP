@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
-import { ModelService } from '../../../../core/services/model.service';
-import { LoginModelComponent } from '../../../../models/login_signup/login/login.component';
+import { ModelService } from '../../../core/services/model.service';
+import { LoginModelComponent } from '../../../models/login_signup/login/login.component';
 import { of } from 'rxjs';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';

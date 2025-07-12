@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ModelService } from '../../../../core/services/model.service';
-import { LoginModelComponent } from '../../../../models/login_signup/login/login.component';
-import { AuthStateService } from '../../../../core/services/auth-state.service';
+import { ModelService } from '../../../core/services/model.service';
+import { LoginModelComponent } from '../../../models/login_signup/login/login.component';
+import { AuthStateService } from '../../../core/services/auth-state.service';
 
 @Component({
   selector: 'app-header',

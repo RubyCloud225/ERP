@@ -1,11 +1,11 @@
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from '../models/login_signup/login/login.component';
+import { LoginModelComponent } from '../models/login_signup/login/login.component';
 import { DocumentListComponent } from '../components/Agent/document-list/document-list.component';
 import { DocumentUploadComponent } from '../components/Agent/document-upload/document-upload.component';
 import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginModelComponent },
     { path: 'documentlist', component: DocumentListComponent },
     { path: 'documentUpload', component: DocumentUploadComponent }
 ];

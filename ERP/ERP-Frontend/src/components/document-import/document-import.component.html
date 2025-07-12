@@ -1,0 +1,22 @@
+<div class="upload-container" 
+     [class.dragging]="isDragging" 
+     (dragover)="onDragOver($event)" 
+     (dragleave)="onDragLeave($event)" 
+     (drop)="onDrop($event)">
+  <p>Drag and drop a file here, or click to select a file</p>
+  <input type="file" (change)="onFileSelected($event)" hidden #fileInput>
+  <button type="button" (click)="fileInput.click()">Select File</button>
+</div>
+
+<div *ngIf="uploadProgress !== null">
+  Upload Progress: {{uploadProgress}}%
+</div>
+
+<div *ngIf="uploadResponse">
+  <p>Upload successful!</p>
+  <pre>{{uploadResponse | json}}</pre>
+</div>
+
+<div *ngIf="errorMessage" class="error">
+  {{errorMessage}}
+</div>
