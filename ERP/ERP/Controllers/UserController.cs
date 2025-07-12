@@ -1,8 +1,13 @@
-using ERP.Model;
-using ERP.Service;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using ERP.Service;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using System.Security.Claims;
+using System.Collections.Generic;
+using System;
 
 namespace ERP.Controllers
 {
@@ -11,78 +16,60 @@ namespace ERP.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly ILogger<UserController> _logger;
+
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
             _userService = userService;
-        }
-
-        [HttpPost("signup")]
-        public async Task<IActionResult> SignUp([FromBody] ApplicationDbContext.UserSignUpDto userSignUpDto)
-        {
-            if (userSignUpDto == null)
-            {
-                return BadRequest("User data is required.");
-            }
-
-            var userId = await _userService.AddUser(userSignUpDto);
-            if (string.IsNullOrEmpty(userId))
-            {
-                return BadRequest("Failed to create user.");
-            }
-            return CreatedAtAction(nameof(GetUserById), new { id = userId }, userId);
+            _logger = logger;
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            if (loginRequest == null || string.IsNullOrEmpty(loginRequest.Username) || string.IsNullOrEmpty(loginRequest.Password))
+            var token = await _userService.Login(request.Username, request.Password);
+            if (token == null)
             {
-                return BadRequest("Username and password are required.");
+                return Unauthorized(new { message = "Invalid username or password" });
             }
-
-            var token = await _userService.Login(loginRequest.Username, loginRequest.Password);
-            if (string.IsNullOrEmpty(token))
-            {
-                return Unauthorized("Invalid username or password.");
-            }
-            return Ok(new { Token = token });
+            return Ok(new { token });
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(string id)
+        [HttpGet("oauth-login")]
+        public IActionResult OAuthLogin()
         {
-            if (string.IsNullOrEmpty(id))
+            var properties = new AuthenticationProperties { RedirectUri = Url.Action("OAuthCallback") };
+            return Challenge(properties, "OAuthProvider");
+        }
+
+        [HttpGet("oauth-callback")]
+        public async Task<IActionResult> OAuthCallback()
+        {
+            var authenticateResult = await HttpContext.AuthenticateAsync("External");
+            if (!authenticateResult.Succeeded)
             {
-                return BadRequest("User ID is required.");
+                return Unauthorized();
             }
 
-            var user = await _userService.GetUserByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            var externalUser = authenticateResult.Principal;
+            var email = externalUser.FindFirst(ClaimTypes.Email)?.Value;
+            var name = externalUser.FindFirst(ClaimTypes.Name)?.Value;
 
-            // Return user details excluding sensitive information like password
-            var userDto = new
-            {
-                user.Id,
-                user.Name,
-                user.Username,
-                user.Email,
-                user.CompanyName,
-                user.CountryOfOrigin,
-                user.Address,
-                user.NumberOfRoles,
-                user.CompanyNumber
-            };
+            // TODO: Find or create user in database based on external login info
+            // For now, just log and return a dummy token
 
-            return Ok(userDto);
+            _logger.LogInformation("OAuth login successful for {Email}", email);
+
+            // Generate JWT token for the user (implement accordingly)
+            var token = "dummy-jwt-token";
+
+            return Ok(new { token });
         }
     }
 
     public class LoginRequest
     {
-        public string? Username { get; set; }
-        public string? Password { get; set; }
+        public required string Username { get; set; }
+        public required string Password { get; set; }
     }
 }

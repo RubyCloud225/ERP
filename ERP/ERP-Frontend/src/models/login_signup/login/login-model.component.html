@@ -1,0 +1,22 @@
+<div class="login-model">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <label for="email">Email:</label>
+    <input id="email" formControlName="email" type="email" />
+    <div *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+      <small *ngIf="email?.errors?.['required']">Email is required.</small>
+      <small *ngIf="email?.errors?.['email']">Invalid email format.</small>
+    </div>
+
+    <label for="password">Password:</label>
+    <input id="password" formControlName="password" type="password" />
+    <div *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+      <small *ngIf="password?.errors?.['required']">Password is required.</small>
+      <small *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters.</small>
+    </div>
+
+    <button type="submit" [disabled]="isLoading">Login</button>
+    <button type="button" (click)="oauthLogin()" [disabled]="isLoading">Login with OAuth</button>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </form>
+</div>

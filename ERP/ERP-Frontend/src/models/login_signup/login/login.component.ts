@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../../core/services/AuthService';
+import { AuthService } from '../../../core/services/AuthService'; // Updated to AuthService
 import { ModelContent } from '../../../core/services/model.service';
 
 @Component({
@@ -59,5 +59,10 @@ export class LoginModelComponent implements OnInit, ModelContent {
     // This function is used to open the signup model from the login model
     console.log('Opening signup model from login model');
     this.close({ action: 'openSignup'}); // Close the login model
+  }
+
+  // Added method to trigger OAuth login
+  oauthLogin(): void {
+    this.authService.oauthLogin();
   }
 }
