@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AuthStateService } from '../../../core/services/auth-state.service';
 import { HttpClient } from '@angular/common/http';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-features-section',
   templateUrl: './features-section.component.html',
-  styleUrls: ['./features-section.component.scss']
+  styleUrls: ['./features-section.component.scss'],
+  imports: [NgIf],
 })
 export class FeaturesSectionComponent implements OnInit {
   cards = [

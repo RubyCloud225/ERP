@@ -1,10 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { ModelService } from '../../../../core/services/model.service';
-import { LoginModelComponent } from '../../../../models/login_signup/login/login.component';
+import { LoginModelComponent } from '../../../../models/login_signup/login/login-model.component';
 import { of } from 'rxjs';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { NgIf } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 class MockModelService {
   openModal(component: any, config: any) {
@@ -20,8 +22,8 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HeaderComponent],
-      providers: [{ provide: ModelService, useClass: MockModelService }]
+      providers: [{ provide: ModelService, useClass: MockModelService }],
+      imports: [HttpClientTestingModule, NgIf], // Import HttpClientTestingModule for HTTP requests in the component
     }).compileComponents();
   });
 

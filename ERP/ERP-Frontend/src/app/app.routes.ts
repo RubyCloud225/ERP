@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import { LoginModelComponent } from '../models/login_signup/login/login.component';
+import { LoginModelComponent } from '../models/login_signup/login/login-model.component';
 import { DocumentListComponent } from '../components/Agent/document-list/document-list.component';
 import { DocumentUploadComponent } from '../components/Agent/document-upload/document-upload.component';
 import { ApprovalDocumentClassComponent } from '../components/Agent/approval-document-class/approval-document-class.component';

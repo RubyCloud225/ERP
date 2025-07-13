@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import { QuillModule } from 'ngx-quill'; // Import QuillModule if you are using it for rich text editing
+import { FormsModule } from '@angular/forms'; // Import FormsModule if you are using forms in your component
 
 @Component({
   selector: 'app-sales-invoice-editor',
-  imports: [],
+  imports: [QuillModule, FormsModule],
   templateUrl: './sales-invoice-editor.component.html',
   styleUrl: './sales-invoice-editor.component.css'
 })

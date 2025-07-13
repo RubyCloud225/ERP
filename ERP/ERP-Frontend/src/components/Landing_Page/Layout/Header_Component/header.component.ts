@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
 import { ModelService } from '../../../../core/services/model.service';
-import { LoginModelComponent } from '../../../../models/login_signup/login/login.component';
+import { LoginModelComponent } from '../../../../models/login_signup/login/login-model.component';
 import { AuthStateService } from '../../../../core/services/auth-state.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  standalone: true, // Set to false if this component is part of a module
+  imports: [NgIf]
 })
 export class HeaderComponent implements OnInit {
     isLoggedIn: boolean = false; // Variable to track if the user is logged in

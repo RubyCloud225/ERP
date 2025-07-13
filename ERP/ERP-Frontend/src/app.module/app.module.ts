@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from '../app/app.component';
 import { HeaderComponent } from '../components/Landing_Page/Layout/Header_Component/header.component';
 import { HeroComponent } from '../components/Landing_Page/Hero_Component/hero.component';
@@ -12,19 +11,17 @@ import { FooterComponent } from '../components/Landing_Page/Footer_Component/foo
 import { ModelContainerComponent } from '../core/services/modelContainerComponent';
 
 @NgModule({
-  declarations: [
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
     AppComponent,
     HeaderComponent,
     HeroComponent,
     FeaturesSectionComponent,
     FooterComponent,
     ModelContainerComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

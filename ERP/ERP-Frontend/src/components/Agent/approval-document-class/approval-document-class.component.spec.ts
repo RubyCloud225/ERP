@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ApprovalDocumentClassComponent } from './approval-document-class.component';
 
@@ -8,7 +9,7 @@ describe('ApprovalDocumentClassComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ApprovalDocumentClassComponent]
+      imports: [ApprovalDocumentClassComponent, HttpClientTestingModule],
     })
     .compileComponents();
 

@@ -1,10 +1,13 @@
+import { NgIf, NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-document-upload',
   templateUrl: './document-upload.component.html',
-  styleUrl: './document-upload.component.css'
+  styleUrls: ['./document-upload.component.css'],
+  imports: [ NgIf, NgClass ], // Import HttpClientModule for HTTP requests in the component
+  standalone: true, // Set to false if this component is part of a module
 })
 export class DocumentUploadComponent {
   selectedFile: File[] = [];

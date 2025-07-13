@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { DocumentService } from './DocumentService';
+import { NgIf, NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-approval-document-class',
-  imports: [],
+  imports: [NgIf, NgForOf],
   templateUrl: './approval-document-class.component.html',
-  styleUrl: './approval-document-class.component.css'
+  styleUrls: ['./approval-document-class.component.css']
 })
 export class ApprovalDocumentClassComponent {
   classifiedDocuments: any[] = [];

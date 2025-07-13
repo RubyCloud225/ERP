@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/AuthService'; // Updated to AuthService
 import { ModelContent } from '../../../core/services/model.service';
+import { NgIf } from '@angular/common'; // Import NgIf for conditional rendering
 
 @Component({
   selector: 'app-login-model', // This selector is used to identify the component in templates
   templateUrl: './login-model.component.html', // This template is used to render the component
-  styleUrls: ['./login-model.component.scss'] // This stylesheet is used to style the component
+  styleUrls: ['./login-model.component.scss'], // This stylesheet is used to style the component
+  standalone: true, // Set to false if this component is part of a module
+  imports: [ReactiveFormsModule, NgIf] // Add necessary imports here if needed
 })
 export class LoginModelComponent implements OnInit, ModelContent {
   loginForm!: FormGroup; // FormGroup to manage the login form state

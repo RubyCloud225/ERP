@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { DocumentListService } from './document-list.service';
+import { NgIf, NgForOf } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-document-list',
-  imports: [],
+  imports: [NgIf, NgForOf, MatCardModule],
   templateUrl: './document-list.component.html',
-  styleUrl: './document-list.component.css'
+  styleUrls: ['./document-list.component.css'],
+  standalone: true, // Set to false if this component is part of a module
 })
 export class DocumentListComponent {
   documents: any[] = [];
