@@ -1,0 +1,25 @@
+<div class="customer-list-page">
+  <h2>Customer List</h2>
+  <input type="text" placeholder="Search by customer name" [(ngModel)]="searchTerm" (input)="onSearchChange()" />
+  <input type="date" [(ngModel)]="filterDate" (change)="onDateChange()" />
+
+  <h3>Sales Invoices</h3>
+  <div *ngIf="filteredInvoices.length === 0">
+    No sales invoices found for the search criteria.
+  </div>
+  <ul>
+    <li *ngFor="let invoice of filteredInvoices">
+      <strong>Customer:</strong> {{ invoice.customerName }} - <strong>Invoice ID:</strong> {{ invoice.id }} - <strong>Date:</strong> {{ invoice.date }}
+    </li>
+  </ul>
+
+  <h3>Transactions</h3>
+  <div *ngIf="filteredTransactions.length === 0">
+    No transactions found for the search criteria.
+  </div>
+  <ul>
+    <li *ngFor="let transaction of filteredTransactions">
+      <strong>Customer:</strong> {{ transaction.customerName }} - <strong>Transaction ID:</strong> {{ transaction.id }} - <strong>Date:</strong> {{ transaction.date }} - <strong>Description:</strong> {{ transaction.description }} - <strong>Amount:</strong> {{ transaction.amount | currency }}
+    </li>
+  </ul>
+</div>

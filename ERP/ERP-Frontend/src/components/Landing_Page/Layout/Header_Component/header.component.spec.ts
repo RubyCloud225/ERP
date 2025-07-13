@@ -74,4 +74,22 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
     expect(component.isLoggedIn).toBeFalse();
   });
+
+  it('should render navbar links with correct text', () => {
+    const navLinks = debugElement.queryAll(By.css('.nav-link'));
+    const linkTexts = navLinks.map(link => link.nativeElement.textContent.trim());
+    expect(linkTexts).toContain('Documents');
+    expect(linkTexts).toContain('Finance');
+    expect(linkTexts).toContain('CRM Settings');
+  });
+
+  it('should render finance dropdown menu items', () => {
+    const dropdownItems = debugElement.queryAll(By.css('.dropdown-item'));
+    const itemTexts = dropdownItems.map(item => item.nativeElement.textContent.trim());
+    expect(itemTexts).toContain('Reports');
+    expect(itemTexts).toContain('Bank');
+    expect(itemTexts).toContain('Customers');
+    expect(itemTexts).toContain('Expenses');
+    expect(itemTexts).toContain('Chart of Accounts');
+  });
 });

@@ -3,10 +3,18 @@
     <h1>ERP System</h1>
   </div>
   <nav class="navigation">
-    <!-- Navigation links can be added here -->
-    <a href="#" class="nav-link">Home</a>
-    <a href="#" class="nav-link">About</a>
-    <a href="#" class="nav-link">Contact</a>
+    <a href="#" class="nav-link">Documents</a>
+    <div class="dropdown">
+      <a href="#" class="nav-link dropdown-toggle">Finance</a>
+      <div class="dropdown-menu">
+        <a href="#" class="dropdown-item">Reports</a>
+        <a href="#" class="dropdown-item">Bank</a>
+        <a href="#" class="dropdown-item">Customers</a>
+        <a href="#" class="dropdown-item">Expenses</a>
+        <a href="#" class="dropdown-item">Chart of Accounts</a>
+      </div>
+    </div>
+    <a href="#" class="nav-link">CRM Settings</a>
   </nav>
   <div class="auth-actions">
     <button *ngIf="!isLoggedIn" (click)="openLoginModel()" class="login-button">Login</button>

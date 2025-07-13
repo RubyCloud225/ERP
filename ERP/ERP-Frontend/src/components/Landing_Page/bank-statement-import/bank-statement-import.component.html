@@ -1,0 +1,18 @@
+<div class="bank-statement-import">
+  <h2>Import Bank Statement</h2>
+
+  <input type="file" (change)="onFileSelected($event)" />
+  <button (click)="uploadFile()" [disabled]="isUploading">Upload</button>
+
+  <h3>Available Bank Statement Documents</h3>
+  <div *ngIf="isLoadingDocuments">Loading documents...</div>
+  <ul *ngIf="!isLoadingDocuments && bankStatementDocuments.length > 0">
+    <li *ngFor="let doc of bankStatementDocuments">
+      {{ doc.name }} - {{ doc.uploadDate | date }}
+      <button (click)="importDocument(doc.id)" [disabled]="isUploading">Import</button>
+    </li>
+  </ul>
+  <div *ngIf="!isLoadingDocuments && bankStatementDocuments.length === 0">
+    No bank statement documents found.
+  </div>
+</div>

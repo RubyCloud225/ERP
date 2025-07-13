@@ -1,0 +1,23 @@
+<div class="purchase-invoices-page">
+  <h2>Purchase Invoices</h2>
+
+  <div class="filters">
+    <input type="date" [(ngModel)]="filterDate" (change)="onFilterChange()" placeholder="Filter by date" />
+    <input type="text" [(ngModel)]="filterSupplier" (input)="onFilterChange()" placeholder="Filter by supplier" />
+    <select [(ngModel)]="filterPaidStatus" (change)="onFilterChange()">
+      <option value="">All</option>
+      <option value="paid">Paid</option>
+      <option value="unpaid">Unpaid</option>
+    </select>
+  </div>
+
+  <div *ngIf="filteredPurchaseInvoices.length === 0">
+    No purchase invoices found for the selected filters.
+  </div>
+
+  <ul>
+    <li *ngFor="let invoice of filteredPurchaseInvoices">
+      <strong>Supplier:</strong> {{ invoice.supplierName }} - <strong>Invoice ID:</strong> {{ invoice.id }} - <strong>Date:</strong> {{ invoice.date }} - <strong>Amount:</strong> {{ invoice.amount | currency }} - <strong>Status:</strong> {{ invoice.paid ? 'Paid' : 'Unpaid' }}
+    </li>
+  </ul>
+</div>

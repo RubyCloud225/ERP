@@ -1,0 +1,29 @@
+.customer-list-page {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.customer-list-page h2 {
+  margin-bottom: 15px;
+}
+
+.customer-list-page input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.customer-list-page ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.customer-list-page li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 1rem;
+}

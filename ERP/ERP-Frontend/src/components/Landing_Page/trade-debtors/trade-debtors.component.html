@@ -1,0 +1,23 @@
+<div class="trade-debtors-page">
+  <h2>Trade Debtors</h2>
+
+  <h3>Sales Invoices</h3>
+  <div *ngIf="salesInvoices.length === 0">
+    No sales invoices found.
+  </div>
+  <ul>
+    <li *ngFor="let invoice of salesInvoices">
+      <strong>Customer:</strong> {{ invoice.customerName }} - <strong>Invoice ID:</strong> {{ invoice.id }} - <strong>Date:</strong> {{ invoice.date }} - <strong>Amount:</strong> {{ invoice.amount | currency }}
+    </li>
+  </ul>
+
+  <h3>Payments</h3>
+  <div *ngIf="payments.length === 0">
+    No payments found.
+  </div>
+  <ul>
+    <li *ngFor="let payment of payments">
+      <strong>Nominal Trade Debtor:</strong> {{ payment.nominalTradeDebtor }} - <strong>Payment ID:</strong> {{ payment.id }} - <strong>Date:</strong> {{ payment.date }} - <strong>Amount:</strong> {{ payment.amount | currency }}
+    </li>
+  </ul>
+</div>
