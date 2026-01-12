@@ -9,6 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL;
 using ERP.Model;
 using ERP.Middleware;
 using ERP.Service;
+using System;
 
 namespace ERP.Program;
 public class ApplicationMain
@@ -56,17 +57,21 @@ public class ApplicationMain
         services.AddScoped<IVATReturnService, VATReturnService>();
 
         services.AddScoped<IJournalEntryService, JournalEntryService>();
-
-        services.AddSingleton<NominalLedgerService>();
-        services.AddSingleton<IFRSBalanceSheetService>();
+        services.AddScoped<INominalLedgerService, NominalLedgerService>();
+        services.AddScoped<IFRSBalanceSheetService, IFRSBalanceSheetService>();
+        services.AddScoped<IJournalEntryService, JournalEntryService>();
+        services.AddScoped<IAccountingService, AccountingService>();
 
         services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = $"{Configuration["Redis__Host"]}";
         });
 
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+        if (!Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.Equals("Testing", StringComparison.OrdinalIgnoreCase) ?? true)
+        {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+        }
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -85,18 +90,33 @@ public class ApplicationMain
         app.UseStaticFiles();
 
         app.UseRouting();
+        // Diagnostic middleware to log all incoming headers for debuggin
+        app.Use(async (context, next) =>
+        {
+            var logger = context.RequestServices.GetRequiredService<ILogger<ApplicationMain>>();
+            logger.LogInformation("=== Incoming Request Headers ===");
+            foreach (var header in context.Request.Headers)
+            {
+                logger.LogInformation("{Header}: {Value}", header.Key, header.Value.ToString());
+            }
+            logger.LogInformation("=== End of Headers ===");
+            await next();
+        });
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.UseMiddleware<UserDataFilterMiddleware>();
-        app.UseMiddleware<ErrorHandlingMiddleware>();
-        app.UseMiddleware<PropertyValidationMiddleware>();
         app.UseMiddleware<PropertyCachingMiddleware>();
         app.UseMiddleware<PropertyLoggingMiddleware>();
-        app.UseMiddleware<RateLimitingMiddleware>();
+        app.UseMiddleware<PropertyValidationMiddleware>();
         app.UseMiddleware<FileValidationMiddleware>();
+        app.UseMiddleware<ErrorHandlingMiddleware>();
+        app.UseMiddleware<RateLimitingMiddleware>();
+       
 
 
         app.UseCors("AllowSpecificOrigin");
 
-        app.UseAuthorization();
+        
 
         app.UseEndpoints(endpoints =>
         {

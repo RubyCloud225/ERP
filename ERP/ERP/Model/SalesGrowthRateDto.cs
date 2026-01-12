@@ -5,4 +5,5 @@ namespace ERP.Model
         public required string[] Labels { get; set; }
         public required decimal[] Data { get; set; }
     }
+    
 }

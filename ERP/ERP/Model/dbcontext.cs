@@ -732,7 +732,7 @@ namespace ERP.Model
             modelBuilder.Entity<PurchaseInvoice>()
                 .Property(p => p.PurchaseInvoiceNumber)
                 .IsRequired();
-            
+
             modelBuilder.Entity<PurchaseInvoice>()
                 .HasIndex(pi => pi.PurchaseInvoiceNumber)
                 .IsUnique();
@@ -745,15 +745,15 @@ namespace ERP.Model
             modelBuilder.Entity<PurchaseInvoice>()
                 .Property(p => p.SupplierAddress)
                 .IsRequired();
-                modelBuilder.Entity<PurchaseInvoice>()
-                .Property(p => p.DocumentType)
-                .IsRequired();
-                modelBuilder.Entity<PurchaseInvoice>()
-                .Property(p => p.Response)
-                .IsRequired();
-                modelBuilder.Entity<PurchaseInvoice>()
-                .Property(p => p.NetAmount)
-                .IsRequired();
+            modelBuilder.Entity<PurchaseInvoice>()
+            .Property(p => p.DocumentType)
+            .IsRequired();
+            modelBuilder.Entity<PurchaseInvoice>()
+            .Property(p => p.Response)
+            .IsRequired();
+            modelBuilder.Entity<PurchaseInvoice>()
+            .Property(p => p.NetAmount)
+            .IsRequired();
             modelBuilder.Entity<PurchaseInvoice>()
             .Property(p => p.GrossAmount)
             .IsRequired();
@@ -763,12 +763,12 @@ namespace ERP.Model
             modelBuilder.Entity<PurchaseInvoice>()
                 .Property(p => p.PurchaseInvoiceDate)
                 .IsRequired();
-                modelBuilder.Entity<PurchaseInvoice>()
-                .Property(p => p.DueDate)
-                .IsRequired();
-                modelBuilder.Entity<PurchaseInvoice>()
-                .Property(p => p.IsPaid)
-                .IsRequired();
+            modelBuilder.Entity<PurchaseInvoice>()
+            .Property(p => p.DueDate)
+            .IsRequired();
+            modelBuilder.Entity<PurchaseInvoice>()
+            .Property(p => p.IsPaid)
+            .IsRequired();
             modelBuilder.Entity<PurchaseInvoice>()
             .HasOne(p => p.User)
                 .WithMany()
@@ -798,21 +798,21 @@ namespace ERP.Model
                 .HasForeignKey(s => s.CustomerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-                modelBuilder.Entity<SalesInvoice>()
-                .Property(s => s.CustomerName)
-                .IsRequired();
-                modelBuilder.Entity<SalesInvoice>()
-                .Property(s => s.CustomerAddress)
-                .IsRequired();
-                modelBuilder.Entity<SalesInvoice>()
-                .Property(s => s.NetAmount)
-                .IsRequired();
-                modelBuilder.Entity<SalesInvoice>()
-                .Property(s => s.SalesTax)
-                .IsRequired();
-                modelBuilder.Entity<SalesInvoice>()
-                .Property(s => s.TotalAmount)
-                .IsRequired();
+            modelBuilder.Entity<SalesInvoice>()
+            .Property(s => s.CustomerName)
+            .IsRequired();
+            modelBuilder.Entity<SalesInvoice>()
+            .Property(s => s.CustomerAddress)
+            .IsRequired();
+            modelBuilder.Entity<SalesInvoice>()
+            .Property(s => s.NetAmount)
+            .IsRequired();
+            modelBuilder.Entity<SalesInvoice>()
+            .Property(s => s.SalesTax)
+            .IsRequired();
+            modelBuilder.Entity<SalesInvoice>()
+            .Property(s => s.TotalAmount)
+            .IsRequired();
 
             modelBuilder.Entity<PropertyLog>()
                 .HasOne<User>()
@@ -883,20 +883,20 @@ namespace ERP.Model
                 .WithOne()
                 .HasForeignKey(ae => ae.NominalAccountId)
                 .IsRequired(false); // Nullable to allow for no accounting entry
-            
+
 
             modelBuilder.Entity<AccountingEntry>()
                 .HasOne<User>()
                 .WithMany()
                 .HasForeignKey(a => a.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
-            
+
             modelBuilder.Entity<AccountingEntry>()
                 .HasOne<NominalAccount>()
                 .WithMany()
                 .HasForeignKey(a => a.NominalAccountId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+
             modelBuilder.Entity<AccountingEntry>()
                 .Property(a => a.TotalDebit)
                 .IsRequired();
@@ -933,7 +933,7 @@ namespace ERP.Model
                 .WithMany()
                 .HasForeignKey(a => a.PurchaseInvoiceId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+
             modelBuilder.Entity<PurchaseInvoice>()
                 .HasMany(p => p.Lines)
                 .WithOne(l => l.PurchaseInvoice)
@@ -945,7 +945,7 @@ namespace ERP.Model
                 .WithOne(b => b.BankTransaction)
                 .HasForeignKey<BankTransaction>(b => b.Id)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+
             modelBuilder.Entity<BankTransaction>()
             .HasIndex(b => b.TransactionNumber)
                 .IsUnique();
@@ -961,6 +961,50 @@ namespace ERP.Model
                 .WithMany()
                 .HasForeignKey(b => b.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+            // Explicit one-to-one relationship between AccountingEntry and NominalAccount
+            modelBuilder.Entity<AccountingEntry>()
+                .HasOne(a => a.NominalAccount)
+                .WithOne(n => n.AccountingEntry)
+                .HasForeignKey<NominalAccount>(n => n.AccountingEntryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // DTO configurations to avoid EF Core navigation/list mapping issues
+            modelBuilder.Entity<ParsedBankStatementDto>(entity =>
+            {
+                entity.HasNoKey();
+                entity.Ignore(e => e.Transactions);
+            });
+
+            modelBuilder.Entity<ParsedBankTransactionsDto>(entity =>
+            {
+                entity.HasNoKey();
+            });
+
+            modelBuilder.Entity<NominalAccountSuggestionDto>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<ParsedInvoiceLineDto>(entity =>
+            {
+                entity.HasNoKey();
+            });
+
+            modelBuilder.Entity<ParsedPurchaseInvoiceDto>(entity =>
+            {
+                entity.HasNoKey();
+                entity.Ignore(e => e.LineItems);
+            });
+            // Add similar configuration for other DTOs with navigation or list properties as needed.
+            modelBuilder.Entity<parsedSalesInvoiceDto>(entity =>
+            {
+                entity.HasNoKey();
+            });
+            modelBuilder.Entity<parsedSalesInvoiceLineDto>(entity =>
+            {
+                entity.HasNoKey();
+            });
         }
     }
 }
+
+            

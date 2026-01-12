@@ -2,36 +2,42 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using ERP.Controllers;
-using ERP.Service;
+using ERP.Controller;
 using ERP.Model;
+using ERP.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
-using ERP.Controller;
 
 namespace ERP.Service.Tests
 {
-    public class DocumentControllerTest
+    public class DocumentControllerTest : IDisposable
     {
+        private readonly ApplicationDbContext _dbContext;
+        private readonly DocumentController _controller;
         private readonly Mock<IDocumentProcessor> _mockDocumentProcessor;
         private readonly Mock<CloudStorageService> _mockCloudStorageService;
-        private readonly Mock<ApplicationDbContext> _dbContext;
-        private readonly DocumentController _controller;
+        private readonly Mock<ILogger<DocumentController>> _mockLogger;
 
         public DocumentControllerTest()
         {
             _mockDocumentProcessor = new Mock<IDocumentProcessor>();
             _mockCloudStorageService = new Mock<CloudStorageService>(null);
-            _dbContext = new Mock<ApplicationDbContext>(null);
+            _mockLogger = new Mock<ILogger<DocumentController>>();
 
-            // Mock Add and SaveChangesAsync for DocumentRecords
-            _dbContext.Setup(db => db.DocumentRecords.Add(It.IsAny<ERP.Model.ApplicationDbContext.DocumentRecord>()));
-            _dbContext.Setup(db => db.SaveChangesAsync(default)).ReturnsAsync(1);
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+            _dbContext = new ApplicationDbContext(options);
 
-            _controller = new DocumentController(_mockDocumentProcessor.Object, null!, _mockCloudStorageService.Object, _dbContext.Object);
+            _controller = new DocumentController(
+                _mockDocumentProcessor.Object,
+                _mockLogger.Object,
+                _mockCloudStorageService.Object,
+                _dbContext);
         }
 
         [Fact]
@@ -46,7 +52,7 @@ namespace ERP.Service.Tests
         public async Task ImportDocument_ReturnsBadRequest_WhenFileTooLarge()
         {
             var mockFile = new Mock<IFormFile>();
-            mockFile.Setup(f => f.Length).Returns(6 * 1024 * 1024); // 6 MB
+            mockFile.Setup(f => f.Length).Returns(6 * 1024 * 1024);
             var result = await _controller.ImportDocument(mockFile.Object);
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("File size is too large", badRequestResult.Value);
@@ -62,9 +68,6 @@ namespace ERP.Service.Tests
             _mockCloudStorageService.Setup(s => s.UploadToCloudStorageAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync("http://fakeurl.com/blob.pdf");
 
-            _dbContext.Setup(db => db.DocumentRecords.FirstOrDefaultAsync(It.IsAny<System.Linq.Expressions.Expression<Func<ApplicationDbContext.DocumentRecord, bool>>>(), default))
-                .ReturnsAsync((ApplicationDbContext.DocumentRecord)null!);
-
             var result = await _controller.ImportDocument(mockFile.Object);
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal("Document record not found.", notFoundResult.Value);
@@ -76,25 +79,27 @@ namespace ERP.Service.Tests
             var mockFile = new Mock<IFormFile>();
             mockFile.Setup(f => f.Length).Returns(1024);
             mockFile.Setup(f => f.CopyToAsync(It.IsAny<Stream>(), default)).Returns(Task.CompletedTask);
+            mockFile.Setup(f => f.FileName).Returns("test.pdf");
 
             var documentRecord = new ERP.Model.ApplicationDbContext.DocumentRecord
             {
                 BlobName = "blob",
                 Id = Guid.NewGuid(),
                 DocumentContent = "content",
-                DocumentType = "type"
+                DocumentType = "type",
+                CreatedAt = DateTime.UtcNow
             };
+
+            _dbContext.DocumentRecords.Add(documentRecord);
+            await _dbContext.SaveChangesAsync();
 
             _mockCloudStorageService.Setup(s => s.UploadToCloudStorageAsync(It.IsAny<string>(), It.IsAny<string>()))
                 .ReturnsAsync("http://fakeurl.com/blob.pdf");
 
-            _dbContext.Setup(db => db.DocumentRecords.FirstOrDefaultAsync(It.IsAny<System.Linq.Expressions.Expression<Func<ERP.Model.ApplicationDbContext.DocumentRecord, bool>>>(), default))
-                .ReturnsAsync(documentRecord);
-
-            _mockDocumentProcessor.Setup(p => p.ProcessDocumentAsync(documentRecord))
+            _mockDocumentProcessor.Setup(p => p.ProcessDocumentAsync(It.IsAny<ERP.Model.ApplicationDbContext.DocumentRecord>()))
                 .ReturnsAsync("Processed");
 
-            _mockDocumentProcessor.Setup(p => p.CategorizeDocumentAsync("blob"))
+            _mockDocumentProcessor.Setup(p => p.CategorizeDocumentAsync(It.IsAny<string>()))
                 .ReturnsAsync("Type");
 
             var result = await _controller.ImportDocument(mockFile.Object);
@@ -193,6 +198,11 @@ namespace ERP.Service.Tests
             var fileResult = Assert.IsType<FileStreamResult>(result);
             Assert.Equal("application/octet-stream", fileResult.ContentType);
             Assert.Equal("id", fileResult.FileDownloadName);
+        }
+
+        public void Dispose()
+        {
+            _dbContext.Dispose();
         }
     }
 }

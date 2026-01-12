@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace ERP.Controller
 {
@@ -18,10 +19,16 @@ namespace ERP.Controller
         private readonly IDocumentProcessor _documentProcessor;
         private readonly CloudStorageService _cloudStorageService;
         private readonly ApplicationDbContext _dbContext;
+        private readonly ILogger<DocumentController> _logger;
 
-        public DocumentController(IDocumentProcessor documentProcessor, object @object, CloudStorageService cloudStorageService, ApplicationDbContext dbContext)
+        public DocumentController(
+            IDocumentProcessor documentProcessor, 
+            ILogger<DocumentController> logger, 
+            CloudStorageService cloudStorageService, 
+            ApplicationDbContext dbContext)
         {
             _documentProcessor = documentProcessor;
+            _logger = logger;
             _cloudStorageService = cloudStorageService;
             _dbContext = dbContext;
         }

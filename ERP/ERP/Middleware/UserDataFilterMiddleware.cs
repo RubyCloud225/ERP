@@ -11,24 +11,20 @@ namespace ERP.Middleware
         }
         public async Task InvokeAsync(HttpContext context)
         {
-            // Get the user data from the database
-            if (context.User != null && context.User.Identity != null && context.User.Identity.IsAuthenticated)
+            if (context.User?.Identity?.IsAuthenticated == true)
             {
                 var userIdClaim = context.User.FindFirst(ClaimTypes.NameIdentifier);
                 if (userIdClaim != null)
                 {
                     var userId = userIdClaim.Value;
-                    //Store the userId in the HttpContext.Items
                     context.Items["UserId"] = userId;
-                    //Optionally, you can log the user Id for debugging
-                    Console.WriteLine($"User  Id: {userId}");
+                    Console.WriteLine($"User Id: {userId}");
                 }
             }
             else
             {
-                Console.WriteLine("User  is not autenticated.");
+                Console.WriteLine("User is not authenticated.");
             }
-
             await _next(context);
         }
     }

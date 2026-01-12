@@ -1,0 +1,1000 @@
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[62]
+      User profile is available. Using '/Users/catherinepemblington/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/missing - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/missing - 404 - - 0.2376ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/missing, Response status code: 404
+[xUnit.net 00:00:00.89]     ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_MissingProperties [FAIL]
+[xUnit.net 00:00:00.89]       System.Net.Http.HttpRequestException : Response status code does not indicate success: 404 (Not Found).
+[xUnit.net 00:00:00.89]       Stack Trace:
+[xUnit.net 00:00:00.89]            at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+[xUnit.net 00:00:00.89]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(172,0): at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_MissingProperties()
+[xUnit.net 00:00:00.89]         --- End of stack trace from previous location ---
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[62]
+      User profile is available. Using '/Users/catherinepemblington/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test - 404 - - 0.2417ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test, Response status code: 404
+[xUnit.net 00:00:00.94]     ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_PeriodicCleanup_RemovesExpiredEntries [FAIL]
+[xUnit.net 00:00:00.94]       System.Net.Http.HttpRequestException : Response status code does not indicate success: 404 (Not Found).
+[xUnit.net 00:00:00.94]       Stack Trace:
+[xUnit.net 00:00:00.94]            at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+[xUnit.net 00:00:00.94]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(133,0): at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_PeriodicCleanup_RemovesExpiredEntries()
+[xUnit.net 00:00:00.94]         --- End of stack trace from previous location ---
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[62]
+      User profile is available. Using '/Users/catherinepemblington/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test - 404 - - 0.2311ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test, Response status code: 404
+[xUnit.net 00:00:00.99]     ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Caches_And_Passes_Properties_To_Controller [FAIL]
+[xUnit.net 00:00:00.99]       System.Net.Http.HttpRequestException : Response status code does not indicate success: 404 (Not Found).
+[xUnit.net 00:00:00.99]       Stack Trace:
+[xUnit.net 00:00:00.99]            at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+[xUnit.net 00:00:00.99]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(68,0): at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Caches_And_Passes_Properties_To_Controller()
+[xUnit.net 00:00:00.99]         --- End of stack trace from previous location ---
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[62]
+      User profile is available. Using '/Users/catherinepemblington/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/multi - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/multi - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/multi - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/multi - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/multi - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/multi - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/multi - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/multi - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/multi - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/multi - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/multi - 404 - - 0.1915ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/multi, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/multi - 404 - - 0.3095ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/multi, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/multi - 404 - - 0.2626ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/multi - 404 - - 0.2805ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/multi, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/multi - 404 - - 0.3177ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/multi - 404 - - 0.2817ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/multi, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/multi - 404 - - 0.3861ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/multi, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/multi, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/multi - 404 - - 0.3781ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/multi - 404 - - 0.3919ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/multi, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/multi, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/multi, Response status code: 404
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/multi - 404 - - 0.6850ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/multi, Response status code: 404
+[xUnit.net 00:00:01.04]     ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_MultiThreadedRequests [FAIL]
+[xUnit.net 00:00:01.04]       System.Net.Http.HttpRequestException : Response status code does not indicate success: 404 (Not Found).
+[xUnit.net 00:00:01.04]       Stack Trace:
+[xUnit.net 00:00:01.04]            at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+[xUnit.net 00:00:01.04]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(261,0): at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.<>c__DisplayClass11_0.<<Middleware_MultiThreadedRequests>b__0>d.MoveNext()
+[xUnit.net 00:00:01.04]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.04]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(264,0): at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_MultiThreadedRequests()
+[xUnit.net 00:00:01.04]         --- End of stack trace from previous location ---
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[62]
+      User profile is available. Using '/Users/catherinepemblington/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test - 404 - - 0.2229ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test, Response status code: 404
+[xUnit.net 00:00:01.09]     ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Handles_LongLivedCache_WithEvictionPolicy [FAIL]
+[xUnit.net 00:00:01.09]       System.Net.Http.HttpRequestException : Response status code does not indicate success: 404 (Not Found).
+[xUnit.net 00:00:01.09]       Stack Trace:
+[xUnit.net 00:00:01.09]            at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+[xUnit.net 00:00:01.09]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(116,0): at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Handles_LongLivedCache_WithEvictionPolicy()
+[xUnit.net 00:00:01.09]         --- End of stack trace from previous location ---
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[62]
+      User profile is available. Using '/Users/catherinepemblington/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/large - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/large - 404 - - 0.2131ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/large, Response status code: 404
+[xUnit.net 00:00:01.14]     ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_LargeNumberOfProperties [FAIL]
+[xUnit.net 00:00:01.14]       System.Net.Http.HttpRequestException : Response status code does not indicate success: 404 (Not Found).
+[xUnit.net 00:00:01.14]       Stack Trace:
+[xUnit.net 00:00:01.14]            at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+[xUnit.net 00:00:01.14]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(194,0): at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_LargeNumberOfProperties()
+[xUnit.net 00:00:01.14]         --- End of stack trace from previous location ---
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[62]
+      User profile is available. Using '/Users/catherinepemblington/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test/rapid - - -
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test/rapid - 404 - - 0.2284ms
+info: Microsoft.AspNetCore.Hosting.Diagnostics[16]
+      Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/api/test/rapid, Response status code: 404
+[xUnit.net 00:00:01.19]     ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_RapidRequests [FAIL]
+[xUnit.net 00:00:01.19]       System.Net.Http.HttpRequestException : Response status code does not indicate success: 404 (Not Found).
+[xUnit.net 00:00:01.19]       Stack Trace:
+[xUnit.net 00:00:01.19]            at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+[xUnit.net 00:00:01.19]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(241,0): at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_RapidRequests()
+[xUnit.net 00:00:01.19]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.19]   Finished:    ERP
+  ERP test failed with 43 error(s) (1.5s)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEntryControllerTest.cs(151): error TESTERROR: 
+      ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryByUserId_ReturnsOk_WhenFound (1ms): Error Message: Assert.IsAssignableFrom() Failure
+      Expected: typeof(System.Collections.Generic.IEnumerable<ERP.Model.ApplicationDbContext+JournalEntry>)
+      Actual:   (null)
+      Stack Trace:
+         at ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryByUserId_ReturnsOk_WhenFound() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/Journ
+      alEntryControllerTest.cs:line 151
+      --- End of stack trace from previous location ---
+    C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs(62): error TESTERROR: 
+      ERP.Service.Tests.UserServiceTests.Login_ShouldReturnNull_WhenUserNotFound (1ms): Error Message: System.ArgumentException : Can not instantiate proxy of class: ERP.Model.ApplicationDbCont
+      ext.
+      Could not find a parameterless constructor. (Parameter 'constructorArguments')
+      ---- System.MissingMethodException : Constructor on type 'Castle.Proxies.ApplicationDbContextProxy' not found.
+      Stack Trace:
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IIntercepto
+      r[] interceptors)
+         at Moq.CastleProxyFactory.CreateProxy(Type mockType, IInterceptor interceptor, Type[] interfaces, Object[] arguments) in C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs:lin
+      e 62
+         at Moq.Mock`1.InitializeInstance() in C:\projects\moq4\src\Moq\Mock`1.cs:line 309
+         at Moq.Mock`1.OnGetObject() in C:\projects\moq4\src\Moq\Mock`1.cs:line 323
+         at Moq.Mock.get_Object() in C:\projects\moq4\src\Moq\Mock.cs:line 179
+         at Moq.Mock`1.get_Object() in C:\projects\moq4\src\Moq\Mock`1.cs:line 281
+         at ERP.Service.Tests.UserServiceTests..ctor() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/Tests/UserServiceTests.cs:line 21
+         at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+      ----- Inner Stack Trace -----
+         at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+    C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs(62): error TESTERROR: 
+      ERP.Service.Tests.UserServiceTests.Login_ShouldReturnNull_WhenPasswordInvalid (1ms): Error Message: System.ArgumentException : Can not instantiate proxy of class: ERP.Model.ApplicationDbC
+      ontext.
+      Could not find a parameterless constructor. (Parameter 'constructorArguments')
+      ---- System.MissingMethodException : Constructor on type 'Castle.Proxies.ApplicationDbContextProxy' not found.
+      Stack Trace:
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IIntercepto
+      r[] interceptors)
+         at Moq.CastleProxyFactory.CreateProxy(Type mockType, IInterceptor interceptor, Type[] interfaces, Object[] arguments) in C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs:lin
+      e 62
+         at Moq.Mock`1.InitializeInstance() in C:\projects\moq4\src\Moq\Mock`1.cs:line 309
+         at Moq.Mock`1.OnGetObject() in C:\projects\moq4\src\Moq\Mock`1.cs:line 323
+         at Moq.Mock.get_Object() in C:\projects\moq4\src\Moq\Mock.cs:line 179
+         at Moq.Mock`1.get_Object() in C:\projects\moq4\src\Moq\Mock`1.cs:line 281
+         at ERP.Service.Tests.UserServiceTests..ctor() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/Tests/UserServiceTests.cs:line 21
+         at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+      ----- Inner Stack Trace -----
+         at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+    C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs(62): error TESTERROR: 
+      ERP.Service.Tests.UserServiceTests.Login_ShouldReturnToken_WhenCredentialsAreValid (1ms): Error Message: System.ArgumentException : Can not instantiate proxy of class: ERP.Model.Applicati
+      onDbContext.
+      Could not find a parameterless constructor. (Parameter 'constructorArguments')
+      ---- System.MissingMethodException : Constructor on type 'Castle.Proxies.ApplicationDbContextProxy' not found.
+      Stack Trace:
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IIntercepto
+      r[] interceptors)
+         at Moq.CastleProxyFactory.CreateProxy(Type mockType, IInterceptor interceptor, Type[] interfaces, Object[] arguments) in C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs:lin
+      e 62
+         at Moq.Mock`1.InitializeInstance() in C:\projects\moq4\src\Moq\Mock`1.cs:line 309
+         at Moq.Mock`1.OnGetObject() in C:\projects\moq4\src\Moq\Mock`1.cs:line 323
+         at Moq.Mock.get_Object() in C:\projects\moq4\src\Moq\Mock.cs:line 179
+         at Moq.Mock`1.get_Object() in C:\projects\moq4\src\Moq\Mock`1.cs:line 281
+         at ERP.Service.Tests.UserServiceTests..ctor() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/Tests/UserServiceTests.cs:line 21
+         at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+      ----- Inner Stack Trace -----
+         at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+    C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs(62): error TESTERROR: 
+      ERP.Service.Tests.UserServiceTests.AddUser_ShouldHashPasswordAndSaveUser (1ms): Error Message: System.ArgumentException : Can not instantiate proxy of class: ERP.Model.ApplicationDbContex
+      t.
+      Could not find a parameterless constructor. (Parameter 'constructorArguments')
+      ---- System.MissingMethodException : Constructor on type 'Castle.Proxies.ApplicationDbContextProxy' not found.
+      Stack Trace:
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IIntercepto
+      r[] interceptors)
+         at Moq.CastleProxyFactory.CreateProxy(Type mockType, IInterceptor interceptor, Type[] interfaces, Object[] arguments) in C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs:lin
+      e 62
+         at Moq.Mock`1.InitializeInstance() in C:\projects\moq4\src\Moq\Mock`1.cs:line 309
+         at Moq.Mock`1.OnGetObject() in C:\projects\moq4\src\Moq\Mock`1.cs:line 323
+         at Moq.Mock.get_Object() in C:\projects\moq4\src\Moq\Mock.cs:line 179
+         at Moq.Mock`1.get_Object() in C:\projects\moq4\src\Moq\Mock`1.cs:line 281
+         at ERP.Service.Tests.UserServiceTests..ctor() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/Tests/UserServiceTests.cs:line 21
+         at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+      ----- Inner Stack Trace -----
+         at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoiceControllerTest.cs(95): error TESTERROR: 
+      ERP.Controllers.Tests.SalesInvoiceControllerTest.AmendSalesInvoice_ReturnsOk_WhenSuccessful (31ms): Error Message: Assert.IsType() Failure
+      Expected: ERP.Model.ApplicationDbContext+SalesInvoice
+      Actual:   (null)
+      Stack Trace:
+         at ERP.Controllers.Tests.SalesInvoiceControllerTest.AmendSalesInvoice_ReturnsOk_WhenSuccessful() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvo
+      iceControllerTest.cs:line 95
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEntryControllerTest.cs(132): error TESTERROR: 
+      ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryById_ReturnsNotFound_WhenNotFound (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.NotFoundResult
+      Actual:   Microsoft.AspNetCore.Mvc.OkObjectResult
+      Stack Trace:
+         at ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryById_ReturnsNotFound_WhenNotFound() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/
+      JournalEntryControllerTest.cs:line 132
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEntryControllerTest.cs(119): error TESTERROR: 
+      ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryById_ReturnsOk_WhenFound (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: ERP.Model.ApplicationDbContext+JournalEntry
+      Actual:   ERP.Model.ApplicationDbContext+AccountingEntry
+      Stack Trace:
+         at ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryById_ReturnsOk_WhenFound() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEn
+      tryControllerTest.cs:line 119
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEntryControllerTest.cs(164): error TESTERROR: 
+      ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryByUserId_ReturnsNotFound_WhenNotFound (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.NotFoundObjectResult
+      Actual:   Microsoft.AspNetCore.Mvc.NotFoundResult
+      Stack Trace:
+         at ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryByUserId_ReturnsNotFound_WhenNotFound() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/te
+      sts/JournalEntryControllerTest.cs:line 164
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoiceControllerTest.cs(56): error TESTERROR: 
+      ERP.Controllers.Tests.SalesInvoiceControllerTest.CreateSalesInvoice_ReturnsCreatedAtAction (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.CreatedAtActionResult
+      Actual:   Microsoft.AspNetCore.Mvc.BadRequestObjectResult
+      Stack Trace:
+         at ERP.Controllers.Tests.SalesInvoiceControllerTest.CreateSalesInvoice_ReturnsCreatedAtAction() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoi
+      ceControllerTest.cs:line 56
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoiceControllerTest.cs(234): error TESTERROR: 
+      ERP.Controllers.Tests.SalesInvoiceControllerTest.GetSalesInvoiceByUserId_ReturnsOk_WhenFound (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.OkObjectResult
+      Actual:   Microsoft.AspNetCore.Mvc.NotFoundObjectResult
+      Stack Trace:
+         at ERP.Controllers.Tests.SalesInvoiceControllerTest.GetSalesInvoiceByUserId_ReturnsOk_WhenFound() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInv
+      oiceControllerTest.cs:line 234
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoiceControllerTest.cs(113): error TESTERROR: 
+      ERP.Controllers.Tests.SalesInvoiceControllerTest.AmendSalesInvoice_ReturnsNotFound_WhenKeyNotFoundException (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.NotFoundObjectResult
+      Actual:   Microsoft.AspNetCore.Mvc.OkObjectResult
+      Stack Trace:
+         at ERP.Controllers.Tests.SalesInvoiceControllerTest.AmendSalesInvoice_ReturnsNotFound_WhenKeyNotFoundException() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers
+      /tests/SalesInvoiceControllerTest.cs:line 113
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/UserControllerTest.cs(40): error TESTERROR: 
+      ERP.Controllers.Tests.UserControllerTest.Login_ReturnsOk_WithToken_WhenCredentialsValid (40ms): Error Message: Microsoft.CSharp.RuntimeBinder.RuntimeBinderException : '<>f__AnonymousType6
+      <string>' does not contain a definition for 'Token'
+      Stack Trace:
+         at CallSite.Target(Closure, CallSite, Object)
+         at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+         at ERP.Controllers.Tests.UserControllerTest.Login_ReturnsOk_WithToken_WhenCredentialsValid() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/UserControlle
+      rTest.cs:line 40
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/UserControllerTest.cs(52): error TESTERROR: 
+      ERP.Controllers.Tests.UserControllerTest.Login_ReturnsBadRequest_WhenLoginRequestInvalid (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.BadRequestObjectResult
+      Actual:   Microsoft.AspNetCore.Mvc.UnauthorizedObjectResult
+      Stack Trace:
+         at ERP.Controllers.Tests.UserControllerTest.Login_ReturnsBadRequest_WhenLoginRequestInvalid() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/UserControll
+      erTest.cs:line 52
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.DownloadDocument_ReturnsFile_WhenSuccess (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'configuration
+      ')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+         at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.ImportDocument_ReturnsOk_WhenSuccess (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.ImportDocument_ReturnsBadRequest_WhenFileTooLarge (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'conf
+      iguration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.DeleteDocument_ReturnsBadRequest_WhenIdIsNull (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'configur
+      ation')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.ImportDocument_ReturnsBadRequest_WhenNoFile (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'configurat
+      ion')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.GetDocumentsByType_ReturnsOk_WhenDocumentsExist (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'config
+      uration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.DownloadDocument_ReturnsBadRequest_WhenIdIsNull (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'config
+      uration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.GetDocumentsByType_ReturnsNotFound_WhenNoDocuments (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'con
+      figuration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.ImportDocument_ReturnsNotFound_WhenDocumentRecordNotFound (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Paramet
+      er 'configuration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.DownloadDocument_ReturnsNotFound_WhenDocumentNull (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'conf
+      iguration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.DeleteDocument_ReturnsNoContent_WhenSuccess (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'configurat
+      ion')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.GetDocumentsByType_ReturnsBadRequest_WhenTypeIsNull (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'co
+      nfiguration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.DeleteDocument_ReturnsServerError_WhenException (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'config
+      uration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(289): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Non_String_Items_in_HTTPContext (119ms): Error Message: System.Net.Http.HttpRequestException : Response status code does
+       not indicate success: 404 (Not Found).
+      Stack Trace:
+         at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Non_String_Items_in_HTTPContext() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/Pro
+      pertyMiddlewareIntegrationTests.cs:line 289
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(153): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_PathBasedCachingKeyCollision (56ms): Error Message: System.Net.Http.HttpRequestException : Response status code does not
+       indicate success: 404 (Not Found).
+      Stack Trace:
+         at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_PathBasedCachingKeyCollision() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/Proper
+      tyMiddlewareIntegrationTests.cs:line 153
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll : error TESTERROR: 
+      ERP.Service.Tests.PurchaseInvoiceServiceTests.GetAllPurchaseInvoicesAsync_ShouldReturnList (183ms): Error Message: System.InvalidOperationException : The dependent side could not be deter
+      mined for the one-to-one relationship between 'AccountingEntry.NominalAccount' and 'NominalAccount.AccountingEntry'. To identify the dependent side of the relationship, configure the fore
+      ign key property. If these navigations should not be part of the same relationship, configure them independently via separate method chains in 'OnModelCreating'. See https://go.microsoft.
+      com/fwlink/?LinkId=724062 for more details.
+      Stack Trace:
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.ValidateRelationships(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.InMemory.Infrastructure.Internal.InMemoryModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelRuntimeInitializer.Initialize(IModel model, Boolean designTime, IDiagnosticsLogger`1 validationLogger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.CreateModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.GetModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.CreateModel(Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.get_Model()
+         at Microsoft.EntityFrameworkCore.Infrastructure.EntityFrameworkServicesBuilder.<>c.<TryAddCoreServices>b__8_4(IServiceProvider p)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+         at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+         at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+         at Microsoft.EntityFrameworkCore.DbContext.get_Model()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.CheckState()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Linq.IQueryable.get_Provider()
+         at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.Include[TEntity,TProperty](IQueryable`1 source, Expression`1 navigationPropertyPath)
+         at ERP.Service.PurchaseInvoiceService.GetAllPurchaseInvoicesAsync() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/doubleentry/purchaseinvoices
+      ervice.cs:line 106
+         at ERP.Service.Tests.PurchaseInvoiceServiceTests.GetAllPurchaseInvoicesAsync_ShouldReturnList() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/
+      Tests/PurchaseInvoiceServiceTests.cs:line 53
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll : error TESTERROR: 
+      ERP.Service.Tests.PurchaseInvoiceServiceTests.GetPurchaseInvoiceByUserIdAsync_ShouldThrowKeyNotFoundException_WhenInvoiceNotFound (35ms): Error Message: Assert.Throws() Failure
+      Expected: typeof(System.Collections.Generic.KeyNotFoundException)
+      Actual:   typeof(System.InvalidOperationException): The dependent side could not be determined for the one-to-one relationship between 'AccountingEntry.NominalAccount' and 'NominalAccount
+      .AccountingEntry'. To identify the dependent side of the relationship, configure the foreign key property. If these navigations should not be part of the same relationship, configure them
+       independently via separate method chains in 'OnModelCreating'. See https://go.microsoft.com/fwlink/?LinkId=724062 for more details.
+      ---- System.InvalidOperationException : The dependent side could not be determined for the one-to-one relationship between 'AccountingEntry.NominalAccount' and 'NominalAccount.AccountingE
+      ntry'. To identify the dependent side of the relationship, configure the foreign key property. If these navigations should not be part of the same relationship, configure them independent
+      ly via separate method chains in 'OnModelCreating'. See https://go.microsoft.com/fwlink/?LinkId=724062 for more details.
+      Stack Trace:
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.ValidateRelationships(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.InMemory.Infrastructure.Internal.InMemoryModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelRuntimeInitializer.Initialize(IModel model, Boolean designTime, IDiagnosticsLogger`1 validationLogger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.CreateModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.GetModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.CreateModel(Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.get_Model()
+         at Microsoft.EntityFrameworkCore.Infrastructure.EntityFrameworkServicesBuilder.<>c.<TryAddCoreServices>b__8_4(IServiceProvider p)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+         at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+         at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+         at Microsoft.EntityFrameworkCore.DbContext.get_Model()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.CheckState()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Linq.IQueryable.get_Provider()
+         at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.Include[TEntity,TProperty](IQueryable`1 source, Expression`1 navigationPropertyPath)
+         at ERP.Service.PurchaseInvoiceService.GetPurchaseInvoiceByUserIdAsync(Guid userId) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/doubleentry/p
+      urchaseinvoiceservice.cs:line 204
+      ----- Inner Stack Trace -----
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.ValidateRelationships(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.InMemory.Infrastructure.Internal.InMemoryModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelRuntimeInitializer.Initialize(IModel model, Boolean designTime, IDiagnosticsLogger`1 validationLogger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.CreateModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.GetModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.CreateModel(Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.get_Model()
+         at Microsoft.EntityFrameworkCore.Infrastructure.EntityFrameworkServicesBuilder.<>c.<TryAddCoreServices>b__8_4(IServiceProvider p)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+         at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+         at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+         at Microsoft.EntityFrameworkCore.DbContext.get_Model()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.CheckState()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Linq.IQueryable.get_Provider()
+         at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.Include[TEntity,TProperty](IQueryable`1 source, Expression`1 navigationPropertyPath)
+         at ERP.Service.PurchaseInvoiceService.GetPurchaseInvoiceByUserIdAsync(Guid userId) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/doubleentry/p
+      urchaseinvoiceservice.cs:line 204
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(280): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_InvalidRequest (50ms): Error Message: Assert.Contains() Failure
+      Not found: Not Found
+      In value:  
+      Stack Trace:
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_InvalidRequest() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIn
+      tegrationTests.cs:line 280
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll : error TESTERROR: 
+      ERP.Service.Tests.PurchaseInvoiceServiceTests.DeletePurchaseInvoiceAsync_ShouldThrowKeyNotFoundException_WhenInvoiceNotFound (36ms): Error Message: Assert.Throws() Failure
+      Expected: typeof(System.Collections.Generic.KeyNotFoundException)
+      Actual:   typeof(System.InvalidOperationException): The dependent side could not be determined for the one-to-one relationship between 'AccountingEntry.NominalAccount' and 'NominalAccount
+      .AccountingEntry'. To identify the dependent side of the relationship, configure the foreign key property. If these navigations should not be part of the same relationship, configure them
+       independently via separate method chains in 'OnModelCreating'. See https://go.microsoft.com/fwlink/?LinkId=724062 for more details.
+      ---- System.InvalidOperationException : The dependent side could not be determined for the one-to-one relationship between 'AccountingEntry.NominalAccount' and 'NominalAccount.AccountingE
+      ntry'. To identify the dependent side of the relationship, configure the foreign key property. If these navigations should not be part of the same relationship, configure them independent
+      ly via separate method chains in 'OnModelCreating'. See https://go.microsoft.com/fwlink/?LinkId=724062 for more details.
+      Stack Trace:
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.ValidateRelationships(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.InMemory.Infrastructure.Internal.InMemoryModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelRuntimeInitializer.Initialize(IModel model, Boolean designTime, IDiagnosticsLogger`1 validationLogger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.CreateModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.GetModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.CreateModel(Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.get_Model()
+         at Microsoft.EntityFrameworkCore.Infrastructure.EntityFrameworkServicesBuilder.<>c.<TryAddCoreServices>b__8_4(IServiceProvider p)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+         at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+         at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+         at Microsoft.EntityFrameworkCore.DbContext.get_Model()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.CheckState()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Linq.IQueryable.get_Provider()
+         at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.Include[TEntity,TProperty](IQueryable`1 source, Expression`1 navigationPropertyPath)
+         at ERP.Service.PurchaseInvoiceService.DeletePurchaseInvoiceAsync(Guid id) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/doubleentry/purchasein
+      voiceservice.cs:line 172
+      ----- Inner Stack Trace -----
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.ValidateRelationships(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.InMemory.Infrastructure.Internal.InMemoryModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelRuntimeInitializer.Initialize(IModel model, Boolean designTime, IDiagnosticsLogger`1 validationLogger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.CreateModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.GetModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.CreateModel(Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.get_Model()
+         at Microsoft.EntityFrameworkCore.Infrastructure.EntityFrameworkServicesBuilder.<>c.<TryAddCoreServices>b__8_4(IServiceProvider p)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+         at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+         at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+         at Microsoft.EntityFrameworkCore.DbContext.get_Model()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.CheckState()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Linq.IQueryable.get_Provider()
+         at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.Include[TEntity,TProperty](IQueryable`1 source, Expression`1 navigationPropertyPath)
+         at ERP.Service.PurchaseInvoiceService.DeletePurchaseInvoiceAsync(Guid id) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/doubleentry/purchasein
+      voiceservice.cs:line 172
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(91): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Repopulates_Properties_After_Expiration (50ms): Error Message: System.Net.Http.HttpRequestException : Response status co
+      de does not indicate success: 404 (Not Found).
+      Stack Trace:
+         at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Repopulates_Properties_After_Expiration() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/t
+      ests/PropertyMiddlewareIntegrationTests.cs:line 91
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/bin/Debug/net9.0/ERP.dll : error TESTERROR: 
+      ERP.Service.Tests.PurchaseInvoiceServiceTests.GetPurchaseInvoiceByIdAsync_ShouldThrowKeyNotFoundException_WhenInvoiceNotFound (33ms): Error Message: Assert.Throws() Failure
+      Expected: typeof(System.Collections.Generic.KeyNotFoundException)
+      Actual:   typeof(System.InvalidOperationException): The dependent side could not be determined for the one-to-one relationship between 'AccountingEntry.NominalAccount' and 'NominalAccount
+      .AccountingEntry'. To identify the dependent side of the relationship, configure the foreign key property. If these navigations should not be part of the same relationship, configure them
+       independently via separate method chains in 'OnModelCreating'. See https://go.microsoft.com/fwlink/?LinkId=724062 for more details.
+      ---- System.InvalidOperationException : The dependent side could not be determined for the one-to-one relationship between 'AccountingEntry.NominalAccount' and 'NominalAccount.AccountingE
+      ntry'. To identify the dependent side of the relationship, configure the foreign key property. If these navigations should not be part of the same relationship, configure them independent
+      ly via separate method chains in 'OnModelCreating'. See https://go.microsoft.com/fwlink/?LinkId=724062 for more details.
+      Stack Trace:
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.ValidateRelationships(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.InMemory.Infrastructure.Internal.InMemoryModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelRuntimeInitializer.Initialize(IModel model, Boolean designTime, IDiagnosticsLogger`1 validationLogger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.CreateModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.GetModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.CreateModel(Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.get_Model()
+         at Microsoft.EntityFrameworkCore.Infrastructure.EntityFrameworkServicesBuilder.<>c.<TryAddCoreServices>b__8_4(IServiceProvider p)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+         at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+         at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+         at Microsoft.EntityFrameworkCore.DbContext.get_Model()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.CheckState()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Linq.IQueryable.get_Provider()
+         at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.Include[TEntity,TProperty](IQueryable`1 source, Expression`1 navigationPropertyPath)
+         at ERP.Service.PurchaseInvoiceService.GetPurchaseInvoiceByIdAsync(Guid id) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/doubleentry/purchasei
+      nvoiceservice.cs:line 191
+      ----- Inner Stack Trace -----
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.ValidateRelationships(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.InMemory.Infrastructure.Internal.InMemoryModelValidator.Validate(IModel model, IDiagnosticsLogger`1 logger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelRuntimeInitializer.Initialize(IModel model, Boolean designTime, IDiagnosticsLogger`1 validationLogger)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.CreateModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.GetModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.CreateModel(Boolean designTime)
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.get_Model()
+         at Microsoft.EntityFrameworkCore.Infrastructure.EntityFrameworkServicesBuilder.<>c.<TryAddCoreServices>b__8_4(IServiceProvider p)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope servic
+      eProviderEngine, RuntimeResolverLock lockType)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+         at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+         at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+         at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+         at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+         at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+         at Microsoft.EntityFrameworkCore.DbContext.get_Model()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.CheckState()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Linq.IQueryable.get_Provider()
+         at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.Include[TEntity,TProperty](IQueryable`1 source, Expression`1 navigationPropertyPath)
+         at ERP.Service.PurchaseInvoiceService.GetPurchaseInvoiceByIdAsync(Guid id) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/doubleentry/purchasei
+      nvoiceservice.cs:line 191
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(217): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_MissingPropertiesInCache (48ms): Error Message: System.Net.Http.HttpRequestException : Response status code does not ind
+      icate success: 404 (Not Found).
+      Stack Trace:
+         at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_MissingPropertiesInCache() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMi
+      ddlewareIntegrationTests.cs:line 217
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(172): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_MissingProperties (49ms): Error Message: System.Net.Http.HttpRequestException : Response status code does not indicate s
+      uccess: 404 (Not Found).
+      Stack Trace:
+         at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_MissingProperties() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewar
+      eIntegrationTests.cs:line 172
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(133): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_PeriodicCleanup_RemovesExpiredEntries (51ms): Error Message: System.Net.Http.HttpRequestException : Response status code
+       does not indicate success: 404 (Not Found).
+      Stack Trace:
+         at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_PeriodicCleanup_RemovesExpiredEntries() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tes
+      ts/PropertyMiddlewareIntegrationTests.cs:line 133
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(68): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Caches_And_Passes_Properties_To_Controller (48ms): Error Message: System.Net.Http.HttpRequestException : Response status
+       code does not indicate success: 404 (Not Found).
+      Stack Trace:
+         at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Caches_And_Passes_Properties_To_Controller() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middlewar
+      e/tests/PropertyMiddlewareIntegrationTests.cs:line 68
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(261): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_MultiThreadedRequests (49ms): Error Message: System.Net.Http.HttpRequestException : Response status code does not indica
+      te success: 404 (Not Found).
+      Stack Trace:
+         at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.<>c__DisplayClass11_0.<<Middleware_MultiThreadedRequests>b__0>d.MoveNext() in /Users/catherinepemblington/Documents/GitHub/ER
+      P/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs:line 261
+      --- End of stack trace from previous location ---
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_MultiThreadedRequests() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddl
+      ewareIntegrationTests.cs:line 264
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(116): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Handles_LongLivedCache_WithEvictionPolicy (50ms): Error Message: System.Net.Http.HttpRequestException : Response status 
+      code does not indicate success: 404 (Not Found).
+      Stack Trace:
+         at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Handles_LongLivedCache_WithEvictionPolicy() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware
+      /tests/PropertyMiddlewareIntegrationTests.cs:line 116
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(194): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_LargeNumberOfProperties (47ms): Error Message: System.Net.Http.HttpRequestException : Response status code does not indi
+      cate success: 404 (Not Found).
+      Stack Trace:
+         at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_LargeNumberOfProperties() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMid
+      dlewareIntegrationTests.cs:line 194
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(241): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_RapidRequests (48ms): Error Message: System.Net.Http.HttpRequestException : Response status code does not indicate succe
+      ss: 404 (Not Found).
+      Stack Trace:
+         at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_RapidRequests() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareInt
+      egrationTests.cs:line 241

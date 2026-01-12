@@ -1,0 +1,654 @@
+catherinepemblington@192 ERP % dotnet test 
+Restore complete (0.2s)
+  ERP succeeded with 2 warning(s) (1.7s) → bin/Debug/net9.0/ERP.dll
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(28,13): warning CS0618: 'ISystemClock' is obsolete: 'Use TimeProvider instead.'
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(28,33): warning CS0618: 'AuthenticationHandler<AuthenticationSchemeOptions>.AuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions>, ILoggerFactory, UrlEncoder, ISystemClock)' is obsolete: 'ISystemClock is obsolete, use TimeProvider on AuthenticationSchemeOptions instead.'
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 9.0.0)
+[xUnit.net 00:00:00.58]   Discovering: ERP
+[xUnit.net 00:00:00.60]   Discovered:  ERP
+[xUnit.net 00:00:00.60]   Starting:    ERP
+[xUnit.net 00:00:00.65]     ERP.Service.Tests.UserServiceTests.Login_ShouldReturnNull_WhenUserNotFound [FAIL]
+[xUnit.net 00:00:00.65]       System.ArgumentException : Can not instantiate proxy of class: ERP.Model.ApplicationDbContext.
+[xUnit.net 00:00:00.65]       Could not find a parameterless constructor. (Parameter 'constructorArguments')
+[xUnit.net 00:00:00.65]       ---- System.MissingMethodException : Constructor on type 'Castle.Proxies.ApplicationDbContextProxy' not found.
+[xUnit.net 00:00:00.65]       Stack Trace:
+[xUnit.net 00:00:00.65]            at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+[xUnit.net 00:00:00.65]            at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IInterceptor[] interceptors)
+[xUnit.net 00:00:00.65]         C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs(62,0): at Moq.CastleProxyFactory.CreateProxy(Type mockType, IInterceptor interceptor, Type[] interfaces, Object[] arguments)
+[xUnit.net 00:00:00.65]         C:\projects\moq4\src\Moq\Mock`1.cs(309,0): at Moq.Mock`1.InitializeInstance()
+[xUnit.net 00:00:00.65]         C:\projects\moq4\src\Moq\Mock`1.cs(323,0): at Moq.Mock`1.OnGetObject()
+[xUnit.net 00:00:00.65]         C:\projects\moq4\src\Moq\Mock.cs(179,0): at Moq.Mock.get_Object()
+[xUnit.net 00:00:00.65]         C:\projects\moq4\src\Moq\Mock`1.cs(281,0): at Moq.Mock`1.get_Object()
+[xUnit.net 00:00:00.65]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/Tests/UserServiceTests.cs(21,0): at ERP.Service.Tests.UserServiceTests..ctor()
+[xUnit.net 00:00:00.65]            at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+[xUnit.net 00:00:00.65]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.65]            at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+[xUnit.net 00:00:00.65]            at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+[xUnit.net 00:00:00.66]     ERP.Service.Tests.UserServiceTests.Login_ShouldReturnNull_WhenPasswordInvalid [FAIL]
+[xUnit.net 00:00:00.66]       System.ArgumentException : Can not instantiate proxy of class: ERP.Model.ApplicationDbContext.
+[xUnit.net 00:00:00.66]       Could not find a parameterless constructor. (Parameter 'constructorArguments')
+[xUnit.net 00:00:00.66]       ---- System.MissingMethodException : Constructor on type 'Castle.Proxies.ApplicationDbContextProxy' not found.
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]            at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+[xUnit.net 00:00:00.66]            at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IInterceptor[] interceptors)
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs(62,0): at Moq.CastleProxyFactory.CreateProxy(Type mockType, IInterceptor interceptor, Type[] interfaces, Object[] arguments)
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Mock`1.cs(309,0): at Moq.Mock`1.InitializeInstance()
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Mock`1.cs(323,0): at Moq.Mock`1.OnGetObject()
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Mock.cs(179,0): at Moq.Mock.get_Object()
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Mock`1.cs(281,0): at Moq.Mock`1.get_Object()
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/Tests/UserServiceTests.cs(21,0): at ERP.Service.Tests.UserServiceTests..ctor()
+[xUnit.net 00:00:00.66]            at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+[xUnit.net 00:00:00.66]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.66]            at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+[xUnit.net 00:00:00.66]            at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+[xUnit.net 00:00:00.66]     ERP.Service.Tests.UserServiceTests.Login_ShouldReturnToken_WhenCredentialsAreValid [FAIL]
+[xUnit.net 00:00:00.66]       System.ArgumentException : Can not instantiate proxy of class: ERP.Model.ApplicationDbContext.
+[xUnit.net 00:00:00.66]       Could not find a parameterless constructor. (Parameter 'constructorArguments')
+[xUnit.net 00:00:00.66]       ---- System.MissingMethodException : Constructor on type 'Castle.Proxies.ApplicationDbContextProxy' not found.
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]            at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+[xUnit.net 00:00:00.66]            at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IInterceptor[] interceptors)
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs(62,0): at Moq.CastleProxyFactory.CreateProxy(Type mockType, IInterceptor interceptor, Type[] interfaces, Object[] arguments)
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Mock`1.cs(309,0): at Moq.Mock`1.InitializeInstance()
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Mock`1.cs(323,0): at Moq.Mock`1.OnGetObject()
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Mock.cs(179,0): at Moq.Mock.get_Object()
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Mock`1.cs(281,0): at Moq.Mock`1.get_Object()
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/Tests/UserServiceTests.cs(21,0): at ERP.Service.Tests.UserServiceTests..ctor()
+[xUnit.net 00:00:00.66]            at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+[xUnit.net 00:00:00.66]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.66]            at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+[xUnit.net 00:00:00.66]            at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+[xUnit.net 00:00:00.66]     ERP.Controllers.Tests.SalesInvoiceControllerTest.AmendSalesInvoice_ReturnsOk_WhenSuccessful [FAIL]
+[xUnit.net 00:00:00.66]       Assert.IsType() Failure
+[xUnit.net 00:00:00.66]       Expected: ERP.Model.ApplicationDbContext+SalesInvoice
+[xUnit.net 00:00:00.66]       Actual:   (null)
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoiceControllerTest.cs(95,0): at ERP.Controllers.Tests.SalesInvoiceControllerTest.AmendSalesInvoice_ReturnsOk_WhenSuccessful()
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]     ERP.Service.Tests.UserServiceTests.AddUser_ShouldHashPasswordAndSaveUser [FAIL]
+[xUnit.net 00:00:00.66]       System.ArgumentException : Can not instantiate proxy of class: ERP.Model.ApplicationDbContext.
+[xUnit.net 00:00:00.66]       Could not find a parameterless constructor. (Parameter 'constructorArguments')
+[xUnit.net 00:00:00.66]       ---- System.MissingMethodException : Constructor on type 'Castle.Proxies.ApplicationDbContextProxy' not found.
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]            at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+[xUnit.net 00:00:00.66]            at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IInterceptor[] interceptors)
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs(62,0): at Moq.CastleProxyFactory.CreateProxy(Type mockType, IInterceptor interceptor, Type[] interfaces, Object[] arguments)
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Mock`1.cs(309,0): at Moq.Mock`1.InitializeInstance()
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Mock`1.cs(323,0): at Moq.Mock`1.OnGetObject()
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Mock.cs(179,0): at Moq.Mock.get_Object()
+[xUnit.net 00:00:00.66]         C:\projects\moq4\src\Moq\Mock`1.cs(281,0): at Moq.Mock`1.get_Object()
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/Tests/UserServiceTests.cs(21,0): at ERP.Service.Tests.UserServiceTests..ctor()
+[xUnit.net 00:00:00.66]            at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+[xUnit.net 00:00:00.66]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.66]            at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+[xUnit.net 00:00:00.66]            at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+[xUnit.net 00:00:00.66]     ERP.Controllers.Tests.SalesInvoiceControllerTest.CreateSalesInvoice_ReturnsCreatedAtAction [FAIL]
+[xUnit.net 00:00:00.66]       Assert.IsType() Failure
+[xUnit.net 00:00:00.66]       Expected: Microsoft.AspNetCore.Mvc.CreatedAtActionResult
+[xUnit.net 00:00:00.66]       Actual:   Microsoft.AspNetCore.Mvc.BadRequestObjectResult
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoiceControllerTest.cs(56,0): at ERP.Controllers.Tests.SalesInvoiceControllerTest.CreateSalesInvoice_ReturnsCreatedAtAction()
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]     ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryByUserId_ReturnsOk_WhenFound [FAIL]
+[xUnit.net 00:00:00.66]       Assert.IsAssignableFrom() Failure
+[xUnit.net 00:00:00.66]       Expected: typeof(System.Collections.Generic.IEnumerable<ERP.Model.ApplicationDbContext+JournalEntry>)
+[xUnit.net 00:00:00.66]       Actual:   (null)
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEntryControllerTest.cs(151,0): at ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryByUserId_ReturnsOk_WhenFound()
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]     ERP.Controllers.Tests.SalesInvoiceControllerTest.GetSalesInvoiceByUserId_ReturnsOk_WhenFound [FAIL]
+[xUnit.net 00:00:00.66]       Assert.IsType() Failure
+[xUnit.net 00:00:00.66]       Expected: Microsoft.AspNetCore.Mvc.OkObjectResult
+[xUnit.net 00:00:00.66]       Actual:   Microsoft.AspNetCore.Mvc.NotFoundObjectResult
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoiceControllerTest.cs(234,0): at ERP.Controllers.Tests.SalesInvoiceControllerTest.GetSalesInvoiceByUserId_ReturnsOk_WhenFound()
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]     ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryById_ReturnsNotFound_WhenNotFound [FAIL]
+[xUnit.net 00:00:00.66]       Assert.IsType() Failure
+[xUnit.net 00:00:00.66]       Expected: Microsoft.AspNetCore.Mvc.NotFoundResult
+[xUnit.net 00:00:00.66]       Actual:   Microsoft.AspNetCore.Mvc.OkObjectResult
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEntryControllerTest.cs(132,0): at ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryById_ReturnsNotFound_WhenNotFound()
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]     ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryById_ReturnsOk_WhenFound [FAIL]
+[xUnit.net 00:00:00.66]       Assert.IsType() Failure
+[xUnit.net 00:00:00.66]       Expected: ERP.Model.ApplicationDbContext+JournalEntry
+[xUnit.net 00:00:00.66]       Actual:   ERP.Model.ApplicationDbContext+AccountingEntry
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEntryControllerTest.cs(119,0): at ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryById_ReturnsOk_WhenFound()
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]     ERP.Controllers.Tests.SalesInvoiceControllerTest.AmendSalesInvoice_ReturnsNotFound_WhenKeyNotFoundException [FAIL]
+[xUnit.net 00:00:00.66]       Assert.IsType() Failure
+[xUnit.net 00:00:00.66]       Expected: Microsoft.AspNetCore.Mvc.NotFoundObjectResult
+[xUnit.net 00:00:00.66]       Actual:   Microsoft.AspNetCore.Mvc.OkObjectResult
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoiceControllerTest.cs(113,0): at ERP.Controllers.Tests.SalesInvoiceControllerTest.AmendSalesInvoice_ReturnsNotFound_WhenKeyNotFoundException()
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]     ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryByUserId_ReturnsNotFound_WhenNotFound [FAIL]
+[xUnit.net 00:00:00.66]       Assert.IsType() Failure
+[xUnit.net 00:00:00.66]       Expected: Microsoft.AspNetCore.Mvc.NotFoundObjectResult
+[xUnit.net 00:00:00.66]       Actual:   Microsoft.AspNetCore.Mvc.NotFoundResult
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEntryControllerTest.cs(164,0): at ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryByUserId_ReturnsNotFound_WhenNotFound()
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]     ERP.Controllers.Tests.UserControllerTest.Login_ReturnsOk_WithToken_WhenCredentialsValid [FAIL]
+[xUnit.net 00:00:00.66]       Microsoft.CSharp.RuntimeBinder.RuntimeBinderException : '<>f__AnonymousType6<string>' does not contain a definition for 'Token'
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]            at CallSite.Target(Closure, CallSite, Object)
+[xUnit.net 00:00:00.66]            at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/UserControllerTest.cs(40,0): at ERP.Controllers.Tests.UserControllerTest.Login_ReturnsOk_WithToken_WhenCredentialsValid()
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]     ERP.Controllers.Tests.UserControllerTest.Login_ReturnsBadRequest_WhenLoginRequestInvalid [FAIL]
+[xUnit.net 00:00:00.66]       Assert.IsType() Failure
+[xUnit.net 00:00:00.66]       Expected: Microsoft.AspNetCore.Mvc.BadRequestObjectResult
+[xUnit.net 00:00:00.66]       Actual:   Microsoft.AspNetCore.Mvc.UnauthorizedObjectResult
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/UserControllerTest.cs(52,0): at ERP.Controllers.Tests.UserControllerTest.Login_ReturnsBadRequest_WhenLoginRequestInvalid()
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.DownloadDocument_ReturnsFile_WhenSuccess [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.ImportDocument_ReturnsOk_WhenSuccess [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.ImportDocument_ReturnsBadRequest_WhenFileTooLarge [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.DeleteDocument_ReturnsBadRequest_WhenIdIsNull [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.ImportDocument_ReturnsBadRequest_WhenNoFile [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.GetDocumentsByType_ReturnsOk_WhenDocumentsExist [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.DownloadDocument_ReturnsBadRequest_WhenIdIsNull [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.GetDocumentsByType_ReturnsNotFound_WhenNoDocuments [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.ImportDocument_ReturnsNotFound_WhenDocumentRecordNotFound [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.DownloadDocument_ReturnsNotFound_WhenDocumentNull [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.DeleteDocument_ReturnsNoContent_WhenSuccess [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.GetDocumentsByType_ReturnsBadRequest_WhenTypeIsNull [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.68]     ERP.Service.Tests.DocumentControllerTest.DeleteDocument_ReturnsServerError_WhenException [FAIL]
+[xUnit.net 00:00:00.68]       System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+[xUnit.net 00:00:00.68]       Stack Trace:
+[xUnit.net 00:00:00.68]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18,0): at ERP.Service.CloudStorageService..ctor(IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+[xUnit.net 00:00:00.68]            at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+[xUnit.net 00:00:00.68]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+warn: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[16]
+      The WebRootPath was not found: /Users/catherinepemblington/Documents/GitHub/ERP/ERP/wwwroot. Static files may be unavailable.
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost/api/test - - -
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+info: ERP.Program.ApplicationMain[0]
+      === Incoming Request Headers ===
+info: ERP.Program.ApplicationMain[0]
+      User-Agent: IntegrationTestClient/1.0
+info: ERP.Program.ApplicationMain[0]
+      Host: localhost
+info: ERP.Program.ApplicationMain[0]
+      === End of Headers ===
+User is not authenticated.
+info: ERP.Middleware.PropertyCachingMiddleware[0]
+      Incoming request headers:
+info: ERP.Middleware.PropertyCachingMiddleware[0]
+      User-Agent: IntegrationTestClient/1.0
+info: ERP.Middleware.PropertyCachingMiddleware[0]
+      Host: localhost
+info: ERP.Middleware.PropertyCachingMiddleware[0]
+      Current environment: Development
+info: ERP.Middleware.PropertyCachingMiddleware[0]
+      PropertyCachingMiddleware invoked for /api/test
+info: ERP.Middleware.PropertyCachingMiddleware[0]
+      User-Agent header: IntegrationTestClient/1.0
+info: ERP.Middleware.PropertyCachingMiddleware[0]
+      Cache key for request: PropertiesCache_/api/test
+info: ERP.Middleware.PropertyCachingMiddleware[0]
+      No valid cache found for key PropertiesCache_/api/test, building properties
+info: ERP.Middleware.PropertyCachingMiddleware[0]
+      Cached properties for key PropertiesCache_/api/test with expiration 01/12/2026 20:37:47
+info: ERP.Middleware.PropertyLoggingMiddleware[0]
+      PropertyLoggingMiddleware invoked for /api/test
+info: ERP.Middleware.PropertyLoggingMiddleware[0]
+      User is not authenticated.
+fail: ERP.Middleware.PropertyLoggingMiddleware[0]
+      Error occurred in PropertyLoggingMiddleware.
+      System.InvalidOperationException: Services for database providers 'Npgsql.EntityFrameworkCore.PostgreSQL', 'Microsoft.EntityFrameworkCore.InMemory' have been registered in the service provider. Only a single database provider can be registered in a service provider. If possible, ensure that Entity Framework is managing its service provider by removing the call to 'UseInternalServiceProvider'. Otherwise, consider conditionally registering the database provider, or maintaining one service provider per database provider.
+         at Microsoft.EntityFrameworkCore.Internal.DbContextServices.Initialize(IServiceProvider scopedProvider, DbContextOptions contextOptions, DbContext context)
+         at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
+         at Microsoft.EntityFrameworkCore.DbContext.get_InternalServiceProvider()
+         at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+         at Microsoft.EntityFrameworkCore.DbContext.Microsoft.EntityFrameworkCore.Internal.IDbContextDependencies.get_StateManager()
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.EntryWithoutDetectChanges(TEntity entity)
+         at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.AddAsync(TEntity entity, CancellationToken cancellationToken)
+         at ERP.Middleware.PropertyLoggingMiddleware.InvokeAsync(HttpContext context) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/PropertyLoggingMiddleware.cs:line 73
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/1.1 GET http://localhost/api/test - 400 - - 25.0252ms
+[xUnit.net 00:00:00.77]     ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Caches_And_Passes_Properties_To_Controller [FAIL]
+[xUnit.net 00:00:00.77]       System.Text.Json.JsonException : 'M' is an invalid start of a value. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+[xUnit.net 00:00:00.77]       ---- System.Text.Json.JsonReaderException : 'M' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.
+[xUnit.net 00:00:00.77]       Stack Trace:
+[xUnit.net 00:00:00.77]            at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+[xUnit.net 00:00:00.77]            at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+[xUnit.net 00:00:00.77]            at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+[xUnit.net 00:00:00.77]            at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+[xUnit.net 00:00:00.77]            at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+[xUnit.net 00:00:00.77]            at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+[xUnit.net 00:00:00.77]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(88,0): at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Caches_And_Passes_Properties_To_Controller()
+[xUnit.net 00:00:00.77]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.77]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.77]            at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+[xUnit.net 00:00:00.77]            at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+[xUnit.net 00:00:00.77]            at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+[xUnit.net 00:00:00.77]            at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+[xUnit.net 00:00:00.77]            at System.Text.Json.Utf8JsonReader.Read()
+[xUnit.net 00:00:00.77]            at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+[xUnit.net 00:00:00.77]       Output:
+[xUnit.net 00:00:00.77]         Sending request with headers:
+[xUnit.net 00:00:00.77]         User-Agent: IntegrationTestClient/1.0
+[xUnit.net 00:00:00.77]         Response Status: 400 BadRequest
+[xUnit.net 00:00:00.77]         Response Content: Missing required header: User-Agent
+[xUnit.net 00:00:00.77]         Asserting success status code
+[xUnit.net 00:00:00.77]         Deserializing response content
+[xUnit.net 00:00:00.93]     ERP.Controllers.Tests.BankStatementControllerTest.ReconcileBankStatement_ReturnsOk_WhenSuccessful [FAIL]
+[xUnit.net 00:00:00.93]       Assert.IsType() Failure
+[xUnit.net 00:00:00.93]       Expected: Microsoft.AspNetCore.Mvc.OkObjectResult
+[xUnit.net 00:00:00.93]       Actual:   Microsoft.AspNetCore.Mvc.NotFoundResult
+[xUnit.net 00:00:00.93]       Stack Trace:
+[xUnit.net 00:00:00.93]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/BankStatementControllerTest.cs(158,0): at ERP.Controllers.Tests.BankStatementControllerTest.ReconcileBankStatement_ReturnsOk_WhenSuccessful()
+[xUnit.net 00:00:00.93]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.93]     ERP.Controllers.Tests.BankStatementControllerTest.AmendBankStatement_ReturnsNotFound_WhenExceptionThrown [FAIL]
+[xUnit.net 00:00:00.93]       Assert.IsType() Failure
+[xUnit.net 00:00:00.93]       Expected: Microsoft.AspNetCore.Mvc.NotFoundResult
+[xUnit.net 00:00:00.93]       Actual:   Microsoft.AspNetCore.Mvc.BadRequestObjectResult
+[xUnit.net 00:00:00.93]       Stack Trace:
+[xUnit.net 00:00:00.93]         /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/BankStatementControllerTest.cs(147,0): at ERP.Controllers.Tests.BankStatementControllerTest.AmendBankStatement_ReturnsNotFound_WhenExceptionThrown()
+[xUnit.net 00:00:00.93]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.93]   Finished:    ERP
+  ERP test failed with 30 error(s) (1.3s)
+    C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs(62): error TESTERROR: 
+      ERP.Service.Tests.UserServiceTests.Login_ShouldReturnNull_WhenUserNotFound (1ms): Error Message: System.ArgumentException : Can not instantiate proxy of class: ERP.Model.ApplicationDbCont
+      ext.
+      Could not find a parameterless constructor. (Parameter 'constructorArguments')
+      ---- System.MissingMethodException : Constructor on type 'Castle.Proxies.ApplicationDbContextProxy' not found.
+      Stack Trace:
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IIntercepto
+      r[] interceptors)
+         at Moq.CastleProxyFactory.CreateProxy(Type mockType, IInterceptor interceptor, Type[] interfaces, Object[] arguments) in C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs:lin
+      e 62
+         at Moq.Mock`1.InitializeInstance() in C:\projects\moq4\src\Moq\Mock`1.cs:line 309
+         at Moq.Mock`1.OnGetObject() in C:\projects\moq4\src\Moq\Mock`1.cs:line 323
+         at Moq.Mock.get_Object() in C:\projects\moq4\src\Moq\Mock.cs:line 179
+         at Moq.Mock`1.get_Object() in C:\projects\moq4\src\Moq\Mock`1.cs:line 281
+         at ERP.Service.Tests.UserServiceTests..ctor() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/Tests/UserServiceTests.cs:line 21
+         at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+      ----- Inner Stack Trace -----
+         at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+    C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs(62): error TESTERROR: 
+      ERP.Service.Tests.UserServiceTests.Login_ShouldReturnNull_WhenPasswordInvalid (1ms): Error Message: System.ArgumentException : Can not instantiate proxy of class: ERP.Model.ApplicationDbC
+      ontext.
+      Could not find a parameterless constructor. (Parameter 'constructorArguments')
+      ---- System.MissingMethodException : Constructor on type 'Castle.Proxies.ApplicationDbContextProxy' not found.
+      Stack Trace:
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IIntercepto
+      r[] interceptors)
+         at Moq.CastleProxyFactory.CreateProxy(Type mockType, IInterceptor interceptor, Type[] interfaces, Object[] arguments) in C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs:lin
+      e 62
+         at Moq.Mock`1.InitializeInstance() in C:\projects\moq4\src\Moq\Mock`1.cs:line 309
+         at Moq.Mock`1.OnGetObject() in C:\projects\moq4\src\Moq\Mock`1.cs:line 323
+         at Moq.Mock.get_Object() in C:\projects\moq4\src\Moq\Mock.cs:line 179
+         at Moq.Mock`1.get_Object() in C:\projects\moq4\src\Moq\Mock`1.cs:line 281
+         at ERP.Service.Tests.UserServiceTests..ctor() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/Tests/UserServiceTests.cs:line 21
+         at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+      ----- Inner Stack Trace -----
+         at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+    C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs(62): error TESTERROR: 
+      ERP.Service.Tests.UserServiceTests.Login_ShouldReturnToken_WhenCredentialsAreValid (1ms): Error Message: System.ArgumentException : Can not instantiate proxy of class: ERP.Model.Applicati
+      onDbContext.
+      Could not find a parameterless constructor. (Parameter 'constructorArguments')
+      ---- System.MissingMethodException : Constructor on type 'Castle.Proxies.ApplicationDbContextProxy' not found.
+      Stack Trace:
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IIntercepto
+      r[] interceptors)
+         at Moq.CastleProxyFactory.CreateProxy(Type mockType, IInterceptor interceptor, Type[] interfaces, Object[] arguments) in C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs:lin
+      e 62
+         at Moq.Mock`1.InitializeInstance() in C:\projects\moq4\src\Moq\Mock`1.cs:line 309
+         at Moq.Mock`1.OnGetObject() in C:\projects\moq4\src\Moq\Mock`1.cs:line 323
+         at Moq.Mock.get_Object() in C:\projects\moq4\src\Moq\Mock.cs:line 179
+         at Moq.Mock`1.get_Object() in C:\projects\moq4\src\Moq\Mock`1.cs:line 281
+         at ERP.Service.Tests.UserServiceTests..ctor() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/Tests/UserServiceTests.cs:line 21
+         at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+      ----- Inner Stack Trace -----
+         at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoiceControllerTest.cs(95): error TESTERROR: 
+      ERP.Controllers.Tests.SalesInvoiceControllerTest.AmendSalesInvoice_ReturnsOk_WhenSuccessful (34ms): Error Message: Assert.IsType() Failure
+      Expected: ERP.Model.ApplicationDbContext+SalesInvoice
+      Actual:   (null)
+      Stack Trace:
+         at ERP.Controllers.Tests.SalesInvoiceControllerTest.AmendSalesInvoice_ReturnsOk_WhenSuccessful() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvo
+      iceControllerTest.cs:line 95
+      --- End of stack trace from previous location ---
+    C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs(62): error TESTERROR: 
+      ERP.Service.Tests.UserServiceTests.AddUser_ShouldHashPasswordAndSaveUser (1ms): Error Message: System.ArgumentException : Can not instantiate proxy of class: ERP.Model.ApplicationDbContex
+      t.
+      Could not find a parameterless constructor. (Parameter 'constructorArguments')
+      ---- System.MissingMethodException : Constructor on type 'Castle.Proxies.ApplicationDbContextProxy' not found.
+      Stack Trace:
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy, ProxyGenerationOptions options, Object[] constructorArguments, IIntercepto
+      r[] interceptors)
+         at Moq.CastleProxyFactory.CreateProxy(Type mockType, IInterceptor interceptor, Type[] interfaces, Object[] arguments) in C:\projects\moq4\src\Moq\Interception\CastleProxyFactory.cs:lin
+      e 62
+         at Moq.Mock`1.InitializeInstance() in C:\projects\moq4\src\Moq\Mock`1.cs:line 309
+         at Moq.Mock`1.OnGetObject() in C:\projects\moq4\src\Moq\Mock`1.cs:line 323
+         at Moq.Mock.get_Object() in C:\projects\moq4\src\Moq\Mock.cs:line 179
+         at Moq.Mock`1.get_Object() in C:\projects\moq4\src\Moq\Mock`1.cs:line 281
+         at ERP.Service.Tests.UserServiceTests..ctor() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/Tests/UserServiceTests.cs:line 21
+         at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean wrapExceptions)
+      ----- Inner Stack Trace -----
+         at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture)
+         at Castle.DynamicProxy.ProxyGenerator.CreateClassProxyInstance(Type proxyType, List`1 proxyArguments, Type classToProxy, Object[] constructorArguments)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoiceControllerTest.cs(56): error TESTERROR: 
+      ERP.Controllers.Tests.SalesInvoiceControllerTest.CreateSalesInvoice_ReturnsCreatedAtAction (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.CreatedAtActionResult
+      Actual:   Microsoft.AspNetCore.Mvc.BadRequestObjectResult
+      Stack Trace:
+         at ERP.Controllers.Tests.SalesInvoiceControllerTest.CreateSalesInvoice_ReturnsCreatedAtAction() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoi
+      ceControllerTest.cs:line 56
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEntryControllerTest.cs(151): error TESTERROR: 
+      ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryByUserId_ReturnsOk_WhenFound (1ms): Error Message: Assert.IsAssignableFrom() Failure
+      Expected: typeof(System.Collections.Generic.IEnumerable<ERP.Model.ApplicationDbContext+JournalEntry>)
+      Actual:   (null)
+      Stack Trace:
+         at ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryByUserId_ReturnsOk_WhenFound() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/Journ
+      alEntryControllerTest.cs:line 151
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoiceControllerTest.cs(234): error TESTERROR: 
+      ERP.Controllers.Tests.SalesInvoiceControllerTest.GetSalesInvoiceByUserId_ReturnsOk_WhenFound (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.OkObjectResult
+      Actual:   Microsoft.AspNetCore.Mvc.NotFoundObjectResult
+      Stack Trace:
+         at ERP.Controllers.Tests.SalesInvoiceControllerTest.GetSalesInvoiceByUserId_ReturnsOk_WhenFound() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInv
+      oiceControllerTest.cs:line 234
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEntryControllerTest.cs(132): error TESTERROR: 
+      ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryById_ReturnsNotFound_WhenNotFound (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.NotFoundResult
+      Actual:   Microsoft.AspNetCore.Mvc.OkObjectResult
+      Stack Trace:
+         at ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryById_ReturnsNotFound_WhenNotFound() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/
+      JournalEntryControllerTest.cs:line 132
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEntryControllerTest.cs(119): error TESTERROR: 
+      ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryById_ReturnsOk_WhenFound (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: ERP.Model.ApplicationDbContext+JournalEntry
+      Actual:   ERP.Model.ApplicationDbContext+AccountingEntry
+      Stack Trace:
+         at ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryById_ReturnsOk_WhenFound() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEn
+      tryControllerTest.cs:line 119
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/SalesInvoiceControllerTest.cs(113): error TESTERROR: 
+      ERP.Controllers.Tests.SalesInvoiceControllerTest.AmendSalesInvoice_ReturnsNotFound_WhenKeyNotFoundException (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.NotFoundObjectResult
+      Actual:   Microsoft.AspNetCore.Mvc.OkObjectResult
+      Stack Trace:
+         at ERP.Controllers.Tests.SalesInvoiceControllerTest.AmendSalesInvoice_ReturnsNotFound_WhenKeyNotFoundException() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers
+      /tests/SalesInvoiceControllerTest.cs:line 113
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/JournalEntryControllerTest.cs(164): error TESTERROR: 
+      ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryByUserId_ReturnsNotFound_WhenNotFound (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.NotFoundObjectResult
+      Actual:   Microsoft.AspNetCore.Mvc.NotFoundResult
+      Stack Trace:
+         at ERP.Controllers.Tests.AccountingEntryControllerTest.GetJournalEntryByUserId_ReturnsNotFound_WhenNotFound() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/te
+      sts/JournalEntryControllerTest.cs:line 164
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/UserControllerTest.cs(40): error TESTERROR: 
+      ERP.Controllers.Tests.UserControllerTest.Login_ReturnsOk_WithToken_WhenCredentialsValid (44ms): Error Message: Microsoft.CSharp.RuntimeBinder.RuntimeBinderException : '<>f__AnonymousType6
+      <string>' does not contain a definition for 'Token'
+      Stack Trace:
+         at CallSite.Target(Closure, CallSite, Object)
+         at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+         at ERP.Controllers.Tests.UserControllerTest.Login_ReturnsOk_WithToken_WhenCredentialsValid() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/UserControlle
+      rTest.cs:line 40
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/UserControllerTest.cs(52): error TESTERROR: 
+      ERP.Controllers.Tests.UserControllerTest.Login_ReturnsBadRequest_WhenLoginRequestInvalid (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.BadRequestObjectResult
+      Actual:   Microsoft.AspNetCore.Mvc.UnauthorizedObjectResult
+      Stack Trace:
+         at ERP.Controllers.Tests.UserControllerTest.Login_ReturnsBadRequest_WhenLoginRequestInvalid() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/UserControll
+      erTest.cs:line 52
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.DownloadDocument_ReturnsFile_WhenSuccess (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'configuration
+      ')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+         at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.ImportDocument_ReturnsOk_WhenSuccess (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'configuration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.ImportDocument_ReturnsBadRequest_WhenFileTooLarge (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'conf
+      iguration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.DeleteDocument_ReturnsBadRequest_WhenIdIsNull (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'configur
+      ation')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.ImportDocument_ReturnsBadRequest_WhenNoFile (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'configurat
+      ion')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.GetDocumentsByType_ReturnsOk_WhenDocumentsExist (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'config
+      uration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.DownloadDocument_ReturnsBadRequest_WhenIdIsNull (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'config
+      uration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.GetDocumentsByType_ReturnsNotFound_WhenNoDocuments (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'con
+      figuration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.ImportDocument_ReturnsNotFound_WhenDocumentRecordNotFound (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Paramet
+      er 'configuration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.DownloadDocument_ReturnsNotFound_WhenDocumentNull (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'conf
+      iguration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.DeleteDocument_ReturnsNoContent_WhenSuccess (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'configurat
+      ion')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.GetDocumentsByType_ReturnsBadRequest_WhenTypeIsNull (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'co
+      nfiguration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToCloudStorageAsync.cs(18): error TESTERROR: 
+      ERP.Service.Tests.DocumentControllerTest.DeleteDocument_ReturnsServerError_WhenException (1ms): Error Message: System.ArgumentNullException : Configuration is required. (Parameter 'config
+      uration')
+      Stack Trace:
+         at ERP.Service.CloudStorageService..ctor(IConfiguration configuration) in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Service/controller services/DocumentParse/UploadToClo
+      udStorageAsync.cs:line 18
+         at Castle.Proxies.CloudStorageServiceProxy..ctor(IInterceptor[], IConfiguration configuration)
+         at InvokeStub_CloudStorageServiceProxy..ctor(Object, Span`1)
+         at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middleware/tests/PropertyMiddlewareIntegrationTests.cs(88): error TESTERROR: 
+      ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Caches_And_Passes_Properties_To_Controller (153ms): Error Message: System.Text.Json.JsonException : 'M' is an invalid st
+      art of a value. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+      ---- System.Text.Json.JsonReaderException : 'M' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.
+      Stack Trace:
+         at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+         at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+         at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+         at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+         at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+         at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+         at ERP.IntegrationTests.PropertyMiddlewareIntegrationTests.Middleware_Caches_And_Passes_Properties_To_Controller() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Middlewar
+      e/tests/PropertyMiddlewareIntegrationTests.cs:line 88
+      --- End of stack trace from previous location ---
+      ----- Inner Stack Trace -----
+         at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+         at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+         at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+         at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+         at System.Text.Json.Utf8JsonReader.Read()
+         at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+        Standard Output Messages:
+       Sending request with headers:
+       User-Agent: IntegrationTestClient/1.0
+       Response Status: 400 BadRequest
+       Response Content: Missing required header: User-Agent
+       Asserting success status code
+       Deserializing response content
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/BankStatementControllerTest.cs(158): error TESTERROR: 
+      ERP.Controllers.Tests.BankStatementControllerTest.ReconcileBankStatement_ReturnsOk_WhenSuccessful (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.OkObjectResult
+      Actual:   Microsoft.AspNetCore.Mvc.NotFoundResult
+      Stack Trace:
+         at ERP.Controllers.Tests.BankStatementControllerTest.ReconcileBankStatement_ReturnsOk_WhenSuccessful() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/Ban
+      kStatementControllerTest.cs:line 158
+      --- End of stack trace from previous location ---
+    /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/tests/BankStatementControllerTest.cs(147): error TESTERROR: 
+      ERP.Controllers.Tests.BankStatementControllerTest.AmendBankStatement_ReturnsNotFound_WhenExceptionThrown (< 1ms): Error Message: Assert.IsType() Failure
+      Expected: Microsoft.AspNetCore.Mvc.NotFoundResult
+      Actual:   Microsoft.AspNetCore.Mvc.BadRequestObjectResult
+      Stack Trace:
+         at ERP.Controllers.Tests.BankStatementControllerTest.AmendBankStatement_ReturnsNotFound_WhenExceptionThrown() in /Users/catherinepemblington/Documents/GitHub/ERP/ERP/ERP/Controllers/te
+      sts/BankStatementControllerTest.cs:line 147
+      --- End of stack trace from previous location ---
+
+Test summary: total: 68, failed: 30, succeeded: 38, skipped: 0, duration: 1.3s
+Build failed with 30 error(s) and 2 warning(s) in 3.4s
