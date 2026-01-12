@@ -17,7 +17,7 @@ namespace ERP.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<SalesTaxReturnDto>> GetVatReturn([FromQuery] int year, [FromQuery] int quarter)
+        public async Task<ActionResult<ApplicationDbContext.SalesTaxReturnDto>> GetVatReturn([FromQuery] int year, [FromQuery] int quarter)
         {
             if (year <= 0 || quarter <= 0 || quarter > 4)
             {

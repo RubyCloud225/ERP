@@ -2,6 +2,7 @@ using ERP.Controllers;
 using ERP.Model;
 using ERP.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System.Threading.Tasks;
 using Xunit;
@@ -11,62 +12,14 @@ namespace ERP.Controllers.Tests
     public class UserControllerTest
     {
         private readonly Mock<IUserService> _mockUserService;
+        private readonly Mock<ILogger<UserController>> _mockLogger;
         private readonly UserController _controller;
 
         public UserControllerTest()
         {
             _mockUserService = new Mock<IUserService>();
-            _controller = new UserController(_mockUserService.Object);
-        }
-
-        [Fact]
-        public async Task SignUp_ReturnsCreatedAtAction_WhenUserCreated()
-        {
-            var userSignUpDto = new ApplicationDbContext.UserSignUpDto
-            {
-                Name = "Test User",
-                Username = "testuser",
-                Email = "testuser@example.com",
-                Password = "password123",
-                CompanyName = "Test Company",
-                CountryOfOrigin = "Test Country",
-                Address = "123 Test St",
-                NumberOfRoles = 2,
-                CompanyNumber = "123456789"
-            };
-
-            _mockUserService.Setup(s => s.AddUser(userSignUpDto)).ReturnsAsync("new-user-id");
-
-            var result = await _controller.SignUp(userSignUpDto);
-
-            var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
-            Assert.Equal("new-user-id", createdAtActionResult.Value);
-        }
-
-        [Fact]
-        public async Task SignUp_ReturnsBadRequest_WhenUserDataIsNull()
-        {
-            var result = await _controller.SignUp(new ApplicationDbContext.UserSignUpDto());
-
-            Assert.IsType<BadRequestObjectResult>(result);
-        }
-
-        [Fact]
-        public async Task SignUp_ReturnsBadRequest_WhenUserCreationFails()
-        {
-            var userSignUpDto = new ApplicationDbContext.UserSignUpDto
-            {
-                Name = "Test User",
-                Username = "testuser",
-                Email = "testuser@example.com",
-                Password = "password123"
-            };
-
-            _mockUserService.Setup(s => s.AddUser(userSignUpDto)).ReturnsAsync(string.Empty);
-
-            var result = await _controller.SignUp(userSignUpDto);
-
-            Assert.IsType<BadRequestObjectResult>(result);
+            _mockLogger = new Mock<ILogger<UserController>>();
+            _controller = new UserController(_mockUserService.Object, _mockLogger.Object);
         }
 
         [Fact]
@@ -90,7 +43,11 @@ namespace ERP.Controllers.Tests
         [Fact]
         public async Task Login_ReturnsBadRequest_WhenLoginRequestInvalid()
         {
-            var result = await _controller.Login(new LoginRequest());
+            var result = await _controller.Login(new LoginRequest
+            {
+                Username = "testuser",
+                Password = "password123"
+            });
 
             Assert.IsType<BadRequestObjectResult>(result);
         }

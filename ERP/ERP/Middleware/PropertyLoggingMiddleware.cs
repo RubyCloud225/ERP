@@ -15,12 +15,12 @@ namespace ERP.Middleware
         }
         public async Task InvokeAsync(HttpContext context)
         {
-            int? userId = null;
+            Guid? userId = null;
             
             if (context.User != null && context.User.Identity != null && context.User.Identity.IsAuthenticated)
             {
                 var userIdString = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (int.TryParse(userIdString, out int parsedUserId))
+                if (Guid.TryParse(userIdString, out Guid parsedUserId))
                 {
                     userId = parsedUserId;
                 }
